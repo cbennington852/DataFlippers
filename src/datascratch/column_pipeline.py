@@ -1,11 +1,11 @@
-from  src.datascratch.draggable import DraggableColumn
+from  datascratch.draggable import DraggableColumn
 from PyQt5.QtWidgets import QVBoxLayout
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtGui import QColor , QPolygon, QPainter , QResizeEvent
 from PyQt5.QtCore import  QPoint
 from PyQt5.QtCore import Qt
-from src.datascratch.colors_and_appearance import AppAppearance
-from src.datascratch import drag_and_drop_utility as dnd
+from datascratch.colors_and_appearance import AppAppearance
+from datascratch import drag_and_drop_utility as dnd
 
 
 class ColumnsSection(QtW.QGroupBox):

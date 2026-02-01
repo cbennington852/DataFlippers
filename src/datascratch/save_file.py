@@ -1,4 +1,4 @@
-from src.datascratch.GUI_libary_and_pipeline_mother import PipelineData , ColumnsWindowData
+from datascratch.GUI_libary_and_pipeline_mother import PipelineData , ColumnsWindowData
 import pandas as pd
 
 class SaveFile():

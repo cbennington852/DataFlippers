@@ -12,14 +12,14 @@ import traceback
 matplotlib.use('Qt5Agg')
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
-from src.datascratch import sklearn_engine
+from datascratch import sklearn_engine
 import sklearn
 import pandas as pd
 import threading
-from src.datascratch.GUI_libary_and_pipeline_mother import PipelineMother , Pipeline
+from datascratch.GUI_libary_and_pipeline_mother import PipelineMother , Pipeline
 import matplotlib.pyplot as plt
-from src.datascratch.predictor_GUI import PredictionGUI
-from src.datascratch.descriptor_statistics_GUI import DescriptorStatisticsGUI , GeneralDescriptor
+from datascratch.predictor_GUI import PredictionGUI
+from datascratch.descriptor_statistics_GUI import DescriptorStatisticsGUI , GeneralDescriptor
 
 
 

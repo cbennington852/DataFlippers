@@ -1,24 +1,24 @@
 import sys
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QAction
-from src.datascratch.GUI_libary_and_pipeline_mother import PipelineMother , GUILibary
-from src.datascratch.sklearn_libary import SubLibary 
-from src.datascratch.dataframe_viewer import DataframeViewer
+from datascratch.GUI_libary_and_pipeline_mother import PipelineMother , GUILibary
+from datascratch.sklearn_libary import SubLibary 
+from datascratch.dataframe_viewer import DataframeViewer
 import seaborn as sns
-from src.datascratch import image_resources
+from datascratch import image_resources
 from PyQt5.QtGui import QIcon , QPixmap
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from src.datascratch.plotter import Plotter
-from src.datascratch.save_file import SaveFileException , SaveFile
+from datascratch.plotter import Plotter
+from datascratch.save_file import SaveFileException , SaveFile
 import os
 import pickle
 import traceback
 import time
 import qdarktheme
 import pandas as pd
-from src.datascratch.settings_manager import DataScratchSettings
-from src.datascratch.predictor_GUI import PredictionGUI
+from datascratch.settings_manager import DataScratchSettings
+from datascratch.predictor_GUI import PredictionGUI
 import logging
 logging.getLogger('matplotlib.font_manager').setLevel(logging.ERROR)
 

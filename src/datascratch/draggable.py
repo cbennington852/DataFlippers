@@ -6,8 +6,8 @@ from PyQt5.QtCore import Qt, QMimeData
 import PyQt5.QtGui as PGui
 from PyQt5.QtGui import QDrag , QPixmap , QPainter , QPalette , QImage , QColor , QPolygon, QPen, QBrush, QIcon
 import PyQt5.QtCore as QtCore 
-from src.datascratch.colors_and_appearance import AppAppearance
-from src.datascratch.draggable_parameter import parameter_filter , BANNED_PARAMETERS
+from datascratch.colors_and_appearance import AppAppearance
+from datascratch.draggable_parameter import parameter_filter , BANNED_PARAMETERS
 import ast
 from docstring_parser import parse as docstring_parse_func
 from docstring_parser import DocstringStyle
