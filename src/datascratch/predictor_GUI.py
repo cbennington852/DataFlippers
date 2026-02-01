@@ -6,8 +6,8 @@ from PyQt5.QtGui import QDrag , QIcon
 import PyQt5.QtCore as QtCore 
 import pandas as pd
 import pickle
-from .draggable_parameter import parameter_filter
-from .sklearn_engine import EngineResults , Pipeline
+from src.datascratch.draggable_parameter import parameter_filter
+from src.datascratch.sklearn_engine import EngineResults , Pipeline
 
 
 class PredictionGUI(QtW.QScrollArea):

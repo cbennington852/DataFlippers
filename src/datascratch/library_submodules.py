@@ -4,11 +4,11 @@ import PyQt5.QtWidgets as QtW
 from PyQt5.QtGui import QDrag , QIcon , QPixmap , QCursor , QColor , QPolygon, QPen, QBrush, QIcon, QPainter
 from PyQt5.QtCore import  QPoint
 from PyQt5.QtCore import Qt, QMimeData
-from .column_pipeline import DraggableColumn , ColumnsSection
-from .list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
-from .colors_and_appearance import AppAppearance
-from . import drag_and_drop_utility as dnd
-from .draggable_pipeline import PipelineSection
+from src.datascratch.column_pipeline import DraggableColumn , ColumnsSection
+from src.datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
+from src.datascratch.colors_and_appearance import AppAppearance
+from src.datascratch import drag_and_drop_utility as dnd
+from src.datascratch.draggable_pipeline import PipelineSection
 
 
 class ColumnsSubmodule(QtW.QWidget):

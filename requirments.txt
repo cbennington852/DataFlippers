@@ -11,4 +11,4 @@ coverage
 pytest-cov
 docstring_parser
 markdown
-PyInstaller==3.4
+PyInstaller

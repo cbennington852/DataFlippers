@@ -77,6 +77,9 @@ Additionally, Datascratch comes pre-loaded with several example datasets, which 
   * Democratization of AI literacy
 
 This software possesses near term significance in the form of enhancing data science literacy, and the democratization of AI literacy. There is an need for open source AI learning, and the democratization of AI literacy[@prinsloo2024democratisation], in a world rapidly being shaped by AI. 
+
+* Near term significance in the form of reproducible materials
+
 [___]
 
 

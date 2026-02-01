@@ -8,11 +8,11 @@ import PyQt5.QtCore as QtCore
 from .draggable import Draggable , DraggableColumn , DraggableData
 from sklearn.base import is_regressor, is_classifier
 import sklearn
-from .column_pipeline import ColumnsSection
-from .draggable_pipeline import DraggableColumn , PipelineSection, Pipeline, PipelineData
-from .list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
-from .colors_and_appearance import AppAppearance
-from .library_submodules import PipelineSubmodule , ColumnsSubmodule
+from src.datascratch.column_pipeline import ColumnsSection
+from src.datascratch.draggable_pipeline import DraggableColumn , PipelineSection, Pipeline, PipelineData
+from src.datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
+from src.datascratch.colors_and_appearance import AppAppearance
+from src.datascratch.library_submodules import PipelineSubmodule , ColumnsSubmodule
 
 class ColumnsWindowData():
     def __init__(self , x_cols : list[str] , y_cols : list[str]):

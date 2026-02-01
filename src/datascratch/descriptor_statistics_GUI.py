@@ -11,7 +11,7 @@ import pickle
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
 
-from .sklearn_engine import EngineResults , Pipeline
+from src.datascratch.sklearn_engine import EngineResults , Pipeline
 
 class DescriptorStatisticsGUI(QtW.QScrollArea):
 
