@@ -8,3 +8,5 @@ python_gui_scikit/myenv
 TODO.md
 /dist
 /build
+/linux_datascratch
+data_scratch.deb
