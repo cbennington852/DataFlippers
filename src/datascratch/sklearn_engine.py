@@ -10,12 +10,6 @@ from abc import ABC , abstractmethod
 from matplotlib.colors import ListedColormap
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 
-from aquarel import load_theme
-
-theme = load_theme("scientific")
-theme.apply()
-
-
 
 def is_regressor(x):
     return x.__class__ in SklearnAcceptableFunctions.REGRESSORS

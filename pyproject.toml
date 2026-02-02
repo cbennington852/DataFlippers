@@ -17,7 +17,6 @@ dependencies = [
     "seaborn",
     "qtwidgets",
     "pyqtdarktheme",
-    "aquarel",
     "docstring_parser",
     "markdown",
 ]
