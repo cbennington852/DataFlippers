@@ -10,3 +10,5 @@ TODO.md
 /build
 /linux_datascratch
 data_scratch.deb
+/src/__pycache__
+/src/data_scratch/__pycache__
