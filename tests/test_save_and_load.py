@@ -13,6 +13,7 @@ from src.datascratch.sklearn_engine import EngineResults , InternalEngineError
 
 df = pd.read_csv("resources/random_data.csv")
 
+# Not work when packaging.
 
 # This is currently broken. This is related to scraping the widget children versus the layout children. 
 def setup_test_environment_one():

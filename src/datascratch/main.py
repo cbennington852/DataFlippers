@@ -9,6 +9,7 @@ from datascratch import image_resources
 from PyQt5.QtGui import QIcon , QPixmap
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+import multiprocessing
 from datascratch.plotter import Plotter
 from datascratch.save_file import SaveFileException , SaveFile
 import os
@@ -425,4 +426,5 @@ def main():
 
 
 if __name__ == "__main__":
+   multiprocessing.freeze_support() 
    main()
