@@ -289,7 +289,8 @@ class PlotterWorker(QtCore.QObject):
                 queue.put(curr_results)
             except Exception as e:
                 queue.put("Major Issue: " + str(e))
-
+        # required for windows support 
+        multiprocessing.set_start_method('spawn')
         queue = multiprocessing.Queue()
         process = multiprocessing.Process(target=runner_wrapper, args=(
             queue,
