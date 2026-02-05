@@ -59,6 +59,7 @@ class DescriptorStatisticsGUI(QtW.QScrollArea):
 
 
         for col in engine_results.x_cols:
+            print("X_col" , col)
             handle_column(col)
         handle_column(self.engine_results.y_col[0])
 
@@ -114,7 +115,7 @@ class ClassificationDescriptor(GeneralDescriptor):
         value_counts = dataframe[column_name].value_counts()
         for class_encoded in range(0 , len(self.col_conv.code_map)):
             # get occurrence.
-            curr_count = value_counts[class_encoded]
+            curr_count = value_counts.iloc[class_encoded]
             self.sizes_occurrence.append(curr_count)
         super().__init__(dataframe, column_name, **kwargs)
         
