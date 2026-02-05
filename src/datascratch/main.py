@@ -133,7 +133,7 @@ class MainMenu(QMainWindow):
         if fileName:
             print("File name: " , fileName)
             open_on_file_handle(fileName)
-            self.hide()
+            self.deleteLater()
         else:
             print("No file selected")
 
