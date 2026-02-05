@@ -13,6 +13,8 @@ from src.datascratch.sklearn_engine import EngineResults , InternalEngineError
 
 df = pd.read_csv("resources/random_data.csv")
 
+
+# This is currently broken. This is related to scraping the widget children versus the layout children. 
 def setup_test_environment_one():
     """
     A simple enviorment where there is one default pipeline, with only one model.
@@ -33,16 +35,26 @@ def setup_test_environment_one():
     )
 
     drag_col_x = DraggableColumn(
-        'Example Chemical 1'
+        'Example Chemical 1',
+        parent=curr_cols_sub.x_columns
     )
     drag_col_y = DraggableColumn(
-        'Example Chemical 2'
+        'Example Chemical 2',
+        parent=curr_cols_sub.x_columns
     )
 
     # Add it
     curr_pipeline.model_pipe.my_layout.addWidget(drag_lin)
     curr_cols_sub.x_columns.my_layout.addWidget(drag_col_x)
     curr_cols_sub.y_columns.my_layout.addWidget(drag_col_y)
+    # what the fuck
+    print("X cols : " , curr_cols_sub.x_columns.get_cols_as_string_list()) 
+    print("childre cols : " , curr_cols_sub.x_columns.get_cols())
+    for i in range(curr_cols_sub.x_columns.my_layout.count()):
+            item = curr_cols_sub.x_columns.my_layout.itemAt(i)
+            if (item.widget() is not None) and (isinstance(item.widget() , DraggableColumn)):
+                widget = item.widget()
+                print("Added widget" , widget)
     return window
 
 
@@ -136,8 +148,9 @@ def test_save_single_column(qtbot):
     window.save_function(file_name=file_name , no_popup=True)
     with open(file_name, 'rb') as file:
         loaded_data : SaveFile = pickle.load(file)
-        assert loaded_data.columns_data.x_cols == ['Example Chemical 1']
+        print(" X cols : " , loaded_data.columns_data.x_cols)
         assert loaded_data.columns_data.y_cols == ['Example Chemical 2']
+        assert loaded_data.columns_data.x_cols == ['Example Chemical 1']
     window.close()
 
 def test_loading_columns(qtbot):
@@ -156,8 +169,7 @@ def test_loading_models(qtbot):
     file_name = 'data_test.pkl'
     window.save_function(file_name=file_name , no_popup=True)
     saved_window = MainWindow.open_on_saved_file(file_name)
-
-
+    print("HI: " , saved_window.pipeline_mother.pipelines[0])
     assert saved_window.pipeline_mother.pipelines[0].model_pipe.get_data()[0].sklearn_function == sklearn.linear_model.LinearRegression
 
 def test_others_empty(qtbot):

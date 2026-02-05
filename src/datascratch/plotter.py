@@ -21,8 +21,18 @@ import matplotlib.pyplot as plt
 from datascratch.predictor_GUI import PredictionGUI
 from datascratch.descriptor_statistics_GUI import DescriptorStatisticsGUI , GeneralDescriptor
 
-
-
+# This is at the top to allow for pcikle to access it!
+def runner_wrapper(queue , main_dataframe , curr_pipelines , pipeline_x_values , pipeline_y_values):
+    try:
+        curr_results = sklearn_engine.SklearnEngine.main_sklearn_pipe(
+            main_dataframe=main_dataframe,
+            curr_pipelines=curr_pipelines,
+            pipeline_x_values=pipeline_x_values,
+            pipeline_y_value=pipeline_y_values,
+        )
+        queue.put(curr_results)
+    except Exception as e:
+        queue.put("Major Issue: " + str(e))
 
 class ScikitGrowEngineAssemblyError(Exception):
     pass
@@ -224,6 +234,7 @@ class Plotter(QtW.QTabWidget):
 
     @QtCore.pyqtSlot()
     def plotting_finished(self):
+        print("Engine : " , self.worker.engine_results)
         for i in range(0 , self.count()):
             widget = self.widget(i)
             widget.deleteLater()
@@ -278,19 +289,9 @@ class PlotterWorker(QtCore.QObject):
 
     @QtCore.pyqtSlot() # What does this do?
     def start_plotting(self):
-        def runner_wrapper(queue , main_dataframe , curr_pipelines , pipeline_x_values , pipeline_y_values):
-            try:
-                curr_results = sklearn_engine.SklearnEngine.main_sklearn_pipe(
-                    main_dataframe=main_dataframe,
-                    curr_pipelines=curr_pipelines,
-                    pipeline_x_values=pipeline_x_values,
-                    pipeline_y_value=pipeline_y_values,
-                )
-                queue.put(curr_results)
-            except Exception as e:
-                queue.put("Major Issue: " + str(e))
+        
         # required for windows support 
-        multiprocessing.set_start_method('spawn')
+        multiprocessing.set_start_method('spawn', force=True)
         queue = multiprocessing.Queue()
         process = multiprocessing.Process(target=runner_wrapper, args=(
             queue,

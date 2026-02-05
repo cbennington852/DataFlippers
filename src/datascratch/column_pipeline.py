@@ -101,9 +101,13 @@ class ColumnsSection(QtW.QGroupBox):
             list[DraggableColumn]: list of draggable columns for this area.
         """
         res_cols = []
-        for child in self.findChildren(QtW.QWidget):
-            if isinstance(child , DraggableColumn):
-                res_cols.append(child)
+        for i in range(self.my_layout.count()):
+            item = self.my_layout.itemAt(i)
+            print("Inernal item : " , item , (item.widget() is not None) , (isinstance(item.widget() , DraggableColumn)) , item.widget())
+            if (item.widget() is not None):
+                widget = item.widget()
+                res_cols.append(widget)
+                print("internal widget" , widget)
         return res_cols
     
     # The 
