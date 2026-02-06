@@ -48,6 +48,8 @@ class Pipeline():
             raise InternalEngineError(f"Pipeline {name} has neither a regressor or classifier. Crashing")
 
     def predict(self , x_vals):
+        print("Input into prediction" , x_vals)
+        print("Types : " , x_vals.dtypes)
         return self.sklearn_pipeline.predict(x_vals)[0].item()
 
 

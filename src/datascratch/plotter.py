@@ -32,7 +32,7 @@ def runner_wrapper(queue , main_dataframe , curr_pipelines , pipeline_x_values ,
         )
         queue.put(curr_results)
     except Exception as e:
-        queue.put("Major Issue: " + str(e))
+        queue.put(e)
 
 class ScikitGrowEngineAssemblyError(Exception):
     pass
@@ -321,7 +321,7 @@ class PlotterWorker(QtCore.QObject):
         print("Exit code: ", process)
         print("Results: " , results)
         if isinstance(results , Exception):
-            self.crashed.emit("Error" , str(results))
+            self.crashed.emit("Error: " , str(results))
         else:
             self.engine_results = results
             self.finished.emit()

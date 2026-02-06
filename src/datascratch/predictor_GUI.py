@@ -7,6 +7,7 @@ import PyQt5.QtCore as QtCore
 import pandas as pd
 import pickle
 from datascratch.draggable_parameter import parameter_filter
+import traceback
 from datascratch.sklearn_engine import EngineResults , Pipeline
 
 
@@ -49,6 +50,8 @@ class PredictionGUI(QtW.QScrollArea):
                 x_col_entry = parameter_filter(x_col , converted_col.code_map)
             else:
                 x_col_entry = parameter_filter(x_col , self.engine_results.column_types[x_col])
+                # This is a string! 
+                
             self.x_cols_ptr_lst.append(x_col_entry)
             x_cols_box_layout.addRow(x_col_name , x_col_entry)
 
@@ -137,8 +140,8 @@ class PredictionGUI(QtW.QScrollArea):
             x_values = []
             for x_col in self.x_cols_ptr_lst:
                 curr_value = x_col.text()
-                new_value = curr_value if curr_value != "" else 0
-                x_values.append(new_value)
+                print("Pred type" , type(curr_value))
+                x_values.append(curr_value)
 
             res = self.engine_results.predict(x_values)
             for pipeline_ptr , value in res.items():
@@ -152,6 +155,7 @@ class PredictionGUI(QtW.QScrollArea):
                  "Engine Prediction Error",            # Title bar text
                  f"{str(e)}" # Main message
             )
+            traceback.print_exception(e)
             print(e)
 
 
