@@ -288,27 +288,27 @@ class ColumnsMDIWindow(QtW.QMdiSubWindow):
         )
         self.train_models.setIcon(play_icon)
 
-        self.train_models.setStyleSheet(f"""
-            QPushButton {{
-                background-color: {AppAppearance.TRAIN_BUTTON_BACKGROUND_COLOR};
-                color: black;
-                border-radius: 8px;
-                padding: 10px 20px;
-                font-size: 14px;
-                font-weight: bold;
-                border: none;
-            }}
+        # self.train_models.setStyleSheet(f"""
+        #     QPushButton {{
+        #         background-color: {AppAppearance.TRAIN_BUTTON_BACKGROUND_COLOR};
+        #         color: {AppAppearance.PIPELINE_TITLE_COLOR};
+        #         border-radius: 8px;
+        #         padding: 10px 20px;
+        #         font-size: 14px;
+        #         font-weight: bold;
+        #         border: none;
+        #     }}
 
-            QPushButton:hover {{
-                background-color: {AppAppearance.TRAIN_BUTTON_BACKGROUND_COLOR_HOVER};
-            }}
+        #     QPushButton:hover {{
+        #         background-color: {AppAppearance.TRAIN_BUTTON_BACKGROUND_COLOR_HOVER};
+        #     }}
 
-            QPushButton:pressed {{
-                background-color: {AppAppearance.TRAIN_BUTTON_BACKGROUND_COLOR_HOVER};
-                padding-top: 12px;
-                padding-bottom: 8px;
-            }}
-        """)
+        #     QPushButton:pressed {{
+        #         background-color: {AppAppearance.TRAIN_BUTTON_BACKGROUND_COLOR_HOVER};
+        #         padding-top: 12px;
+        #         padding-bottom: 8px;
+        #     }}
+        # """)
 
 
         self.x_columns = ColumnsSection(

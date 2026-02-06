@@ -9,6 +9,7 @@ import numpy as np
 from abc import ABC , abstractmethod
 from matplotlib.colors import ListedColormap
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
+plt.style.use('dark_background')
 
 
 def is_regressor(x):

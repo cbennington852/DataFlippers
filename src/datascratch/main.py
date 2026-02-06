@@ -415,7 +415,7 @@ def main():
     app = QApplication(sys.argv) # Create the application instance
     app.setWindowIcon(QIcon(":/images/Mini_Logo_Alantis_Learn_book.svg"))
     # Below handles the opening of a main menu bar, 
-    stylesheet = qdarktheme.load_stylesheet(theme='light') 
+    stylesheet = qdarktheme.load_stylesheet(theme='dark') 
     app.setStyleSheet(stylesheet)
     if len(sys.argv) > 1:
         open_on_file_handle(sys.argv[1])

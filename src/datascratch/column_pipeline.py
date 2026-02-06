@@ -203,7 +203,7 @@ class ColumnsSection(QtW.QGroupBox):
         ])
 
         painter.drawPolygon(holder_block)
-        painter.setPen(QColor(Qt.black))
+        painter.setPen(QColor(AppAppearance.PIPELINE_TITLE_COLOR))
         painter.drawText(15 , 20 ,f"{self.my_title}")
 
         # 5 putting all of the children inside of each other
