@@ -4,50 +4,52 @@ Important Notes:
 
 -->
 <h1 id="summary">Summary</h1>
-<p>Data science is often taught at the upper undergraduate levels, with
-programming often cited as a prerequisite for learning data science.
-DataScratch is software intended to teach novices the core concepts of
-data science, without the prerequisite of knowing how to program.
-DataScratch achieves this via an intuitive drag and drop interface
-modeled after scratch.</p>
+<p>Machine learning is often taught at the upper undergraduate levels,
+with programming often cited as a prerequisite for learning Machine
+learning<span class="citation"
+data-cites="bart2016implementing thayer2020practical brunner2016teaching">(Bart
+et al. 2016; Thayer 2020; Brunner and Kim 2016)</span>. This creates an
+barrier to entry that bars some novices, who want to learn Machine
+learning, but are unable to do so due to a lack of programming
+knowledge. DataScratch aims to teach novices the core concepts of
+statistical machine learning through a intuitive drag and drop interface
+inspired by scratch<span class="citation"
+data-cites="resnick2009scratch">(Resnick et al. 2009)</span>.</p>
 <h1 id="statement-of-need">Statement of need</h1>
-<p>The current educational landscape presents a significant hurdle for
-novices seeking to engage with data science. While foundational
-mathematical concepts like algebra and basic statistics are often
-introduced in high school, students often do not study data science and
-AI until middle-late undergraduate.</p>
-<p>Many educators cite that programming is a barrier to entry to data
-science <span class="citation"
+<p><code>Programming as a barrier to machine learning</code> Many
+educators cite that programming is a barrier to entry to machine
+learning <span class="citation"
 data-cites="bart2016implementing thayer2020practical brunner2016teaching">(Bart
 et al. 2016; Thayer 2020; Brunner and Kim 2016)</span>. This is because
-many tools and libraries for data science are called programmatically.
-The cognitive load associated with learning both programming syntax and
-complex statistical concepts simultaneously is often deemed detrimental
-to meaningful learning.</p>
-<p>This lack of accessible entry points limits the potential for
-widespread data science literacy. As AI increasingly permeates various
-aspects of modern life understanding its underlying principles becomes
-essential. Data science literacy empowers individuals to critically
-evaluate these systems, fostering informed decision-making and promoting
-responsible technological development<span class="citation"
+many tools and libraries for machine learning are called
+programmatically.</p>
+<p>CLT(Cognitive Load Theory) often cites that learning prerequisites is
+nessicary for mastering new an complex topics <span class="citation"
+data-cites="bransford1972contextual">(Bransford and Johnson
+1972)</span>. The cognitive load associated with learning both
+programming syntax and complex statistical concepts associated with
+machine learning simultaneously can be too much on
+students[CITATION].</p>
+<p><code>More on why machine learning is important</code> This lack of
+accessible entry points limits the potential for widespread machine
+learning literacy. As AI increasingly permeates various aspects of
+modern life understanding its underlying principles becomes essential.
+Data science literacy empowers individuals to critically evaluate these
+systems, fostering informed decision-making and promoting responsible
+technological development<span class="citation"
 data-cites="provost2013data jain2021smart">(Provost and Fawcett 2013;
 Jain 2021)</span>. Moreover, a basic grasp of AI models can demystify
 complex technologies, enabling students to navigate a world shaped by
 intelligent systems with greater confidence and agency.<span
 class="citation" data-cites="hsu2025effects">(Hsu and Chen
 2025)</span></p>
-<p>Therefore, there’s an urgent need for tools that prioritize
-accessibility and intuitive learning. A low barrier to entry is
-paramount; users should be able to explore core data science concepts
-without needing prior programming experience. This necessitates a
-paradigm shift away from code-centric approaches towards user-friendly
-interfaces that abstract the complexities of programming while
-preserving the fundamental principles of data analysis.</p>
-<p>DataScratch directly addresses this need by offering a visual,
-drag-and-drop environment for building and experimenting with AI models.
-By removing the immediate requirement to write code, DataScratch
-provides novice users with an accessible gateway to exploring core
-concepts in data science and AI.</p>
+<p><code>Why we need a low barrier</code> Therefore, there’s an urgent
+need for tools that prioritize accessibility and intuitive learning. A
+low barrier to entry is paramount; users should be able to explore core
+data science concepts without needing prior programming experience. This
+necessitates a paradigm shift away from code-centric approaches towards
+user-friendly interfaces that abstract the complexities of programming
+while preserving the fundamental principles of data analysis.</p>
 <h1 id="state-of-the-field">State of the field</h1>
 <p>There are several no-code, low code platforms available on the
 internet. However these are often designed with power users in mind, and
@@ -96,50 +98,60 @@ integration with common business tools.</p>
 <tr class="even">
 <td>JASP</td>
 <td>Statistics / Visualization</td>
-<td>High Undergraduate / Graduate</td>
+<td>Upper Undergraduate / Graduate</td>
 <td>Free</td>
 <td>No</td>
 </tr>
 </tbody>
 </table>
-<p>Scratch<span class="citation"
-data-cites="resnick2009scratch">(Resnick et al. 2009)</span>, a visual
-programming language designed for children, offers a compelling model
-for accessible computational learning. Its intuitive drag-and-drop
-interface allows beginners to grasp fundamental programming concepts
-without needing to decipher complex syntax. Scratch’s interface has been
-proven to be effective at teaching novices programming concepts, and
-assist learners when the transition to “real” programming<span
-class="citation" data-cites="armoni2015scratch">(Armoni,
-Meerbaum-Salant, and Ben-Ari 2015)</span>. <img
-src="paper_images/python_v_scratch.png"
-title="Image showing equivalent python and scratch code."
-alt="blocks v python" /></p>
-<p>This project was heavily inspired by scratch. The design of the
-column blocks is similar to the scratch stack blocks. Additionally the
-design of the validators is modeled after the scratch boolean logic
-blocks.</p>
+<p>The platforms that are free and tailored to students, such as
+JASP<span class="citation" data-cites="JASP2025">(JASP Team 2025)</span>
+is catered to teaching students statistics, rather than expressly
+teaching them machine learning.</p>
 <h1 id="software-design">Software design</h1>
-<p>The language for this software is python, this is because python
-possesses several libraries, such as pandas<span class="citation"
-data-cites="reback2020pandas">(team 2020)</span>, matplotlib<span
-class="citation" data-cites="Hunter:2007">(Hunter 2007)</span>, and
-scikit-learn[<span class="citation" data-cites="scikit-learn">Pedregosa
-et al. (2011)</span>;sklearn_api], which are standard tools for data
-science and AI modeling. Another reason would be portability. If a user
-desires features that are beyond the scope of DataScratch, the software
-is built in a way the models and utilizes underlying data science
-libraries, to make the transition from using DataScratch to programming
-in python easier.</p>
-<p>The GUI software was originally written using a python library called
-PyGtk<span class="citation" data-cites="pygobject2025">(GNOME Project
-2026)</span>, however after several months of development this library
-was dropped, due to the PyGtk library having a non-functional pip
-installation, and graphical issues when run on windows. Additionally,
-electron was considered, with the benefit being easier styling, however
-it did not posses seamless python support. The project later switched to
-PyQt, which featured cross platform support, and allowed for
-installation via pip by default.</p>
+<p><code>Talking about similarities with scratch</code> Scratch<span
+class="citation" data-cites="resnick2009scratch">(Resnick et al.
+2009)</span>, a visual programming language designed for children,
+offers a compelling model for accessible computational learning. Its
+intuitive drag-and-drop interface allows beginners to grasp fundamental
+programming concepts without needing to decipher complex syntax.
+Scratch’s interface has been proven to be effective at teaching novices
+programming concepts, and assist learners when the transition to “real”
+programming<span class="citation"
+data-cites="armoni2015scratch">(Armoni, Meerbaum-Salant, and Ben-Ari
+2015)</span>. <img src="paper_images/python_v_scratch.png"
+title="Image showing equivalent python and scratch code."
+alt="blocks v python" /> To be clear. DataScratch is not intended to be
+a replacement for machine learning programming, but rather to give
+novices an introduction to machine learning. The goals of the project
+are similar to Scratch in this aspect.</p>
+<p><code>Language and base libaries</code> The language for this
+software is python, this is because python possesses several libraries,
+such as pandas<span class="citation" data-cites="reback2020pandas">(team
+2020)</span>, matplotlib<span class="citation"
+data-cites="Hunter:2007">(Hunter 2007)</span>, and scikit-learn[<span
+class="citation" data-cites="scikit-learn">Pedregosa et al.
+(2011)</span>;sklearn_api], which are standard tools for machine
+learning. Another reason would be portability. If a user desires
+features that are beyond the scope of DataScratch, the software is built
+in a way the models and utilizes underlying data science libraries, to
+make the transition from using DataScratch to programming in python
+easier.</p>
+<figure>
+<img src="paper_images/inner_workings_drawing.svg"
+title="Image showing the software design of the GUI"
+alt="overview of software flow" />
+<figcaption aria-hidden="true">overview of software flow</figcaption>
+</figure>
+<p><code>History</code> The GUI software was originally written using a
+python library called PyGtk<span class="citation"
+data-cites="pygobject2025">(GNOME Project 2026)</span>, however after
+several months of development this library was dropped, due to the PyGtk
+library having a non-functional pip installation, and graphical issues
+when run on windows. Additionally, electron was considered, with the
+benefit being easier styling, however it did not posses seamless python
+support. The project later switched to PyQt, which featured cross
+platform support, and allowed for installation via pip by default.</p>
 <p>The drag and drop interface was designed to be easy to use, with the
 layout and design imitating underlying python libraries. This ensures
 that users have an low floor to learning, while also paving the way for
@@ -158,35 +170,33 @@ alt="model comparison" /></p>
 <p>Additionally, Datascratch comes pre-loaded with several example
 datasets, which have been crafted to be usable to a wide range of users,
 allowing novices to get learning right away, without having to procure a
-dataset first.</p>
-<p>The interface also allows the user to input manual predictions,
-allowing for novices to interact with their newly created AI models.
-This tab enables the user to export their saved models as software,
-which is where a user can save their trained model, and access it later.
-The software also enables the exporting as pickle, which fulfills the
-needs of potential power users. <img
-src="paper_images/example_predictor.png"
-title="Image showing two predictors for the diamonds dataset"
-alt="example dataset descriptive statistics" /></p>
+dataset first. The interface also allows the user to input manual
+predictions, allowing for novices to interact with their newly created
+AI models. This tab enables the user to export their saved models as
+software, which is where a user can save their trained model, and access
+it later. DataScratch also enables the exporting as pickle, which
+fulfills the needs of potential power users, by allowing them to
+interface with the python object directly, if desired.</p>
 <h1 id="research-impact-statement">Research impact statement</h1>
-<ul>
-<li>Talk about the near-term significance (benchmarks, reproducible
-materials, community-readiness signals).
-<ul>
-<li>Enhanced Data Science Literacy</li>
-<li>Democratization of AI literacy</li>
-</ul></li>
-</ul>
+<p>There is an need for open source AI learning, and the democratization
+of AI literacy<span class="citation"
+data-cites="prinsloo2024democratisation">(Prinsloo and Khalil
+2024)</span>, in a world rapidly being shaped by AI. DataScratch offers
+a way for students to learn more about the core concepts of AI and data
+science, while maintaining a high interactivity.</p>
+<p>The current codebase also supports the automatic building of
+installers for both windows and linux. In linux, this is in the form of
+a debian package, and for windows, it is the form of a executable. This
+shows near term significance in the form of reproducible materials.</p>
 <h1 id="ai-usage-disclosure">AI usage disclosure</h1>
-<p>The dataframe_viewer class was heavily written by AI. This is a small
-subclass which renders a pandas dataframe as a PyQt table. Google was
-used to search for API documentation. The built in AI overview on google
-cannot be deactivated, and thus the AI overview was unintentionally used
-upon each google search. Oftentimes, the AI overview provided false
-information, and was later ignored due to a lack of verifiability.</p>
-<p>Generative AI was later used during the proofreading stage of writing
-the paper, with it helping catch several clarity and grammatical errors.
-These AI suggestions were then verified with human experts.</p>
+<p>~95% of this project was written by humans, and ~5% would be what is
+consider “AI assisted”. Google was used to search for API documentation.
+The built in AI overview on google cannot be deactivated, and thus the
+AI overview was used upon each google search. Oftentimes, the google AI
+overview provided false information, and was ignored in the later stages
+of the project due to a lack of verifiability. Generative AI was later
+used during the proofreading stage of writing the paper, with it helping
+catch several grammatical errors.</p>
 <h1 class="unnumbered" id="references">References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
 role="list">
@@ -200,6 +210,12 @@ Bart, Austin Cory, Javier Tibau, Eli Tilevich, Clifford A Shaffer, and
 Dennis G Kafura. 2016. <span>“Implementing an Open-Access, Data Science
 Programming Environment for Learners.”</span> In <em>COMPSAC</em>,
 728–37.
+</div>
+<div id="ref-bransford1972contextual" class="csl-entry" role="listitem">
+Bransford, John D, and Marcia K Johnson. 1972. <span>“Contextual
+Prerequisites for Understanding: Some Investigations of Comprehension
+and Recall.”</span> <em>Journal of Verbal Learning and Verbal
+Behavior</em> 11 (6): 717–26.
 </div>
 <div id="ref-brunner2016teaching" class="csl-entry" role="listitem">
 Brunner, Robert J, and Edward J Kim. 2016. <span>“Teaching Data
@@ -225,11 +241,22 @@ href="https://doi.org/10.1109/MCSE.2007.55">https://doi.org/10.1109/MCSE.2007.55
 Jain, Lakhmi C. 2021. <span>“Smart Innovation, Systems and
 Technologies.”</span> Springer: Singapore.
 </div>
+<div id="ref-JASP2025" class="csl-entry" role="listitem">
+JASP Team. 2025. <span>“<span class="nocase">JASP (Version
+0.95.4)[Computer software]</span>.”</span> <a
+href="https://jasp-stats.org/">https://jasp-stats.org/</a>.
+</div>
 <div id="ref-scikit-learn" class="csl-entry" role="listitem">
 Pedregosa, F., G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O.
 Grisel, M. Blondel, et al. 2011. <span>“Scikit-Learn: Machine Learning
 in <span>P</span>ython.”</span> <em>Journal of Machine Learning
 Research</em> 12: 2825–30.
+</div>
+<div id="ref-prinsloo2024democratisation" class="csl-entry"
+role="listitem">
+Prinsloo, Paul, and Mohammad Khalil. 2024. <span>“The Democratisation of
+AI in, for and Through Education: A Position Paper.”</span> <em>Ubiquity
+Proceedings</em> 4 (1).
 </div>
 <div id="ref-provost2013data" class="csl-entry" role="listitem">
 Provost, Foster, and Tom Fawcett. 2013. <span>“Data Science and Its

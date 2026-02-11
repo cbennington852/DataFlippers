@@ -29,16 +29,14 @@ Machine learning is often taught at the upper undergraduate levels, with program
 
 # Statement of need
 
-Generally speaking, basic statistics, and programming are widely cited as be prerequisites for machine learning[@tawfik2025prerequisites]. DataScratch aims to lower one of these barriers.
+## Programming as a barrier to machine learning
+Many educators cite that programming is a barrier to entry to machine learning [@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This is because many tools and libraries for machine learning are called programmatically. 
 
-Prerequisite mathematical concepts for statistics like algebra and basic statistics are often introduced in high school[@batanero2016statistics]. The goal of this software is not to replace this learning, but to be taught after,or in parallel to a statistics course. 
+CLT(Cognitive Load Theory) often cites that learning prerequisites is nessicary for mastering new an complex topics [@bransford1972contextual]. The cognitive load associated with learning both programming syntax and complex statistical concepts associated with machine learning simultaneously can be too much on students[CITATION]. 
 
-Many educators cite that programming is a barrier to entry to data science [@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This is because many tools and libraries for data science are called programmatically. CLT(Cognitive Load Theory) often cites that learning prerequisites is nessicary for mastering new an complex topics [@bransford1972contextual]. The cognitive load associated with learning both programming syntax and complex statistical concepts associated with AI simultaneously can be too much on students[CITATION]. 
-
-`More on why machine learning is important`
+## Machine learning literacy
 This lack of accessible entry points limits the potential for widespread machine learning literacy. As AI increasingly permeates various aspects of modern life understanding its underlying principles becomes essential.  Data science literacy empowers individuals to critically evaluate these systems, fostering informed decision-making and promoting responsible technological development[@provost2013data;@jain2021smart]. Moreover, a basic grasp of AI models can demystify complex technologies, enabling students to navigate a world shaped by intelligent systems with greater confidence and agency.[@hsu2025effects]
 
-`Why we need a low barrier`
 Therefore, there's an urgent need for tools that prioritize accessibility and intuitive learning. A low barrier to entry is paramount; users should be able to explore core data science concepts without needing prior programming experience. This necessitates a paradigm shift away from code-centric approaches towards user-friendly interfaces that abstract the complexities of programming while preserving the fundamental principles of data analysis.
 
 # State of the field
@@ -50,26 +48,27 @@ There are several no-code, low code platforms available on the internet. However
 | DataBricks  | Generative AI              | Businesses     | Paid / Commercial    | No            |
 | Power BI    | Visualization Interface    | Businesses     | Paid / Commercial    | Yes           |
 | Rapid Miner | Training / Visualization   | Data Scientists | Free for individuals | No            |
-| JASP        | Statistics / Visualization | High Undergraduate / Graduate        | Free                 | No            |
+| JASP        | Statistics / Visualization | Upper Undergraduate / Graduate        | Free                 | No            |
 
-
+The platforms that are free and tailored to students, such as JASP[@JASP2025] is catered to teaching students statistics, rather than expressly teaching them machine learning. 
 
 # Software design
 
-`Talking about similarities with scratch`
+## Inspiration
 Scratch[@resnick2009scratch], a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when the transition to "real" programming[@armoni2015scratch].
 ![blocks v python](paper_images/python_v_scratch.png "Image showing equivalent python and scratch code.")
 To be clear. DataScratch is not intended to be a replacement for machine learning programming, but rather to give novices an introduction to machine learning. The goals of the project are similar to Scratch in this aspect. 
 
-`Language and base libaries`
-The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;sklearn_api], which are standard tools for data science and AI modeling. Another reason would be portability. If a user desires features that are beyond the scope of DataScratch, the software is built in a way the models and utilizes underlying data science libraries, to make the transition from using DataScratch to programming in python easier.
+## Language and core project libaries
+The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;sklearn_api], which are standard tools for machine learning. Another reason would be portability. If a user desires features that are beyond the scope of DataScratch, the software is built in a way the models and utilizes underlying data science libraries, to make the transition from using DataScratch to programming in python easier.
 
 ![overview of software flow](paper_images/inner_workings_drawing.svg "Image showing the software design of the GUI")
 
-`History`
+## History
 The GUI software was originally written using a python library called PyGtk[@pygobject2025], however after several months of development this library was dropped, due to the PyGtk library having a non-functional pip installation, and graphical issues when run on windows. Additionally, electron was considered, with the benefit being easier styling, however it did not posses seamless python support. The project later switched to PyQt, which featured cross platform support, and allowed for installation via pip by default. 
 
-The drag and drop interface was designed to be easy to use, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later.  
+## Drag and drop design
+The drag and drop interface is designed to be easy to use, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later.  
 ![blocks v python](paper_images/Python_v_datascratch.png "Image showing the complexity of coding versus the new drag and drop interface.")
 
 The interface also enables the user to assemble and train multiple models at once, allowing for quick model comparison. This enables common user desires within data science, where data scientists often compare and contrast models. Another purpose of this feature is to allow users to learn the differences between certain models. 
