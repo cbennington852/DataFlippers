@@ -5,7 +5,7 @@ rm -f data_scratch.deb
 rm -f -r linux_datascratch
 
 # The spec file determine the optiosn for the packaging with pyinstaller.
-pyinstaller main.spec -y
+pyinstaller linux.spec -y
 
 # Packaging this requries ruby. 
 sudo apt install ruby

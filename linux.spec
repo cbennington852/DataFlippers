@@ -30,7 +30,6 @@ exe = EXE(
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
-    icon=resources/Mini_Logo_Alantis_2.svg
     codesign_identity=None,
     entitlements_file=None,
 )

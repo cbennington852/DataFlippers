@@ -1,5 +1,5 @@
 ---
-title: 'DataScratch : A drag and drop interface to build AI models'
+title: 'DataScratch : A drag and drop interface to build machine learning models'
 tags:
   - Python
   - Data Science
@@ -24,19 +24,22 @@ Important Notes:
 
 # Summary
 
-Data science is often taught at the upper undergraduate levels, with programming often cited as a prerequisite for learning data science. DataScratch is software intended to teach novices the core concepts of data science, without the prerequisite of knowing how to program. DataScratch achieves this via an intuitive drag and drop interface modeled after scratch.
+Machine learning is often taught at the upper undergraduate levels, with programming often cited as a prerequisite for learning Machine learning[CITATIONS]. This creates an barrier to entry that bars some novices, who want to learn Machine learning, but are unable to do so due to a lack of programming knowledge. DataScratch aims to teach novices the core concepts of statistical machine learning through a intuitive drag and drop interface inspired by scratch[@resnick2009scratch].
+
 
 # Statement of need
 
-The current educational landscape presents a significant hurdle for novices seeking to engage with data science. While foundational mathematical concepts like algebra and basic statistics are often introduced in high school, students often do not study data science and AI until middle-late undergraduate. 
+Generally speaking, basic statistics, and programming are widely cited as be prerequisites for machine learning[CITATION]. DataScratch aims to lower one of these barriers.
 
-Many educators cite that programming is a barrier to entry to data science [@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This is because many tools and libraries for data science are called programmatically. The cognitive load associated with learning both programming syntax and complex statistical concepts simultaneously is often deemed detrimental to meaningful learning.
+Prerequisite mathematical concepts for statistics like algebra and basic statistics are often introduced in high school[CITATION]. The goal of this software is not to replace this learning, but to be taught after,or in parallel to a statistics course. 
 
-This lack of accessible entry points limits the potential for widespread data science literacy. As AI increasingly permeates various aspects of modern life understanding its underlying principles becomes essential.  Data science literacy empowers individuals to critically evaluate these systems, fostering informed decision-making and promoting responsible technological development[@provost2013data;@jain2021smart]. Moreover, a basic grasp of AI models can demystify complex technologies, enabling students to navigate a world shaped by intelligent systems with greater confidence and agency.[@hsu2025effects]
+Many educators cite that programming is a barrier to entry to data science [@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This is because many tools and libraries for data science are called programmatically. The cognitive load associated with learning both programming syntax and complex statistical concepts associated with AI simultaneously can be too much on students[CITATION]. 
 
+`More on why machine learning is important`
+This lack of accessible entry points limits the potential for widespread machine learning literacy. As AI increasingly permeates various aspects of modern life understanding its underlying principles becomes essential.  Data science literacy empowers individuals to critically evaluate these systems, fostering informed decision-making and promoting responsible technological development[@provost2013data;@jain2021smart]. Moreover, a basic grasp of AI models can demystify complex technologies, enabling students to navigate a world shaped by intelligent systems with greater confidence and agency.[@hsu2025effects]
+
+`Why we need a low barrier`
 Therefore, there's an urgent need for tools that prioritize accessibility and intuitive learning. A low barrier to entry is paramount; users should be able to explore core data science concepts without needing prior programming experience. This necessitates a paradigm shift away from code-centric approaches towards user-friendly interfaces that abstract the complexities of programming while preserving the fundamental principles of data analysis.
-
-DataScratch directly addresses this need by offering a visual, drag-and-drop environment for building and experimenting with AI models. By removing the immediate requirement to write code, DataScratch provides novice users with an accessible gateway to exploring core concepts in data science and AI. 
 
 # State of the field
 
@@ -49,17 +52,21 @@ There are several no-code, low code platforms available on the internet. However
 | Rapid Miner | Training / Visualization   | Data Scientists | Free for individuals | No            |
 | JASP        | Statistics / Visualization | High Undergraduate / Graduate        | Free                 | No            |
 
-Scratch[@resnick2009scratch], a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when the transition to "real" programming[@armoni2015scratch].
-![blocks v python](paper_images/python_v_scratch.png "Image showing equivalent python and scratch code.")
 
-This project was heavily inspired by scratch. The design of the column blocks is similar to the scratch stack blocks. Additionally the design of the validators is modeled after the scratch boolean logic blocks. 
 
 # Software design
 
+`Talking about similarities with scratch`
+Scratch[@resnick2009scratch], a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when the transition to "real" programming[@armoni2015scratch].
+![blocks v python](paper_images/python_v_scratch.png "Image showing equivalent python and scratch code.")
+To be clear. DataScratch is not intended to be a replacement for machine learning programming, but rather to give novices an introduction to machine learning. The goals of the project are similar to Scratch in this aspect. 
+
+`Language and base libaries`
 The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;sklearn_api], which are standard tools for data science and AI modeling. Another reason would be portability. If a user desires features that are beyond the scope of DataScratch, the software is built in a way the models and utilizes underlying data science libraries, to make the transition from using DataScratch to programming in python easier.
 
 ![overview of software flow](paper_images/inner_workings_drawing.svg "Image showing the software design of the GUI")
 
+`History`
 The GUI software was originally written using a python library called PyGtk[@pygobject2025], however after several months of development this library was dropped, due to the PyGtk library having a non-functional pip installation, and graphical issues when run on windows. Additionally, electron was considered, with the benefit being easier styling, however it did not posses seamless python support. The project later switched to PyQt, which featured cross platform support, and allowed for installation via pip by default. 
 
 The drag and drop interface was designed to be easy to use, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later.  
@@ -72,16 +79,12 @@ Additionally, Datascratch comes pre-loaded with several example datasets, which 
 
 # Research impact statement
 
- There is an need for open source AI learning, and the democratization of AI literacy[@prinsloo2024democratisation], in a world rapidly being shaped by AI. DataScratch offers a way for students to learn more about the core concepts of AI and data science, while maintaining a high interactivity. 
+There is an need for open source AI learning, and the democratization of AI literacy[@prinsloo2024democratisation], in a world rapidly being shaped by AI. DataScratch offers a way for students to learn more about the core concepts of AI and data science, while maintaining a high interactivity. 
 
- The current codebase also supports the automatic building of installers for both windows and linux. In linux, this is in the form of a debian package, and for windows, it is the form of a executable. This shows near term significance in the form of reproducible materials.
+The current codebase also supports the automatic building of installers for both windows and linux. In linux, this is in the form of a debian package, and for windows, it is the form of a executable. This shows near term significance in the form of reproducible materials.
 
 
 # AI usage disclosure
-The dataframe_viewer class was heavily written by AI. This is a small subclass which renders a pandas dataframe as a PyQt table. Google was used to search for API documentation. The built in AI overview on google cannot be deactivated, and thus the AI overview was unintentionally used upon each google search. Oftentimes, the AI overview provided false information, and was later ignored due to a lack of verifiability. 
-
-Generative AI was later used during the proofreading stage of writing the paper, with it helping catch several clarity and grammatical errors. These AI suggestions were then verified with human experts. 
-
-
+~95% of this project was written by humans, and ~5% would be what is consider "AI assisted". Google was used to search for API documentation. The built in AI overview on google cannot be deactivated, and thus the AI overview was used upon each google search. Oftentimes, the google AI overview provided false information, and was ignored in the later stages of the project due to a lack of verifiability. Generative AI was later used during the proofreading stage of writing the paper, with it helping catch several grammatical errors. 
 
 # References
