@@ -84,7 +84,6 @@ The interface also allows the user to input manual predictions, allowing for nov
 
 Works on Linux , Windows. Has not been tested on Mac yet, however, I see no reason why it shouldn't work. 
 
-
 Make a virtual environment
 ```
 python -m venv myenv
@@ -116,5 +115,19 @@ Running Unit tests
 ```
 pytest --cov=..
 ```
+## Installing from an installer
+
+Windows and Linux are currently supported. They can be found in the `most_recent_installers` folder.
+
+## Packaging
+Packaging for linux.
+```
+./package_linux.sh
+```
 
 
+Packaging for windows
+1. Install [InstallForge](https://installforge.net/)
+```
+
+```

@@ -68,19 +68,13 @@ The drag and drop interface was designed to be easy to use, with the layout and 
 The interface also enables the user to assemble and train multiple models at once, allowing for quick model comparison. This enables common user desires within data science, where data scientists often compare and contrast models. Another purpose of this feature is to allow users to learn the differences between certain models. 
 ![model comparison](paper_images/Example_model_comparison.svg "Image showing model comparison for the software. ")
 
-Additionally, Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. The software also enables the exporting as pickle, which fulfills the needs of potential power users. 
+Additionally, Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataScratch also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired.
 
 # Research impact statement
 
-* Talk about the near-term significance (benchmarks, reproducible materials, community-readiness signals).
-  * Enhanced Data Science Literacy
-  * Democratization of AI literacy
+ There is an need for open source AI learning, and the democratization of AI literacy[@prinsloo2024democratisation], in a world rapidly being shaped by AI. DataScratch offers a way for students to learn more about the core concepts of AI and data science, while maintaining a high interactivity. 
 
- There is an need for open source AI learning, and the democratization of AI literacy[@prinsloo2024democratisation], in a world rapidly being shaped by AI. This software offers a way to 
-
-* Near term significance in the form of reproducible materials
-
-[___]
+ The current codebase also supports the automatic building of installers for both windows and linux. In linux, this is in the form of a debian package, and for windows, it is the form of a executable. This shows near term significance in the form of reproducible materials.
 
 
 # AI usage disclosure
