@@ -24,16 +24,16 @@ Important Notes:
 
 # Summary
 
-Machine learning is often taught at the upper undergraduate levels, with programming often cited as a prerequisite for learning Machine learning[CITATIONS]. This creates an barrier to entry that bars some novices, who want to learn Machine learning, but are unable to do so due to a lack of programming knowledge. DataScratch aims to teach novices the core concepts of statistical machine learning through a intuitive drag and drop interface inspired by scratch[@resnick2009scratch].
+Machine learning is often taught at the upper undergraduate levels, with programming often cited as a prerequisite for learning Machine learning[@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This creates an barrier to entry that bars some novices, who want to learn Machine learning, but are unable to do so due to a lack of programming knowledge. DataScratch aims to teach novices the core concepts of statistical machine learning through a intuitive drag and drop interface inspired by scratch[@resnick2009scratch].
 
 
 # Statement of need
 
-Generally speaking, basic statistics, and programming are widely cited as be prerequisites for machine learning[CITATION]. DataScratch aims to lower one of these barriers.
+Generally speaking, basic statistics, and programming are widely cited as be prerequisites for machine learning[@tawfik2025prerequisites]. DataScratch aims to lower one of these barriers.
 
-Prerequisite mathematical concepts for statistics like algebra and basic statistics are often introduced in high school[CITATION]. The goal of this software is not to replace this learning, but to be taught after,or in parallel to a statistics course. 
+Prerequisite mathematical concepts for statistics like algebra and basic statistics are often introduced in high school[@batanero2016statistics]. The goal of this software is not to replace this learning, but to be taught after,or in parallel to a statistics course. 
 
-Many educators cite that programming is a barrier to entry to data science [@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This is because many tools and libraries for data science are called programmatically. The cognitive load associated with learning both programming syntax and complex statistical concepts associated with AI simultaneously can be too much on students[CITATION]. 
+Many educators cite that programming is a barrier to entry to data science [@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This is because many tools and libraries for data science are called programmatically. CLT(Cognitive Load Theory) often cites that learning prerequisites is nessicary for mastering new an complex topics [@bransford1972contextual]. The cognitive load associated with learning both programming syntax and complex statistical concepts associated with AI simultaneously can be too much on students[CITATION]. 
 
 `More on why machine learning is important`
 This lack of accessible entry points limits the potential for widespread machine learning literacy. As AI increasingly permeates various aspects of modern life understanding its underlying principles becomes essential.  Data science literacy empowers individuals to critically evaluate these systems, fostering informed decision-making and promoting responsible technological development[@provost2013data;@jain2021smart]. Moreover, a basic grasp of AI models can demystify complex technologies, enabling students to navigate a world shaped by intelligent systems with greater confidence and agency.[@hsu2025effects]
