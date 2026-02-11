@@ -82,20 +82,25 @@ The interface also allows the user to input manual predictions, allowing for nov
 
 ## Running the current GUI
 
-Works on Linux , Windows , Mac
+Works on Linux , Windows. Has not been tested on Mac yet, however, I see no reason why it shouldn't work. 
+
+
 Make a virtual environment
 ```
 python -m venv myenv
 ```
 Then activate your virtual environment.
 ```
-# Linux / Mac / Git bash
+# Linux / Mac 
 source ./myenv/bin/activate
 
-# Or
-
-# Windows
+# Windows (Command prompt)
 call myenv\scripts\activate.bat
+
+
+# Windows (Git Bash)
+source myenv/Scripts/activate
+
 ```
 Install the required dependencies.
 ```

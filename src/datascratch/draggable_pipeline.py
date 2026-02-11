@@ -35,8 +35,10 @@ class PipelineSection(QtW.QGroupBox):
 
     def get_pipeline_objects(self):
         resulting_models = []
-        for child in self.findChildren(QtW.QWidget):
-            if isinstance(child , Draggable):
+        # Using the layout. 
+        for i in range(0 , self.my_layout.count()):
+            if isinstance(self.my_layout.itemAt(i) , QtW.QWidgetItem):
+                child = self.my_layout.itemAt(i).widget()
                 parameters_as_dict = dict(child.data.parameters)
                 curr = child.data.sklearn_function(**parameters_as_dict)
                 resulting_models.append(curr)
@@ -108,8 +110,9 @@ class PipelineSection(QtW.QGroupBox):
     
     def get_models(self) -> list[Draggable]:
         res_models = []
-        for child in self.findChildren(QtW.QWidget):
-            if isinstance(child , Draggable):
+        for i in range(0 , self.my_layout.count()):
+            if isinstance(self.my_layout.itemAt(i) , QtW.QWidgetItem):
+                child = self.my_layout.itemAt(i).widget()
                 res_models.append(child)
         return res_models
     

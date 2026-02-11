@@ -103,7 +103,6 @@ class ColumnsSection(QtW.QGroupBox):
         res_cols = []
         for i in range(self.my_layout.count()):
             item = self.my_layout.itemAt(i)
-            print("Inernal item : " , item , (item.widget() is not None) , (isinstance(item.widget() , DraggableColumn)) , item.widget())
             if (item.widget() is not None):
                 widget = item.widget()
                 res_cols.append(widget)

@@ -154,6 +154,7 @@ class MainWindow(QMainWindow):
         self.file_path = file_path
 
         self.resize(MainWindow.BASE_WINDOW_WIDTH , MainWindow.BASE_WINDOW_HEIGHT)
+
         # start a parsel. 
         # load dataframe 
         self.dataframe = dataframe
@@ -180,6 +181,8 @@ class MainWindow(QMainWindow):
             self
         )
 
+        
+
         dock_libary.setFeatures(dock_libary.features() & ~QtW.QDockWidget.DockWidgetClosable)
         dock_dataframe.setFeatures(dock_dataframe.features() & ~QtW.QDockWidget.DockWidgetClosable)
         dock_plot.setFeatures(dock_plot.features() & ~QtW.QDockWidget.DockWidgetClosable)
@@ -192,7 +195,16 @@ class MainWindow(QMainWindow):
         self.addDockWidget(Qt.RightDockWidgetArea , dock_dataframe)
         self.addDockWidget(Qt.LeftDockWidgetArea ,  dock_libary)
 
+        right_size = 20
+        self.resizeDocks(
+            [dock_plot , dock_dataframe],
+            [right_size , right_size],
+            Qt.Horizontal
+        )
+
         self.setCentralWidget(self.pipeline_mother)
+
+
 
     def save_function(self , file_name=f'my_project.{FILE_EXTENSION}' , no_popup=False):
         print(f"Dataframe {self.dataframe}")

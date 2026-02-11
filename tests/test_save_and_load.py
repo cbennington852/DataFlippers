@@ -171,6 +171,7 @@ def test_loading_models(qtbot):
     window.save_function(file_name=file_name , no_popup=True)
     saved_window = MainWindow.open_on_saved_file(file_name)
     print("HI: " , saved_window.pipeline_mother.pipelines[0])
+    print("Pipeline datas:  " , saved_window.pipeline_mother.pipelines[0].model_pipe.get_data())
     assert saved_window.pipeline_mother.pipelines[0].model_pipe.get_data()[0].sklearn_function == sklearn.linear_model.LinearRegression
 
 def test_others_empty(qtbot):
