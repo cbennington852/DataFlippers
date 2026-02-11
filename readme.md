@@ -34,19 +34,20 @@ Upon it's initial completion scratch had two defining features.
 
 # Summary
 
-Data science is often taught at the upper undergraduate levels, with programming often cited as a prerequisite for learning data science. DataScratch is software intended to teach novices the core concepts of data science, without the prerequisite of knowing how to program. DataScratch achieves this via an intuitive drag and drop interface modeled after scratch.
+Machine learning is often taught at the upper undergraduate levels, with programming often cited as a prerequisite for learning Machine learning[@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This creates an barrier to entry that bars some novices, who want to learn Machine learning, but are unable to do so due to a lack of programming knowledge. DataScratch aims to teach novices the core concepts of statistical machine learning through a intuitive drag and drop interface inspired by scratch[@resnick2009scratch].
+
 
 # Statement of need
 
-The current educational landscape presents a significant hurdle for novices seeking to engage with data science. While foundational mathematical concepts like algebra and basic statistics are often introduced in high school, students often do not study data science and AI until middle-late undergraduate. 
+## Programming as a barrier to machine learning
+Many educators cite that programming is a barrier to entry to machine learning [@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This is because many tools and libraries for machine learning are called programmatically. 
 
-Many educators cite that programming is a barrier to entry to data science. This is because many tools and libraries for data science are called programmatically. The cognitive load associated with learning both programming syntax and complex statistical concepts simultaneously is often deemed detrimental to meaningful learning.
+CLT(Cognitive Load Theory) often cites that learning prerequisites is nessicary for mastering new an complex topics [@bransford1972contextual]. The cognitive load associated with learning both programming syntax and complex statistical concepts associated with machine learning simultaneously can be too much on students[CITATION]. 
 
-This lack of accessible entry points limits the potential for widespread data science literacy. As AI increasingly permeates various aspects of modern life understanding its underlying principles becomes essential.  Data science literacy empowers individuals to critically evaluate these systems, fostering informed decision-making and promoting responsible technological development. Moreover, a basic grasp of AI models can demystify complex technologies, enabling students to navigate a world shaped by intelligent systems with greater confidence and agency.
+## Machine learning literacy
+This lack of accessible entry points limits the potential for widespread machine learning literacy. As AI increasingly permeates various aspects of modern life understanding its underlying principles becomes essential.  Data science literacy empowers individuals to critically evaluate these systems, fostering informed decision-making and promoting responsible technological development[@provost2013data;@jain2021smart]. Moreover, a basic grasp of AI models can demystify complex technologies, enabling students to navigate a world shaped by intelligent systems with greater confidence and agency.[@hsu2025effects]
 
 Therefore, there's an urgent need for tools that prioritize accessibility and intuitive learning. A low barrier to entry is paramount; users should be able to explore core data science concepts without needing prior programming experience. This necessitates a paradigm shift away from code-centric approaches towards user-friendly interfaces that abstract the complexities of programming while preserving the fundamental principles of data analysis.
-
-DataScratch directly addresses this need by offering a visual, drag-and-drop environment for building and experimenting with AI models. By removing the immediate requirement to write code, DataScratch provides novice users with an accessible gateway to exploring core concepts in data science and AI. 
 
 # State of the field
 
@@ -57,34 +58,40 @@ There are several no-code, low code platforms available on the internet. However
 | DataBricks  | Generative AI              | Businesses     | Paid / Commercial    | No            |
 | Power BI    | Visualization Interface    | Businesses     | Paid / Commercial    | Yes           |
 | Rapid Miner | Training / Visualization   | Data Scientists | Free for individuals | No            |
-| JASP        | Statistics / Visualization | High Undergraduate / Graduate        | Free                 | No            |
+| JASP        | Statistics / Visualization | Upper Undergraduate / Graduate        | Free                 | No            |
 
-Scratch, a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when the transition to "real" programming.
+The platforms that are free and tailored to students, such as JASP[@JASP2025] is catered to teaching students statistics, rather than expressly teaching them machine learning. 
 
 # Software design
 
-The language for this software is python, this is because python possesses several libraries, such as pandas, matplotlib, and scikit-learn, which are standard tools for data science and AI modeling. Another reason would be portability. If a user desires features that are beyond the scope of DataScratch, the software is built in a way the models and utilizes underlying data science libraries, to make the transition from using DataScratch to programming in python easier.
+## Inspiration
+Scratch[@resnick2009scratch], a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when the transition to "real" programming[@armoni2015scratch].
+![blocks v python](paper_images/python_v_scratch.png "Image showing equivalent python and scratch code.")
+To be clear. DataScratch is not intended to be a replacement for machine learning programming, but rather to give novices an introduction to machine learning. The goals of the project are similar to Scratch in this aspect. 
 
-The GUI software was originally written using a python library called PyGtk, however after several months of development this library was dropped, due to the PyGtk library having a non-functional pip installation, and graphical issues when run on windows. Additionally, electron was considered, with the benefit being easier styling, however it did not posses seamless python support. The project later switched to PyQt, which featured cross platform support, and allowed for installation via pip by default. 
+## Language and core project libaries
+The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;sklearn_api], which are standard tools for machine learning. Another reason would be portability. If a user desires features that are beyond the scope of DataScratch, the software is built in a way the models and utilizes underlying data science libraries, to make the transition from using DataScratch to programming in python easier.
 
-The drag and drop components are modeled closely after scratch.  The shape of each draggable block corresponds to a shape on the pipeline to give the user visual signifiers telling them where things should go. The purpose of this change is to reduce the complexity of the interface.  
+![overview of software flow](paper_images/inner_workings_drawing.svg "Image showing the software design of the GUI")
+
+## History
+The GUI software was originally written using a python library called PyGtk[@pygobject2025], however after several months of development this library was dropped, due to the PyGtk library having a non-functional pip installation, and graphical issues when run on windows. Additionally, electron was considered, with the benefit being easier styling, however it did not posses seamless python support. The project later switched to PyQt, which featured cross platform support, and allowed for installation via pip by default. 
+
+## Drag and drop design
+The drag and drop interface is designed to be easy to use, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later.  
 ![blocks v python](paper_images/Python_v_datascratch.png "Image showing the complexity of coding versus the new drag and drop interface.")
 
 The interface also enables the user to assemble and train multiple models at once, allowing for quick model comparison. This enables common user desires within data science, where data scientists often compare and contrast models. Another purpose of this feature is to allow users to learn the differences between certain models. 
 ![model comparison](paper_images/Example_model_comparison.svg "Image showing model comparison for the software. ")
 
-Additionally, Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. The image below shows the output from a descriptive statistics query.  
-![example dataset descriptive statistics](paper_images/diamonds_descriptive.png "Image showing descriptive statistics for the diamonds dataset")
-
-The interface also allows the user to input manual predictions, allowing for novices to interact with their new models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. The software also enables the exporting as pickle, which fulfills the needs of potential power users. 
-![example dataset descriptive statistics](paper_images/example_predictor.png "Image showing two predictors for the diamonds dataset")
+Additionally, Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataScratch also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired.
 
 
 ## Running the current GUI
 
 Works on Linux , Windows. Has not been tested on Mac yet, however, I see no reason why it shouldn't work. 
 
-Make a virtual environment
+Make a virtual environment (This is different for every platform)
 ```
 python -m venv myenv
 ```

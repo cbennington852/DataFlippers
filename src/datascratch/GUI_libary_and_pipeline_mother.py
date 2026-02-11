@@ -13,6 +13,7 @@ from datascratch.draggable_pipeline import DraggableColumn , PipelineSection, Pi
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch.library_submodules import PipelineSubmodule , ColumnsSubmodule
+from datascratch.notes_subwindow import NotesSubwindow
 
 class ColumnsWindowData():
     def __init__(self , x_cols : list[str] , y_cols : list[str]):
@@ -218,6 +219,9 @@ class PipelineMother(QtW.QMainWindow):
         self.add_pipeline_button.clicked.connect(self.add_pipeline)
         toolbar.addWidget(self.add_pipeline_button)
 
+        self.add_notes_button = QtW.QPushButton("Add Notes")
+        self.add_notes_button.clicked.connect(self.add_notes)
+        toolbar.addWidget(self.add_notes_button)
 
         self.setCentralWidget(self.main_thing)
         self.addToolBar(toolbar)
@@ -254,6 +258,12 @@ class PipelineMother(QtW.QMainWindow):
             self.pipelines.append(curr)
         #also tell the cols to re-populate
         self.columns_subwindow.load_data(cols_data)
+
+    def add_notes(self):
+        new_notes = NotesSubwindow(self.main_thing)
+        new_notes.show()
+        new_notes.move(60 , 60)
+        self.pipelines.append(new_notes)
 
 
     def add_pipeline(self):
