@@ -7,11 +7,22 @@ class CustomTextEditor(QtW.QTextEdit):
         super().__init__( **kwargs)
         self.my_parent = parent
         self.setLineWrapMode(QtW.QTextEdit.WidgetWidth)
+        self.setAutoFormatting(QtW.QTextEdit.AutoBulletList)
+
+        self.cursorPositionChanged.connect(self.cursor_moved)
+
+    def cursor_moved(self):
+        self.my_parent.check_button_states()
+
 
     def keyPressEvent(self, event: QKeyEvent):
         # Example: Map Ctrl+S to a custom action
         if event.key() == Qt.Key.Key_B and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
             self.my_parent.bold_button.click()
+        elif event.key() == Qt.Key.Key_I and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+            self.my_parent.italic_button.click()
+        elif event.key() == Qt.Key.Key_U and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+            self.my_parent.under_button.click()
         else:
             # Standard behavior for other keys
             super().keyPressEvent(event)
@@ -32,17 +43,18 @@ class CustomEditorButton(QtW.QPushButton):
         self.function_to_apply = function_to_apply
             # lambda function to take in bool + ptr to text_edit
         self.button_enabled = False
+        self.clicked.connect(self.switch_button)
+        self.style_button()
+
 
     def style_button(self):
         if self.button_enabled:
-            self.text_edit.setFontWeight(NotesSubwindow.BOLD_FONT_WEIGHT)
-            self.bold_button.setStyleSheet(f"background-color: black; color:white; {self.custom_style}")
+            self.setStyleSheet(f"background-color: black; color:white; {self.custom_style}")
         else:
-            self.text_edit.setFontWeight(NotesSubwindow.NORMAL_FONT_WEIGHT)
-            self.bold_button.setStyleSheet(f"background-color: white; color:black; {self.custom_style}")
+            self.setStyleSheet(f"background-color: white; color:black; {self.custom_style}")
         self.function_to_apply(self.button_enabled , self.text_edit)
 
-    def setBold(self):
+    def switch_button(self):
         self.button_enabled = not self.button_enabled
         self.style_button()
 
@@ -68,26 +80,60 @@ class NotesSubwindow(QtW.QMdiSubWindow):
 
         self.text_edit = CustomTextEditor(self)
 
-
         # Adding a small toolbar
         self.tool_bar = QtW.QToolBar()
 
+        # Bold Button
         def bold_func(is_enabled, tmp_editor_ptr):
             if is_enabled:
                 tmp_editor_ptr.setFontWeight(NotesSubwindow.BOLD_FONT_WEIGHT)
             else:
                 tmp_editor_ptr.setFontWeight(NotesSubwindow.NORMAL_FONT_WEIGHT)
-
-
         self.bold_button = CustomEditorButton(
             text_edit=self.text_edit,
             function_to_apply=bold_func,
             custom_style="font-weight: bold;"
         )
+        self.bold_button.setText("B")
         self.tool_bar.addWidget(self.bold_button)
 
+        # Italics button
+        def ital_func(is_enabled, tmp_editor_ptr):
+            if is_enabled:
+                tmp_editor_ptr.setFontItalic(True)
+            else:
+                tmp_editor_ptr.setFontItalic(False)
+        self.italic_button = CustomEditorButton(
+            text_edit=self.text_edit,
+            function_to_apply=ital_func,
+            custom_style="font-style: italic;"
+        )
+        self.italic_button.setText("I")
+        self.tool_bar.addWidget(self.italic_button)
+
+        # Underline
+        def util_func(is_enabled, tmp_editor_ptr):
+            if is_enabled:
+                tmp_editor_ptr.setFontUnderline(True)
+            else:
+                tmp_editor_ptr.setFontUnderline(False)
+        self.under_button = CustomEditorButton(
+            text_edit=self.text_edit,
+            function_to_apply=util_func,
+            custom_style="text-decoration: underline;"
+        )
+        self.under_button.setText("U")
+        self.tool_bar.addWidget(self.under_button)
 
         # Order
         self.my_layout.addWidget(self.tool_bar)
         self.my_layout.addWidget(self.text_edit)
         self.setWidget(self.main_box)
+
+    def check_button_states(self):
+        self.bold_button.button_enabled = self.text_edit.fontWeight() >= NotesSubwindow.BOLD_FONT_WEIGHT
+        self.italic_button.button_enabled = self.text_edit.fontItalic()
+        self.under_button.button_enabled = self.text_edit.fontUnderline()
+        self.bold_button.style_button()
+        self.italic_button.style_button()
+        self.under_button.style_button()

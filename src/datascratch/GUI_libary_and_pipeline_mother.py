@@ -214,12 +214,12 @@ class PipelineMother(QtW.QMainWindow):
         self.main_thing = PipelineMDIArea(self)
         
         self.add_pipeline_button = QtW.QPushButton("Add Pipeline")
-        self.add_pipeline_button.setFixedSize(150 ,60)
         self.add_pipeline_button.setIcon(QIcon(":/images/add_pipeline.svg"))
         self.add_pipeline_button.clicked.connect(self.add_pipeline)
         toolbar.addWidget(self.add_pipeline_button)
 
-        self.add_notes_button = QtW.QPushButton("Add Notes")
+        self.add_notes_button = QtW.QPushButton("Add Notepad")
+        self.add_notes_button.setIcon(QIcon(":/images/add_notes.svg"))
         self.add_notes_button.clicked.connect(self.add_notes)
         toolbar.addWidget(self.add_notes_button)
 
