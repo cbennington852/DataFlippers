@@ -223,7 +223,8 @@ class MainWindow(QMainWindow):
                 save_file = SaveFile(
                     pipelines_data=self.pipeline_mother.get_data(),
                     dataframe=self.dataframe,
-                    columns_data=self.pipeline_mother.get_columns_data()
+                    columns_data=self.pipeline_mother.get_columns_data(),
+                    list_notes_data=self.pipeline_mother.get_notes_data()
                 )
 
                 # 2. Single 'wb' open. 
@@ -262,7 +263,7 @@ class MainWindow(QMainWindow):
             # 2. Startup a new instance of a main window
             main_window = MainWindow(df , file_name)
             # 3. load the pipeline data into that main_window
-            main_window.pipeline_mother.load_from_data(loaded_data.pipelines_data , loaded_data.columns_data)
+            main_window.pipeline_mother.load_from_data(loaded_data.pipelines_data , loaded_data.columns_data , loaded_data.list_notes_data)
             # 4. display the data.
             print(main_window)
             print("X cols" , main_window.pipeline_mother.x_columns.get_cols())
@@ -427,8 +428,8 @@ def main():
     app = QApplication(sys.argv) # Create the application instance
     app.setWindowIcon(QIcon(":/images/Mini_Logo_Alantis_Learn_book.svg"))
     # Below handles the opening of a main menu bar, 
-    stylesheet = qdarktheme.load_stylesheet(theme='light') 
-    app.setStyleSheet(stylesheet)
+    #stylesheet = qdarktheme.load_stylesheet(theme='light') 
+    #app.setStyleSheet(stylesheet)
     if len(sys.argv) > 1:
         open_on_file_handle(sys.argv[1])
     else:

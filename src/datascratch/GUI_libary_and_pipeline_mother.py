@@ -13,7 +13,8 @@ from datascratch.draggable_pipeline import DraggableColumn , PipelineSection, Pi
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch.library_submodules import PipelineSubmodule , ColumnsSubmodule
-from datascratch.notes_subwindow import NotesSubwindow
+from datascratch.notes_subwindow import NotesSubwindow , NotesData
+from datascratch.video_subwindow import VideoSubwindow
 
 class ColumnsWindowData():
     def __init__(self , x_cols : list[str] , y_cols : list[str]):
@@ -191,15 +192,11 @@ class PipelineMDIArea(QtW.QMdiArea):
         self.setBackground(QColor(AppAppearance.MDI_AREA_COLOR))
         self.setAcceptDrops(True)
         self.setWindowIcon(QIcon(":/images/Mini_Logo_Alantis_Learn_book.svg"))
-        my_layout = QtW.QVBoxLayout()
-        self.setLayout(my_layout)
+        #my_layout = QtW.QVBoxLayout()
+        #self.setLayout(my_layout)
 
     def dragEnterEvent(self, e):
         e.accept()
-
-    def dropEvent(self, e):
-        #Disable below, as not essental.
-        return super().dropEvent(e)
 
 
 
@@ -208,6 +205,7 @@ class PipelineMother(QtW.QMainWindow):
         super().__init__(**kwargs)
         self.setWindowFlags(Qt.WindowType.Widget)
         self.pipelines : Pipeline = []
+        self.notes : NotesSubwindow = []
         self.train_models = None
 
         toolbar = QtW.QToolBar()
@@ -223,6 +221,10 @@ class PipelineMother(QtW.QMainWindow):
         self.add_notes_button.clicked.connect(self.add_notes)
         toolbar.addWidget(self.add_notes_button)
 
+        self.add_video = QtW.QPushButton("Add Video")
+        self.add_video.clicked.connect(self.add_video_widget)
+        toolbar.addWidget(self.add_video)
+
         self.setCentralWidget(self.main_thing)
         self.addToolBar(toolbar)
 
@@ -236,6 +238,18 @@ class PipelineMother(QtW.QMainWindow):
 
     def get_columns_data(self) -> ColumnsWindowData:
         return self.columns_subwindow.save_data()
+    
+    def get_notes_data(self) -> list[NotesData]:
+        lst_notes_data = []
+        for note in self.notes:
+            lst_notes_data.append(note.to_notes_data())
+        return lst_notes_data
+    
+    def add_video_widget(self):
+        new_video = VideoSubwindow(self.main_thing , self)
+        new_video.show()
+        new_video.move(80 , 60)
+
       
     def get_data(self) -> list[PipelineData]:
         # Only really need to save the pipelines ... and maybe also the column sections.
@@ -244,7 +258,7 @@ class PipelineMother(QtW.QMainWindow):
             lst_pipeline_data.append(pipeline.get_pipeline_data())
         return lst_pipeline_data
     
-    def load_from_data(self , pipelines_data : list[PipelineData] , cols_data : ColumnsWindowData):
+    def load_from_data(self , pipelines_data : list[PipelineData] , cols_data : ColumnsWindowData , list_notes_data : list[NotesData] ):
         # Make sure to remove the starter pipeline
         for pipeline in self.pipelines:
             pipeline.close()
@@ -258,12 +272,18 @@ class PipelineMother(QtW.QMainWindow):
             self.pipelines.append(curr)
         #also tell the cols to re-populate
         self.columns_subwindow.load_data(cols_data)
+        # also load the notes windows.
+        for note_data in list_notes_data:
+            new_notes = NotesSubwindow(self.main_thing , self)
+            new_notes.from_notes_data(note_data)
+            new_notes.show()
+            self.notes.append(new_notes)
 
     def add_notes(self):
-        new_notes = NotesSubwindow(self.main_thing)
+        new_notes = NotesSubwindow(self.main_thing , self)
+        self.notes.append(new_notes)
         new_notes.show()
         new_notes.move(60 , 60)
-        self.pipelines.append(new_notes)
 
 
     def add_pipeline(self):
@@ -322,12 +342,12 @@ class ColumnsMDIWindow(QtW.QMdiSubWindow):
 
 
         self.x_columns = ColumnsSection(
-            "X axis",
+            "Inputs",
             my_parent=self,
             max_num_cols=400
         )
         self.y_columns = ColumnsSection(
-            "Y axis",
+            "Outputs",
             my_parent=self,
             max_num_cols=1
         )

@@ -1,6 +1,9 @@
 import PyQt5.QtWidgets as QtW
-from PyQt5.QtGui import QKeyEvent 
+from PyQt5.QtGui import QKeyEvent  , QFont
 from PyQt5.QtCore import Qt, QEvent
+
+
+
 
 class CustomTextEditor(QtW.QTextEdit):
     def __init__(self, parent , **kwargs):
@@ -58,16 +61,19 @@ class CustomEditorButton(QtW.QPushButton):
         self.button_enabled = not self.button_enabled
         self.style_button()
 
+class NotesData():
+    def __init__(self , notes_text , x_pos , y_pos):
+        self.notes_text = notes_text
+        self.x_pos = x_pos
+        self.y_pos = y_pos
 
 class NotesSubwindow(QtW.QMdiSubWindow):
     BASE_HEIGHT = 300
     BASE_WIDTH = 400
 
-    BOLD_FONT_WEIGHT = 600
-    NORMAL_FONT_WEIGHT = 300
-
-    def __init__(self, parent , **kwargs):
+    def __init__(self, parent , ptr_to_pipeline_parent, **kwargs):
         super().__init__(parent, **kwargs)
+        self.my_parent = ptr_to_pipeline_parent
         self.setWindowFlag(Qt.WindowMinimizeButtonHint , True)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint , False)
         self.resize(NotesSubwindow.BASE_WIDTH , NotesSubwindow.BASE_HEIGHT)
@@ -86,9 +92,9 @@ class NotesSubwindow(QtW.QMdiSubWindow):
         # Bold Button
         def bold_func(is_enabled, tmp_editor_ptr):
             if is_enabled:
-                tmp_editor_ptr.setFontWeight(NotesSubwindow.BOLD_FONT_WEIGHT)
+                tmp_editor_ptr.setFontWeight(QFont.Bold)
             else:
-                tmp_editor_ptr.setFontWeight(NotesSubwindow.NORMAL_FONT_WEIGHT)
+                tmp_editor_ptr.setFontWeight(QFont.Normal)
         self.bold_button = CustomEditorButton(
             text_edit=self.text_edit,
             function_to_apply=bold_func,
@@ -124,16 +130,36 @@ class NotesSubwindow(QtW.QMdiSubWindow):
         )
         self.under_button.setText("U")
         self.tool_bar.addWidget(self.under_button)
-
         # Order
         self.my_layout.addWidget(self.tool_bar)
         self.my_layout.addWidget(self.text_edit)
         self.setWidget(self.main_box)
 
     def check_button_states(self):
-        self.bold_button.button_enabled = self.text_edit.fontWeight() >= NotesSubwindow.BOLD_FONT_WEIGHT
+        self.bold_button.button_enabled = self.text_edit.fontWeight() >= QFont.Bold
         self.italic_button.button_enabled = self.text_edit.fontItalic()
         self.under_button.button_enabled = self.text_edit.fontUnderline()
         self.bold_button.style_button()
         self.italic_button.style_button()
         self.under_button.style_button()
+
+    def closeEvent(self, event):
+        for x in range(0 , len(self.my_parent.notes)):
+            if self.my_parent.notes[x] == self:
+                del self.my_parent.notes[x]
+                self.deleteLater()
+                super(QtW.QMdiSubWindow, self).closeEvent(event)
+                return
+        
+
+
+    def to_notes_data(self) -> NotesData:
+        return NotesData(
+            notes_text=self.text_edit.toHtml(),
+            x_pos=self.pos().x(),
+            y_pos=self.pos().y()
+        )
+
+    def from_notes_data(self , data : NotesData): # -> NotesSubwindow
+        self.text_edit.setHtml(data.notes_text)
+        self.move(data.x_pos , data.y_pos)
