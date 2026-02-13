@@ -181,8 +181,6 @@ class MainWindow(QMainWindow):
             self
         )
 
-        
-
         dock_libary.setFeatures(dock_libary.features() & ~QtW.QDockWidget.DockWidgetClosable)
         dock_dataframe.setFeatures(dock_dataframe.features() & ~QtW.QDockWidget.DockWidgetClosable)
         dock_plot.setFeatures(dock_plot.features() & ~QtW.QDockWidget.DockWidgetClosable)
@@ -427,9 +425,16 @@ def main():
 
     app = QApplication(sys.argv) # Create the application instance
     app.setWindowIcon(QIcon(":/images/Mini_Logo_Alantis_Learn_book.svg"))
-    # Below handles the opening of a main menu bar, 
-    #stylesheet = qdarktheme.load_stylesheet(theme='light') 
-    #app.setStyleSheet(stylesheet)
+    stylesheet = qdarktheme.load_stylesheet(theme='light') 
+    file_curr = QFile(f":/styles/new_stylesheet.css")
+    if not file_curr.open(QIODevice.OpenModeFlag.ReadOnly | QIODevice.OpenModeFlag.Text):
+        print(f"Error: Could not open file stylesheet- {file_curr.errorString()}")
+        return None
+    stream = QTextStream(file_curr)
+    print(file_curr , stream)
+    new_style = stream.readAll()
+    app.setStyleSheet(new_style)
+    
     if len(sys.argv) > 1:
         open_on_file_handle(sys.argv[1])
     else:

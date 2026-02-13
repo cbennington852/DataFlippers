@@ -192,12 +192,6 @@ class PipelineMDIArea(QtW.QMdiArea):
         self.setBackground(QColor(AppAppearance.MDI_AREA_COLOR))
         self.setAcceptDrops(True)
         self.setWindowIcon(QIcon(":/images/Mini_Logo_Alantis_Learn_book.svg"))
-        #my_layout = QtW.QVBoxLayout()
-        #self.setLayout(my_layout)
-
-    def dragEnterEvent(self, e):
-        e.accept()
-
 
 
 class PipelineMother(QtW.QMainWindow):
@@ -208,9 +202,10 @@ class PipelineMother(QtW.QMainWindow):
         self.notes : NotesSubwindow = []
         self.train_models = None
 
+        self.setLayout(QtW.QVBoxLayout())
+
         toolbar = QtW.QToolBar()
         self.main_thing = PipelineMDIArea(self)
-        
         self.add_pipeline_button = QtW.QPushButton("Add Pipeline")
         self.add_pipeline_button.setIcon(QIcon(":/images/add_pipeline.svg"))
         self.add_pipeline_button.clicked.connect(self.add_pipeline)

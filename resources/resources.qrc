@@ -1,5 +1,8 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
+    <qresource prefix="/styles">
+        <file>new_stylesheet.css</file>
+    </qresource>
     <qresource prefix="/example_datasets">
         <file>car_crashes.csv</file>
         <file>diamonds.csv</file>

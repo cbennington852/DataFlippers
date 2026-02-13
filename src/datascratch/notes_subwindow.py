@@ -74,9 +74,21 @@ class NotesSubwindow(QtW.QMdiSubWindow):
     def __init__(self, parent , ptr_to_pipeline_parent, **kwargs):
         super().__init__(parent, **kwargs)
         self.my_parent = ptr_to_pipeline_parent
+        self.setWindowTitle("Notepad")
         self.setWindowFlag(Qt.WindowMinimizeButtonHint , True)
+        # Nessicaty to enable draging via reszing. 
+        # self.setStyleSheet("""
+        #                    QMdiSubWindow {
+        #                    border-top: none;
+        #                     border-bottom: 2px solid transparent;
+        #                     border-right: 2px solid transparent;
+        #                     border-left: 2px solid transparent;
+        #                    }
+                           
+        #                    """)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint , False)
         self.resize(NotesSubwindow.BASE_WIDTH , NotesSubwindow.BASE_HEIGHT)
+
         self.cursor_bold = False
 
         # Adding a text editor
