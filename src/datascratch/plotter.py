@@ -19,7 +19,19 @@ import threading
 from datascratch.GUI_libary_and_pipeline_mother import PipelineMother , Pipeline
 import matplotlib.pyplot as plt
 from datascratch.predictor_GUI import PredictionGUI
+from PyQt5.QtGui import QDrag , QPixmap , QPainter , QPalette , QImage , QColor , QPolygon, QPen, QBrush, QIcon
 from datascratch.descriptor_statistics_GUI import DescriptorStatisticsGUI , GeneralDescriptor
+
+
+class EfficientCanvas(FigureCanvasQTAgg):
+
+    # Change it to be where we render the figure using SVG's
+    # Using an PyQt image instead of this awful QTAgg backend.
+    # This image should be temporary and have try catch finally to ensure it is removed. 
+
+    def __init__(self , fig , **kwargs):
+        super().__init__( fig , **kwargs)
+
 
 # This is at the top to allow for pcikle to access it!
 def runner_wrapper(queue , main_dataframe , curr_pipelines , pipeline_x_values , pipeline_y_values):
@@ -65,8 +77,8 @@ class Plotter(QtW.QTabWidget):
         ax2.set_xlabel('X Axis')
         ax2.set_ylabel('Y Axis')
 
-        self.visual_plot = FigureCanvasQTAgg(fig)
-        self.accuracy_plot = FigureCanvasQTAgg(fig)
+        self.visual_plot = EfficientCanvas(fig)
+        self.accuracy_plot = EfficientCanvas(fig)
 
         self.prediction_tab = QWidget()
         self.descriptive_statistics = QWidget()
@@ -227,7 +239,7 @@ class Plotter(QtW.QTabWidget):
                 pipeline_group_box_lay.addRow(QtW.QLabel(stat_name) , QtW.QLabel(str(round(value , GeneralDescriptor.digit_rounding))))
             stats_layout.addWidget(pipeline_group_box)
 
-        main_layout.addWidget(FigureCanvasQTAgg(engine_results.accuracy_plot))
+        main_layout.addWidget(EfficientCanvas(engine_results.accuracy_plot))
         main_layout.addWidget(stats_box)
         scroller.setWidget(main_area)
         return scroller
@@ -239,7 +251,7 @@ class Plotter(QtW.QTabWidget):
             widget = self.widget(i)
             widget.deleteLater()
             del widget
-        self.visual_plot = FigureCanvasQTAgg(self.worker.engine_results.visual_plot)
+        self.visual_plot = EfficientCanvas(self.worker.engine_results.visual_plot)
         try:
             self.accuracy_plot = self.resolve_accuracy(self.worker.engine_results)
         except Exception as e:

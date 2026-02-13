@@ -179,10 +179,13 @@ class GUILibary(QtW.QTabWidget):
 
     def cols_tab(self):
         cols = ColumnsSubmodule(self.dataframe.columns.to_list())
-        scroll = QtW.QScrollArea()
-        scroll.setWidget(cols)
-        scroll.setWidgetResizable(True)
-        return scroll
+        regressor_box = QtW.QWidget()
+        regressor_layout = QtW.QVBoxLayout()
+        regressor_box.setLayout(regressor_layout)
+        scroller = QtW.QScrollArea()
+        scroller.setWidget(cols)
+        regressor_layout.addWidget(scroller)
+        return regressor_box
 
 
 
@@ -202,7 +205,6 @@ class PipelineMother(QtW.QMainWindow):
         self.notes : NotesSubwindow = []
         self.train_models = None
 
-        self.setLayout(QtW.QVBoxLayout())
 
         toolbar = QtW.QToolBar()
         self.main_thing = PipelineMDIArea(self)
@@ -216,9 +218,9 @@ class PipelineMother(QtW.QMainWindow):
         self.add_notes_button.clicked.connect(self.add_notes)
         toolbar.addWidget(self.add_notes_button)
 
-        self.add_video = QtW.QPushButton("Add Video")
-        self.add_video.clicked.connect(self.add_video_widget)
-        toolbar.addWidget(self.add_video)
+        #self.add_video = QtW.QPushButton("Add Video")
+        #self.add_video.clicked.connect(self.add_video_widget)
+        #toolbar.addWidget(self.add_video)
 
         self.setCentralWidget(self.main_thing)
         self.addToolBar(toolbar)
@@ -240,10 +242,10 @@ class PipelineMother(QtW.QMainWindow):
             lst_notes_data.append(note.to_notes_data())
         return lst_notes_data
     
-    def add_video_widget(self):
-        new_video = VideoSubwindow(self.main_thing , self)
-        new_video.show()
-        new_video.move(80 , 60)
+    # def add_video_widget(self):
+    #     new_video = VideoSubwindow(self.main_thing , self)
+    #     new_video.show()
+    #     new_video.move(80 , 60)
 
       
     def get_data(self) -> list[PipelineData]:

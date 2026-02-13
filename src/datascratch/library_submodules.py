@@ -22,7 +22,9 @@ class ColumnsSubmodule(QtW.QWidget):
         super().__init__(**kwargs)
         self.my_layout = QVBoxLayout(self)
         self.setAcceptDrops(True)
-        self.setMinimumHeight(250)
+        sp = self.sizePolicy()
+        sp.setHorizontalPolicy(QtW.QSizePolicy.Expanding)
+        self.setSizePolicy(sp)
         self.lst_cols = lst_cols
         for col in self.lst_cols:
             new_widget = DraggableColumn(col)

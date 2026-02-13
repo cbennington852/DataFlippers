@@ -41,8 +41,10 @@ class DraggableColumn(QPushButton):
         temp_label.adjustSize()
         required_text_width = temp_label.width()
         self.label_inferred_width = temp_label.width()
-        self.setMaximumWidth(required_text_width + 60)
+        self.setMinimumWidth(required_text_width + 60)
         self.setFixedHeight(DraggableColumn.BASE_HEIGHT)
+
+        print("Perecieved  width" , self.width())
 
     def copy_self(self):
         return DraggableColumn(

@@ -58,12 +58,12 @@ class MainMenu(QMainWindow):
 
         # Render example dataset list
         example_datasets = [
-            "car_crashes",
-            "diamonds",
-            "iris",
+            "diamonds_measurements",
+            "flower_measurements",
+            "penguins",
+            "pokemon",
             "random_data",
             "tips",
-            "wine",
         ]
 
         def open_on_dataset(dataset_name):
@@ -293,27 +293,7 @@ class MainWindow(QMainWindow):
         open_action = QAction("Open Project" , self)
         open_action.triggered.connect(self.open_button_pressed)
         file_menu.addAction(open_action)
-        #name_project = QtW.QLineEdit()
-        #name_project.setText("My Project")
-        #name_project.setAlignment(Qt.AlignCenter)
-
-        # Left expander
-        left_expander = QtW.QWidget()
-        left_expander.setSizePolicy(
-            QtW.QSizePolicy.Policy.Expanding,
-            QtW.QSizePolicy.Policy.Ignored
-        )
-
-        right_expander = QtW.QWidget()
-        right_expander.setSizePolicy(
-            QtW.QSizePolicy.Policy.Expanding,
-            QtW.QSizePolicy.Policy.Ignored
-        )
-
         menu.addWidget(tool_button)
-        menu.addWidget(left_expander)
-        #menu.addWidget(name_project)
-        menu.addWidget(right_expander)
 
 
 
