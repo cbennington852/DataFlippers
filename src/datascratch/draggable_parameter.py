@@ -31,7 +31,7 @@ class IntSingleLine(QtW.QSpinBox):
         self.setValue(value)
 
     def text(self):
-        return int(super().text())
+        return str(int(super().text()))
 
 class FloatSingleLine(QtW.QDoubleSpinBox):
     def __init__(self , name , value,  **kwargs):
@@ -41,7 +41,7 @@ class FloatSingleLine(QtW.QDoubleSpinBox):
         self.setValue(value)
 
     def text(self):
-        return float(super().text())
+        return str(float(super().text()))
 
 class BooleanSingleLine(QtW.QCheckBox):
     def __init__(self , name , value,  **kwargs):
@@ -49,7 +49,7 @@ class BooleanSingleLine(QtW.QCheckBox):
         self.setChecked(value)
 
     def text(self):
-        return self.isChecked()
+        return str(self.isChecked())
     
 class StringListSingleLine(QtW.QComboBox):
     def __init__(self , name , value,  **kwargs):

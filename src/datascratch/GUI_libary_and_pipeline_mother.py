@@ -178,12 +178,20 @@ class GUILibary(QtW.QTabWidget):
 
 
     def cols_tab(self):
-        cols = ColumnsSubmodule(self.dataframe.columns.to_list())
+        cols = ColumnsSubmodule(self.dataframe.columns.to_list() , self.dataframe , True)
+        cols_2 = ColumnsSubmodule(self.dataframe.columns.to_list() , self.dataframe , False)
+
+        box_holder = QtW.QWidget()
+        box_holder_layout = QtW.QVBoxLayout()
+        box_holder.setLayout(box_holder_layout)
+        box_holder_layout.addWidget(cols)
+        box_holder_layout.addWidget(cols_2)
+
         regressor_box = QtW.QWidget()
         regressor_layout = QtW.QVBoxLayout()
         regressor_box.setLayout(regressor_layout)
         scroller = QtW.QScrollArea()
-        scroller.setWidget(cols)
+        scroller.setWidget(box_holder)
         regressor_layout.addWidget(scroller)
         return regressor_box
 
@@ -198,10 +206,11 @@ class PipelineMDIArea(QtW.QMdiArea):
 
 
 class PipelineMother(QtW.QMainWindow):
-    def __init__(self, **kwargs):
+    def __init__(self, dataframe , **kwargs):
         super().__init__(**kwargs)
         self.setWindowFlags(Qt.WindowType.Widget)
         self.pipelines : Pipeline = []
+        self.dataframe = dataframe
         self.notes : NotesSubwindow = []
         self.train_models = None
 
@@ -227,7 +236,7 @@ class PipelineMother(QtW.QMainWindow):
 
         self.add_pipeline()
 
-        self.columns_subwindow = ColumnsMDIWindow(self.main_thing)
+        self.columns_subwindow = ColumnsMDIWindow(self.main_thing , self.dataframe)
         
         self.x_columns = self.columns_subwindow.x_columns
         self.y_columns = self.columns_subwindow.y_columns
@@ -294,8 +303,9 @@ class PipelineMother(QtW.QMainWindow):
 class ColumnsMDIWindow(QtW.QMdiSubWindow):
     BASE_HEIGHT = 300
     BASE_WIDTH = 400
-    def __init__(self, parent , **kwargs):
+    def __init__(self, parent , dataframe , **kwargs):
         super().__init__(parent, **kwargs)
+        self.dataframe = dataframe
         self.setFixedSize(ColumnsMDIWindow.BASE_WIDTH , ColumnsMDIWindow.BASE_HEIGHT)
         main_widget = QtW.QWidget()
         mayo = QtW.QVBoxLayout()
@@ -341,11 +351,13 @@ class ColumnsMDIWindow(QtW.QMdiSubWindow):
         self.x_columns = ColumnsSection(
             "Inputs",
             my_parent=self,
+            dataframe=self.dataframe,
             max_num_cols=400
         )
         self.y_columns = ColumnsSection(
             "Outputs",
             my_parent=self,
+            dataframe=self.dataframe,
             max_num_cols=1
         )
 

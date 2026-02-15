@@ -74,6 +74,12 @@ class ConvertedColumn():
         self.column_name = column_name
         self.code_map = code_map.tolist()
 
+    def check_if_col_name_in_list_converted_columns(list_converted_cols : list , col_name : str):
+        for converted_col in list_converted_cols:
+            if converted_col.column_name == col_name:
+                return converted_col
+        return None
+
     def convert_int_to_string(self , value):
         return self.code_map[value]
     
@@ -213,8 +219,7 @@ class SklearnEngine():
             main_dataframe_copy = main_dataframe.copy(deep=True)
         except Exception as e:
             raise InternalEngineError(f"Failed to deep copy the dataframe : {str(e)}")
-        
-        
+          
         # Drop NaN
         main_dataframe_copy = main_dataframe_copy.dropna()
 
@@ -228,6 +233,8 @@ class SklearnEngine():
         main_dataframe_copy , list_converted_columns = SklearnEngine.factorize_string_cols(main_dataframe_copy , pipeline_x_values , pipeline_y_value)
         print("List converted" , list_converted_columns)
         # Preform basic validation on the inputs
+
+        # Plot no model can be called here, if no models were inputted. 
         result_validation = SklearnEngine.validate_column_inputs(main_dataframe_copy , curr_pipelines, pipeline_x_values , pipeline_y_value, list_converted_columns)
 
         if result_validation:
@@ -292,6 +299,7 @@ class SklearnEngine():
                 )
                 list_code_maps.append(new_code_map)
         return main_dataframe , list_code_maps
+
     
     def handle_2d_column_conversion(ax , list_converted_columns , pipeline_x_values , pipeline_y_value):
         def list_of_indexes(converted_col) -> list[int]:
@@ -310,27 +318,44 @@ class SklearnEngine():
                 ax.set_yticks(list_of_indexes(converted_col))
                 ax.set_yticklabels(converted_col.code_map)
     
-    def plot_no_model(main_dataframe , curr_pipeline , pipeline_x_values , pipeline_y_value , list_converted_columns):
+    def plot_no_model(main_dataframe , curr_pipeline , pipeline_x_values , pipeline_y_value , list_converted_columns : list[ConvertedColumn]):
         # load x and y_values        
         x = main_dataframe[pipeline_x_values]
         y = main_dataframe[pipeline_y_value].iloc[:, 0]
         if (len(pipeline_x_values) == 1 and len(pipeline_y_value) == 1):
-            # 2d scatterplot.
-            fig, ax = plt.subplots()
-            color_cycle = SklearnEngine.get_color_map()
-            ax.scatter(x , y , color=color_cycle[0], label=f"Dataset")
-            ax.set_title(f"{pipeline_x_values[0]} and {pipeline_y_value[0]}")
-            SklearnEngine.handle_2d_column_conversion(
-                ax,
-                list_converted_columns,
-                pipeline_x_values,
-                pipeline_y_value
-            )
-            ax.set_xlabel(f"{pipeline_x_values[0]}")
-            ax.set_ylabel(f"{pipeline_y_value[0]}")
-            ax.legend(loc='upper left')
-            return fig
-        
+            conv_x_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(pipeline_x_values) 
+            conv_y_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(pipeline_y_value) 
+            if (conv_x_col != None) and (conv_y_col == None):
+                pass
+                # Make new dataframe
+                # df_box_plot = pd.DataFrame({})
+                # new_data = {'Points': 48.2, 'Score': 59.5, 'Weight': 42.1}
+                # df_box_plot = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
+                box_data = {}
+                conv_x_col.code_map # This is an array, with each index, being the code. 
+                for k in range(0 , len(x)):
+                    curr_x = x[k]
+                    curr_y = y[k]
+                    curr_key = conv_x_col.code_map[curr_x]
+                    box_data[curr_key] = curr_y
+                print(box_data)
+            elif  (conv_x_col == None) and (conv_y_col != None):
+                pass
+            else: # 2d scatterplot
+                fig, ax = plt.subplots()
+                color_cycle = SklearnEngine.get_color_map()
+                ax.scatter(x , y , color=color_cycle[0], label=f"Dataset" , alpha=SklearnEngine.get_scatter_alpha_value(len(x)))
+                ax.set_title(f"{pipeline_x_values[0]} and {pipeline_y_value[0]}")
+                SklearnEngine.handle_2d_column_conversion(
+                    ax,
+                    list_converted_columns,
+                    pipeline_x_values,
+                    pipeline_y_value
+                )
+                ax.set_xlabel(f"{pipeline_x_values[0]}")
+                ax.set_ylabel(f"{pipeline_y_value[0]}")
+                ax.legend(loc='upper left')
+                return fig
         elif (len(pipeline_x_values) == 2 and len(pipeline_y_value) == 1):
             color_cycle = SklearnEngine.get_color_map()
             fig = plt.figure()

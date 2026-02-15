@@ -58,9 +58,10 @@ class MainMenu(QMainWindow):
 
         # Render example dataset list
         example_datasets = [
+            "minecraft_biome_and_block_counts",
+            "penguins",
             "diamonds_measurements",
             "flower_measurements",
-            "penguins",
             "pokemon",
             "random_data",
             "tips",
@@ -162,7 +163,7 @@ class MainWindow(QMainWindow):
         self.libary = GUILibary(self.dataframe)
         self.dataframeViewer = DataframeViewer(self.dataframe)
         
-        self.pipeline_mother = PipelineMother()
+        self.pipeline_mother = PipelineMother(self.dataframe)
 
         self.plotter = Plotter(self.pipeline_mother , self.dataframe)
         

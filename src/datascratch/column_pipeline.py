@@ -6,10 +6,11 @@ from PyQt5.QtCore import  QPoint
 from PyQt5.QtCore import Qt
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch import drag_and_drop_utility as dnd
+import pandas as pd
 
 
 class ColumnsSection(QtW.QGroupBox):
-    def __init__(self , title, my_parent , max_num_cols = 100, **kwargs):
+    def __init__(self , title, my_parent , dataframe, max_num_cols = 100, **kwargs):
         """
         A droppable holder for the ColumnsMDI subwindow. 
 
@@ -19,6 +20,7 @@ class ColumnsSection(QtW.QGroupBox):
             max_num_cols (int, optional): Defaults to 100.
         """
         super().__init__( **kwargs)
+        self.dataframe = dataframe
         self.my_title = title
         self.my_parent = my_parent
         self.max_num_cols = max_num_cols
@@ -67,7 +69,13 @@ class ColumnsSection(QtW.QGroupBox):
         """
         return len(self.get_cols())
     
-    def set_cols_as_string_list(self , str_lst : list[str]):
+    def determine_hex_color_for_column(col_name , dataframe):
+        if pd.api.types.is_string_dtype(dataframe[col_name].dtype):
+            return AppAppearance.DRAGGABLE_COLUMN_COLOR_CLASS
+        else:
+            return AppAppearance.DRAGGABLE_COLUMN_COLOR
+    
+    def set_cols_as_string_list(self , str_lst : list[str]): # Col_name , hex_value
         """
         Changes this columns section to be a specified string list. Part of loading 
         from a file. 
@@ -80,8 +88,9 @@ class ColumnsSection(QtW.QGroupBox):
             if isinstance(child , DraggableColumn):
                 child.deleteLater()
         # now generate an add the new widgets. 
-        for curr in str_lst:
-            new_drag = DraggableColumn(curr)
+        for curr  in str_lst:
+            hex_value = ColumnsSection.determine_hex_color_for_column(curr , self.dataframe)
+            new_drag = DraggableColumn(curr , hex_value)
             self.my_layout.addWidget(new_drag)
         
     

@@ -8,11 +8,12 @@ from datascratch.column_pipeline import DraggableColumn , ColumnsSection
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch import drag_and_drop_utility as dnd
+import pandas as pd
 from datascratch.draggable_pipeline import PipelineSection
 
 
-class ColumnsSubmodule(QtW.QWidget):
-    def __init__(self , lst_cols , **kwargs):
+class ColumnsSubmodule(QtW.QGroupBox):
+    def __init__(self , lst_cols , dataframe, classes_cols , **kwargs):
         """
         A part of the GUI library, this renders a group of draggable columns to the library. 
 
@@ -22,19 +23,37 @@ class ColumnsSubmodule(QtW.QWidget):
         super().__init__(**kwargs)
         self.my_layout = QVBoxLayout(self)
         self.setAcceptDrops(True)
+        self.classes_cols = classes_cols
+        if self.classes_cols:
+            self.setTitle("Classifier only")
+        else:
+            self.setTitle("Any model")
         sp = self.sizePolicy()
         sp.setHorizontalPolicy(QtW.QSizePolicy.Expanding)
         self.setSizePolicy(sp)
         self.lst_cols = lst_cols
         for col in self.lst_cols:
-            new_widget = DraggableColumn(col)
-            self.my_layout.addWidget(new_widget)
+            if classes_cols == True:
+                if pd.api.types.is_string_dtype(dataframe[col].dtype):
+                    new_widget = DraggableColumn(col , AppAppearance.DRAGGABLE_COLUMN_COLOR_CLASS)
+                    self.my_layout.addWidget(new_widget)
+                else:
+                    pass
+            else:
+                if pd.api.types.is_string_dtype(dataframe[col].dtype):
+                    pass
+                else:
+                    new_widget = DraggableColumn(col , AppAppearance.DRAGGABLE_COLUMN_COLOR)
+                    self.my_layout.addWidget(new_widget)
 
     def dragEnterEvent(self, e):
         pos = e.pos()
         widget = e.source()
         e.accept()
 
+
+    
+        
     def dropEvent(self, e):
         """
         An event where something is dropped onto the library. 

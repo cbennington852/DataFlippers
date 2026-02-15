@@ -18,9 +18,10 @@ from markdown import markdown
 class DraggableColumn(QPushButton):
     BASE_HEIGHT = 50
 
-    def __init__(self, name, **kwargs):
+    def __init__(self, name, hex_color,  **kwargs):
         super().__init__(**kwargs) 
         self.kwargs = kwargs
+        self.hex_color = hex_color
         self.name = name
         self.setFlat(True)
         self.hovering = False
@@ -49,6 +50,7 @@ class DraggableColumn(QPushButton):
     def copy_self(self):
         return DraggableColumn(
             name=self.name,
+            hex_color=self.hex_color,
             **self.kwargs
         )
 
@@ -110,7 +112,7 @@ class DraggableColumn(QPushButton):
             rect.adjust(2,2,2,2)
         
 
-        painter.setBrush(QColor(AppAppearance.DRAGGABLE_COLUMN_COLOR))
+        painter.setBrush(QColor(self.hex_color))
         if self.hovering:
             painter.setPen(QPen(QColor(AppAppearance.DRAGGABLE_HOVER_COLOR) , 3 , QtCore.Qt.SolidLine))
         else:
@@ -430,6 +432,7 @@ class ParameterPopup(QtW.QWidget):
         description_label.setToolTip(self.doc_string.long_description)
         self.my_layout.insertRow(0 , description_label , self.reset_button)
         for parameter_name , default_value in self.draggable_data.parameters:
+            print(f" {parameter_name} ... {default_value} ... {type(default_value)}")
             curr = parameter_filter(parameter_name , default_value)
             parameter_label = QtW.QLabel(parameter_name)
             md_to_html = markdown(self.doc_string_map[parameter_name].description)

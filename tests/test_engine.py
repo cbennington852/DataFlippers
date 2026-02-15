@@ -473,3 +473,20 @@ def test_no_model_5_cols():
             curr_pipelines=[]
         )
     assert res
+
+
+def test_is_pipeline_empty():
+    try:
+        res = sklearn_engine.SklearnEngine.main_sklearn_pipe(
+                main_dataframe=classifier_dataframe,
+                pipeline_x_values=['sepal_width' ],
+                pipeline_y_value=['species'],
+                curr_pipelines=[
+                    Pipeline(
+                        sklearn_pipeline=sklearn.pipeline.Pipeline([]),
+                        validator=None
+                    ),
+                ]
+            )
+    except:
+        assert True

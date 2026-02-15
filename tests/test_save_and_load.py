@@ -37,10 +37,12 @@ def setup_test_environment_one():
 
     drag_col_x = DraggableColumn(
         'Example Chemical 1',
+        "#ffffff",
         parent=curr_cols_sub.x_columns
     )
     drag_col_y = DraggableColumn(
         'Example Chemical 2',
+        "#ffffff",
         parent=curr_cols_sub.x_columns
     )
 
@@ -103,10 +105,12 @@ def setup_test_environment_two():
 
 
     drag_col_x = DraggableColumn(
-        'Example Chemical 1'
+        'Example Chemical 1',
+         "#ffffff",
     )
     drag_col_y = DraggableColumn(
-        'Example Chemical 2'
+        'Example Chemical 2',
+         "#ffffff",
     )
 
     # Add it
