@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 from abc import ABC , abstractmethod
 import sys
+import traceback
 from matplotlib.colors import ListedColormap
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 
@@ -321,35 +322,49 @@ class SklearnEngine():
     
     def plot_no_model(main_dataframe , curr_pipeline , pipeline_x_values , pipeline_y_value , list_converted_columns : list[ConvertedColumn]):
         # load x and y_values        
-        x = main_dataframe[pipeline_x_values]
-        y = main_dataframe[pipeline_y_value].iloc[:, 0]
+        x = main_dataframe[pipeline_x_values].iloc[:, 0]
+        y = main_dataframe[pipeline_y_value].iloc[:, 0] # 
         pipeline_x_name = pipeline_x_values[0]
         pipeline_y_name = pipeline_y_value[0]
         if (len(pipeline_x_values) == 1 and len(pipeline_y_value) == 1):
-            print(pipeline_x_values , pipeline_y_value)
-            print()
             conv_x_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(list_converted_columns ,  pipeline_x_name) 
             conv_y_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(list_converted_columns , pipeline_y_name) 
-            print(conv_x_col , conv_y_col)
-            print("Hello from other proccess")
-            print(f"First {(conv_x_col != None) } Second {(conv_y_col == None)}")
             if (conv_x_col != None) and(conv_y_col == None):
-                # Make new dataframe
-                # df_box_plot = pd.DataFrame({})
-                # new_data = {'Points': 48.2, 'Score': 59.5, 'Weight': 42.1}
-                # df_box_plot = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
                 box_data = {}
-                conv_x_col.code_map # This is an array, with each index, being the code. 
                 for k in range(0 , len(x)):
-                    curr_x = x[k]
-                    curr_y = y[k]
+                    curr_x = x.iloc[k]
+                    curr_y = y.iloc[k]
                     curr_key = conv_x_col.code_map[curr_x]
-                    box_data[curr_key] = curr_y
-                    print("Itter" , curr_x , curr_y , curr_key)
-
-                print( "Box Data" , str(box_data))
-            elif  (conv_x_col == None) and (conv_y_col != None):
-                pass
+                    if curr_key not in box_data:
+                        box_data[curr_key] = [curr_y]
+                    else:
+                        box_data[curr_key].append(curr_y)
+                labels = list(box_data.keys())
+                data = list(box_data.values())
+                fig, ax = plt.subplots()
+                ax.boxplot(data, tick_labels=labels)
+                ax.set_title(f"{pipeline_x_values[0]} and {pipeline_y_value[0]}")
+                ax.set_xlabel(f"{pipeline_x_values[0]}")
+                ax.set_ylabel(f"{pipeline_y_value[0]}")
+                return fig
+            elif (conv_x_col == None) and (conv_y_col != None):
+                box_data = {}
+                for k in range(0 , len(x)):
+                    curr_x = x.iloc[k]
+                    curr_y = y.iloc[k]
+                    curr_key = conv_y_col.code_map[curr_y]
+                    if curr_key not in box_data:
+                        box_data[curr_key] = [curr_x]
+                    else:
+                        box_data[curr_key].append(curr_x)
+                labels = list(box_data.keys())
+                data = list(box_data.values())
+                fig, ax = plt.subplots()
+                ax.boxplot(data, tick_labels=labels , vert=False)
+                ax.set_title(f"{pipeline_x_values[0]} and {pipeline_y_value[0]}")
+                ax.set_xlabel(f"{pipeline_x_values[0]}")
+                ax.set_ylabel(f"{pipeline_y_value[0]}")
+                return fig
             else: # 2d scatterplot
                 fig, ax = plt.subplots()
                 color_cycle = SklearnEngine.get_color_map()
