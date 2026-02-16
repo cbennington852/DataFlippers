@@ -317,7 +317,6 @@ class PlotterWorker(QtCore.QObject):
         while process.is_alive():
             # Check for cancel option
             is_interruption = self.thread().isInterruptionRequested()
-            print("Interruption status: " , is_interruption )
             if is_interruption == True:
                 process.kill()
                 self.crashed.emit(PlotterWorker.INTERRUPT_TITLE , PlotterWorker.INTERRUPT_MESSAGE)
@@ -325,15 +324,12 @@ class PlotterWorker(QtCore.QObject):
             
             # Check for the result
             if not queue.empty():
-                print("Got results")
                 results = queue.get()
             else:
-                print("Results empty")
-            print("Still alive")
-        print("Exit code: ", process)
-        print("Results: " , results)
+                pass
         if isinstance(results , Exception):
             self.crashed.emit("Error: " , str(results))
+            traceback.print_exception(results)
         else:
             self.engine_results = results
             self.finished.emit()

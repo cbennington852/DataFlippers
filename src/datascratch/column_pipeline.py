@@ -115,7 +115,6 @@ class ColumnsSection(QtW.QGroupBox):
             if (item.widget() is not None):
                 widget = item.widget()
                 res_cols.append(widget)
-                print("internal widget" , widget)
         return res_cols
     
     # The 

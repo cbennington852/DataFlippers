@@ -59,16 +59,11 @@ Scratch[@resnick2009scratch], a visual programming language designed for childre
 ![blocks v python](paper_images/python_v_scratch.png "Image showing equivalent python and scratch code.")
 To be clear. DataScratch is not intended to be a replacement for machine learning programming, but rather to give novices an introduction to machine learning. The goals of the project are similar to Scratch in this aspect. 
 
-## Language and core project libaries
-The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;sklearn_api], which are standard tools for machine learning. Another reason would be portability. If a user desires features that are beyond the scope of DataScratch, the software is built in a way the models and utilizes underlying data science libraries, to make the transition from using DataScratch to programming in python easier.
-
-![overview of software flow](paper_images/inner_workings_drawing.svg "Image showing the software design of the GUI")
-
 ## History
 The GUI software was originally written using a python library called PyGtk[@pygobject2025], however after several months of development this library was dropped, due to the PyGtk library having a non-functional pip installation, and graphical issues when run on windows. Additionally, electron was considered, with the benefit being easier styling, however it did not posses seamless python support. The project later switched to PyQt, which featured cross platform support, and allowed for installation via pip by default. 
 
 ## Drag and drop design
-The drag and drop interface is designed to be easy to use, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later.  
+The drag and drop interface is designed to reduce the syntactic complexity of programming down to drag and drop blocks, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later.  
 ![blocks v python](paper_images/Python_v_datascratch.png "Image showing the complexity of coding versus the new drag and drop interface.")
 
 The interface also enables the user to assemble and train multiple models at once, allowing for quick model comparison. This enables common user desires within data science, where data scientists often compare and contrast models. Another purpose of this feature is to allow users to learn the differences between certain models. 
@@ -76,7 +71,17 @@ The interface also enables the user to assemble and train multiple models at onc
 
 Additionally, Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[CITATION] and [FIND ONE MORE AND CITE IT].  
 
+![full software](paper_images/Full_software.png "Image showing a full view of the DataScratch suite.")
+
 The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataScratch also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired.
+
+## Language and core project libaries
+The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;sklearn_api], which are standard tools for machine learning. Another reason would be portability. If a user desires features that are beyond the scope of DataScratch, the software is built in a way the models and utilizes underlying data science libraries, to make the transition from using DataScratch to programming in python easier.
+
+![overview of software flow](paper_images/inner_workings_drawing.svg "Image showing the software design of the GUI")
+
+
+
 
 # Research impact statement
 

@@ -1,0 +1,32 @@
+<PyQt5.QtCore.QFile object at 0x7b0d79e3c830> <PyQt5.QtCore.QTextStream object at 0x7b0d7a0c5fd0>
+Recent files opened ['/home/ella/Desktop/my_project.dscr', 'data_test.pkl', '/home/ella/Desktop/test_file.dscr', 'test_7.pkl', '/home/ella/Desktop/test_notes_saving.dscr', '/home/ella/Desktop/new_test.dscr']
+Perecieved  width 640
+Perecieved  width 640
+Perecieved  width 640
+Perecieved  width 640
+Perecieved  width 640
+Perecieved  width 640
+Perecieved  width 640
+Perecieved  width 640
+Perecieved  width 640
+Perecieved  width 640
+End found
+Perecieved  width 640
+End found
+Perecieved  width 640
+End found
+Pipeline:   From:  <datascratch.library_submodules.PipelineSubmodule object at 0x7b0d79e3e3c0>   To:  <datascratch.draggable_pipeline.PipelineSection object at 0x7b0d79e82c30>
+End found
+Last step model :  RandomForestRegressor()
+List converted []
+Engine :  <datascratch.sklearn_engine.EngineResults object at 0x7b0d7a2a3470>
+stat: Mean Squared Error , Val:29157.777445788688
+stat: Explained Variance , Val:0.9548938995195032
+stat: R² , Val:0.9548938262626481
+X_col bill_depth_mm
+X_col bill_length_mm
+HIIIII <datascratch.descriptor_statistics_GUI.DescriptorStatisticsGUI object at 0x7b0d79edd520>
+Pipeline:   From:  <datascratch.library_submodules.PipelineSubmodule object at 0x7b0d79e3fd10>   To:  <datascratch.draggable_pipeline.PipelineSection object at 0x7b0d79e82b10>
+End found
+Last step model :  RandomForestRegressor()
+List converted []

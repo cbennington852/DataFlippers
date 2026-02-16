@@ -7,6 +7,7 @@ import os
 import pandas as pd
 import numpy as np
 from abc import ABC , abstractmethod
+import sys
 from matplotlib.colors import ListedColormap
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 
@@ -76,6 +77,7 @@ class ConvertedColumn():
 
     def check_if_col_name_in_list_converted_columns(list_converted_cols : list , col_name : str):
         for converted_col in list_converted_cols:
+            print("Iter" , converted_col.column_name , col_name)
             if converted_col.column_name == col_name:
                 return converted_col
         return None
@@ -167,7 +169,6 @@ class EngineResults():
         tmp_df = pd.DataFrame([x_values] , columns=self.x_cols)
         results = {}
         for pipeline in self.trained_models:
-            print("Temp DF " , tmp_df)
             curr = pipeline.predict(tmp_df)
             if self.list_converted_columns != []:
                 for converted_col in self.list_converted_columns:
@@ -322,11 +323,17 @@ class SklearnEngine():
         # load x and y_values        
         x = main_dataframe[pipeline_x_values]
         y = main_dataframe[pipeline_y_value].iloc[:, 0]
+        pipeline_x_name = pipeline_x_values[0]
+        pipeline_y_name = pipeline_y_value[0]
         if (len(pipeline_x_values) == 1 and len(pipeline_y_value) == 1):
-            conv_x_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(pipeline_x_values) 
-            conv_y_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(pipeline_y_value) 
-            if (conv_x_col != None) and (conv_y_col == None):
-                pass
+            print(pipeline_x_values , pipeline_y_value)
+            print()
+            conv_x_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(list_converted_columns ,  pipeline_x_name) 
+            conv_y_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(list_converted_columns , pipeline_y_name) 
+            print(conv_x_col , conv_y_col)
+            print("Hello from other proccess")
+            print(f"First {(conv_x_col != None) } Second {(conv_y_col == None)}")
+            if (conv_x_col != None) and(conv_y_col == None):
                 # Make new dataframe
                 # df_box_plot = pd.DataFrame({})
                 # new_data = {'Points': 48.2, 'Score': 59.5, 'Weight': 42.1}
@@ -338,7 +345,9 @@ class SklearnEngine():
                     curr_y = y[k]
                     curr_key = conv_x_col.code_map[curr_x]
                     box_data[curr_key] = curr_y
-                print(box_data)
+                    print("Itter" , curr_x , curr_y , curr_key)
+
+                print( "Box Data" , str(box_data))
             elif  (conv_x_col == None) and (conv_y_col != None):
                 pass
             else: # 2d scatterplot
