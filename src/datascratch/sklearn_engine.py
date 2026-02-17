@@ -365,6 +365,8 @@ class SklearnEngine():
                 ax.set_xlabel(f"{pipeline_x_values[0]}")
                 ax.set_ylabel(f"{pipeline_y_value[0]}")
                 return fig
+            # elif (conv_x_col != None) and(conv_y_col != None)
+            # we could make a stacked bar chart.
             else: # 2d scatterplot
                 fig, ax = plt.subplots()
                 color_cycle = SklearnEngine.get_color_map()

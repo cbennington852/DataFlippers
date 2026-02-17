@@ -30,3 +30,25 @@ End found
 List converted [<datascratch.sklearn_engine.ConvertedColumn object at 0x7a82c4f9eab0>]
 Iter sex sex
 Iter sex bill_depth_mm
+Engine :  <datascratch.sklearn_engine.EngineResults object at 0x78296f75fce0>
+'NoneType' object is not iterable
+ERROR PREDICTION GUI 'NoneType' object is not iterable
+X_col sex
+HIIIII <datascratch.descriptor_statistics_GUI.DescriptorStatisticsGUI object at 0x782974237f50>
+List converted [<datascratch.sklearn_engine.ConvertedColumn object at 0x74d9f5c76ba0>]
+Iter sex sex
+Iter sex bill_depth_mm
+Engine :  <datascratch.sklearn_engine.EngineResults object at 0x78297410cb00>
+'NoneType' object is not iterable
+ERROR PREDICTION GUI 'NoneType' object is not iterable
+X_col sex
+HIIIII <datascratch.descriptor_statistics_GUI.DescriptorStatisticsGUI object at 0x782974237da0>
+Perecieved  width 640
+End found
+End found
+List converted [<datascratch.sklearn_engine.ConvertedColumn object at 0x77d2893f8bc0>, <datascratch.sklearn_engine.ConvertedColumn object at 0x77d2898c4fb0>]
+Iter island island
+Iter island sex
+Iter sex sex
+Doing conversion
+Doing conversion
