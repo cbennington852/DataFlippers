@@ -1,15 +1,10 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QLabel
 import PyQt5.QtWidgets as QtW
-from PyQt5.QtCore import  QPoint
-from PyQt5.QtCore import Qt, QMimeData
-from PyQt5.QtGui import QDrag , QIcon
 import traceback
 import PyQt5.QtCore as QtCore 
 import pandas as pd
 import matplotlib.pyplot as plt
-import pickle
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
-from matplotlib.figure import Figure
+
+from datascratch.canvas_with_toolbar import CanvasWithToolbar
 
 from datascratch.sklearn_engine import EngineResults , Pipeline
 
@@ -90,7 +85,7 @@ class GeneralDescriptor(QtW.QGroupBox):
         self.render_left()
         self.render_right()
     def plot_chart(self, fig):
-        self.chart = FigureCanvasQTAgg(fig)
+        self.chart = CanvasWithToolbar(fig)
         height = 0
         if hasattr(self , 'left'):
             height = self.left.height()

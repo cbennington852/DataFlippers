@@ -517,7 +517,7 @@ class SklearnEngine():
     # We could also have for each (Visual and accuracy) it can return multiple charts. 
     # Maybe instead we have it return a list of axes, and then let the renderer figure out what to do. 
 
-    def get_scatter_alpha_value(number_data_points , minimum_alpha_value=0.1 , factor=3000):
+    def get_scatter_alpha_value(number_data_points , minimum_alpha_value=0.01 , factor=3000):
         """Calculates the alpha value based on the number of data points in a dataset
         """
         first_part = (-1 * ((number_data_points ** 2) / factor)) + 100

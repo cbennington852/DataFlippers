@@ -8,6 +8,7 @@ import multiprocessing
 import sys
 import time
 import matplotlib
+from datascratch.canvas_with_toolbar import CanvasWithToolbar
 import traceback
 matplotlib.use('Qt5Agg')
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg , NavigationToolbar2QT
@@ -22,23 +23,6 @@ from datascratch.predictor_GUI import PredictionGUI
 from PyQt5.QtGui import QDrag , QPixmap , QPainter , QPalette , QImage , QColor , QPolygon, QPen, QBrush, QIcon
 from datascratch.descriptor_statistics_GUI import DescriptorStatisticsGUI , GeneralDescriptor
 
-
-class EfficientCanvas(QtW.QWidget):
-
-    # Change it to be where we render the figure using SVG's
-    # Using an PyQt image instead of this awful QTAgg backend.
-    # This image should be temporary and have try catch finally to ensure it is removed. 
-
-    def __init__(self , fig , **kwargs):
-        super().__init__(**kwargs)
-        self.my_layout = QtW.QVBoxLayout()
-        self.setLayout(self.my_layout)
-
-        self.canvas = FigureCanvasQTAgg(fig)
-        self.toolbar = NavigationToolbar2QT(self.canvas , self)
-
-        self.my_layout.addWidget(self.toolbar)
-        self.my_layout.addWidget(self.canvas)
 
 
 
@@ -86,8 +70,8 @@ class Plotter(QtW.QTabWidget):
         ax2.set_xlabel('X Axis')
         ax2.set_ylabel('Y Axis')
 
-        self.visual_plot = EfficientCanvas(fig)
-        self.accuracy_plot = EfficientCanvas(fig)
+        self.visual_plot = CanvasWithToolbar(fig)
+        self.accuracy_plot = CanvasWithToolbar(fig)
 
         self.prediction_tab = QWidget()
         self.descriptive_statistics = QWidget()
@@ -248,7 +232,7 @@ class Plotter(QtW.QTabWidget):
                 pipeline_group_box_lay.addRow(QtW.QLabel(stat_name) , QtW.QLabel(str(round(value , GeneralDescriptor.digit_rounding))))
             stats_layout.addWidget(pipeline_group_box)
 
-        main_layout.addWidget(EfficientCanvas(engine_results.accuracy_plot))
+        main_layout.addWidget(CanvasWithToolbar(engine_results.accuracy_plot))
         main_layout.addWidget(stats_box)
         scroller.setWidget(main_area)
         return scroller
@@ -260,7 +244,7 @@ class Plotter(QtW.QTabWidget):
             widget = self.widget(i)
             widget.deleteLater()
             del widget
-        self.visual_plot = EfficientCanvas(self.worker.engine_results.visual_plot)
+        self.visual_plot = CanvasWithToolbar(self.worker.engine_results.visual_plot)
         try:
             self.accuracy_plot = self.resolve_accuracy(self.worker.engine_results)
         except Exception as e:
