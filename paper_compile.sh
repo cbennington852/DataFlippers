@@ -1,1 +1,1 @@
-pandoc paper.md --citeproc --bibliography=paper.bib -o preview.html
+pandoc paper.md --citeproc --bibliography=paper.bib -o preview.pdf
