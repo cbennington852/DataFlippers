@@ -65,7 +65,8 @@ Each drag and drop block is modeled after basic shapes, this gives the user visu
 
 Training multiple models at once is a core feature, allowing for quick model comparison. This enables common user desires within data science, where data scientists often compare and contrast models. Another purpose of this feature is to allow users to learn the differences between certain models. 
 
-![Image showing the model comparison. This would allow novices to understand and visually see the differences between different types of machine learning models. This example shows a comparison between a DecisionTreeRegressor, and a LinearRegressor.  ](paper_images/Example_model_comparison.svg "Image showing model comparison for the software. ")
+![Image showing the model comparison. This would allow novices to understand and visually see the differences between different types of machine learning models. This example shows a comparison between a DecisionTreeRegressor, and a LinearRegressor.  ](paper_images/Example_model_comparison.png "Image showing model comparison for the software. ")
+
 
 Users are also enabled to perform basic statistical analysis, this can be done by removing all of the pipeline blocks, and only plotting via the "Inputs and Outputs" block. The software also automatically runs a descriptive statistics plotting on all columns inputted, whenever a model training job is submitted. 
 
@@ -78,6 +79,8 @@ The interface also allows the user to input manual predictions, allowing for nov
 Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft].  
 
 ![Image of the fullscreen DataScratch project page. The example dataset here is the penguins dataset.  ](paper_images/Full_software.png "Image showing a full view of the DataScratch suite.")
+
+
 
 ## Software architecture core project libraries
 The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;sklearn_api], which are standard tools for teaching machine learning[@burridge2022teaching]. 

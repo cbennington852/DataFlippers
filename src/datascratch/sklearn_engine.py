@@ -319,6 +319,8 @@ class SklearnEngine():
                 print("Doing conversion")
                 ax.set_yticks(list_of_indexes(converted_col))
                 ax.set_yticklabels(converted_col.code_map)
+
+                
     
     def plot_no_model(main_dataframe , curr_pipeline , pipeline_x_values , pipeline_y_value , list_converted_columns : list[ConvertedColumn]):
         # load x and y_values        
