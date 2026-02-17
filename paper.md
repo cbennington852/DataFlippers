@@ -54,7 +54,6 @@ The platforms that are free and tailored to students, such as JASP[@JASP2025] is
 
 ## Inspiration
 Scratch[@resnick2009scratch], a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when the transition to "real" programming[@armoni2015scratch].
-![Image showing the similarities between python and scratch.](paper_images/python_v_scratch.png "Image showing equivalent python and scratch code.")
 
 ## Drag and drop design
 The drag and drop interface is designed to reduce the syntactic complexity of programming down to drag and drop blocks, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later. 
@@ -65,11 +64,12 @@ The drag and drop interface is designed to reduce the syntactic complexity of pr
 Each drag and drop block is modeled after basic shapes, this gives the user visual signifier, indicating where each block should be dropped on the interface. This ensures the interface is intuitive to people without machine learning experience. 
 
 Training multiple models at once is a core feature, allowing for quick model comparison. This enables common user desires within data science, where data scientists often compare and contrast models. Another purpose of this feature is to allow users to learn the differences between certain models. 
+
 ![Image showing the model comparison. This would allow novices to understand and visually see the differences between different types of machine learning models. This example shows a comparison between a DecisionTreeRegressor, and a LinearRegressor.  ](paper_images/Example_model_comparison.svg "Image showing model comparison for the software. ")
 
 Users are also enabled to perform basic statistical analysis, this can be done by removing all of the pipeline blocks, and only plotting via the "Inputs and Outputs" block. The software also automatically runs a descriptive statistics plotting on all columns inputted, whenever a model training job is submitted. 
 
-![Image showing the basic statistical capabilities of the DataScratch framework. This shows the island type versus the bill length on the penguins.](paper_images/basic_stats.png "Image showing model comparison for the software. ")
+![Image showing the basic statistical capabilities of the DataScratch framework. This shows the island type versus the bill length on the penguins.   ](paper_images/basic_stats.png "Image showing model comparison for the software. ")
 
 The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataScratch also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired.
 
@@ -77,15 +77,14 @@ The interface also allows the user to input manual predictions, allowing for nov
 
 Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft].  
 
-![Image of the fullscreen DataScratch project page. The example dataset here is the penguins dataset.](paper_images/Full_software.png "Image showing a full view of the DataScratch suite.")
-
+![Image of the fullscreen DataScratch project page. The example dataset here is the penguins dataset.  ](paper_images/Full_software.png "Image showing a full view of the DataScratch suite.")
 
 ## Software architecture core project libraries
 The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;sklearn_api], which are standard tools for teaching machine learning[@burridge2022teaching]. 
 
 The core machine learning models are provided by scikit-learn[@scikit-learn;sklearn_api]. There are several reasons for choosing scikit-learn, one of them is portability. scikit-learn is very common within the entry level machine learning field, so this means that skills that novice learn from DataScratch could translate easily to programmatic skills, if the novice decides to learn programming. Additionally, the scikit-learn is very friendly for first time users, featuring extensive documentation, which can be viewed by hovering on each items tooltip. Pandas[@reback2020pandas] is used for handling the data, this is because pandas supports the importing of multiple standard filetype formats, such as csv, excel, and parquet. Matplotlib is utilized for the plotting features, this is because matplotlib interfaces well with the PyQt background, as well as being another standard data science library. 
 
-![overview of software flow](paper_images/inner_workings_drawing.svg "Image showing the software design of the GUI")
+![Diagram of the overall software architecture.  ](paper_images/inner_workings_drawing.svg "Image showing the software design of the GUI")
 
 
 # Research impact statement
