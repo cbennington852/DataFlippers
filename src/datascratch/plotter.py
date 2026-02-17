@@ -10,7 +10,7 @@ import time
 import matplotlib
 import traceback
 matplotlib.use('Qt5Agg')
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg , NavigationToolbar2QT
 from matplotlib.figure import Figure
 from datascratch import sklearn_engine
 import sklearn
@@ -23,14 +23,23 @@ from PyQt5.QtGui import QDrag , QPixmap , QPainter , QPalette , QImage , QColor 
 from datascratch.descriptor_statistics_GUI import DescriptorStatisticsGUI , GeneralDescriptor
 
 
-class EfficientCanvas(FigureCanvasQTAgg):
+class EfficientCanvas(QtW.QWidget):
 
     # Change it to be where we render the figure using SVG's
     # Using an PyQt image instead of this awful QTAgg backend.
     # This image should be temporary and have try catch finally to ensure it is removed. 
 
     def __init__(self , fig , **kwargs):
-        super().__init__( fig , **kwargs)
+        super().__init__(**kwargs)
+        self.my_layout = QtW.QVBoxLayout()
+        self.setLayout(self.my_layout)
+
+        self.canvas = FigureCanvasQTAgg(fig)
+        self.toolbar = NavigationToolbar2QT(self.canvas , self)
+
+        self.my_layout.addWidget(self.toolbar)
+        self.my_layout.addWidget(self.canvas)
+
 
 
 # This is at the top to allow for pcikle to access it!
