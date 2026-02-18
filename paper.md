@@ -8,7 +8,6 @@ tags:
 authors:
   - name: Charles Bennington
     orcid: 0009-0005-0682-163X
-    equal-contrib: true
     affiliation: "1" # (Multiple affiliations must be quoted)
 affiliations:
  - name: Department of Computer Science, Gonzaga University, USA
@@ -87,7 +86,11 @@ The language for this software is python, this is because python possesses sever
 
 The core machine learning models are provided by scikit-learn[@scikit-learn;]. There are several reasons for choosing scikit-learn, one of them is portability. scikit-learn is very common within the entry level machine learning field, so this means that skills that novice learn from DataScratch could translate easily to programmatic skills, if the novice decides to learn programming. Additionally, the scikit-learn is very friendly for first time users, featuring extensive documentation, which can be viewed by hovering on each items tooltip. Pandas[@reback2020pandas] is used for handling the data, this is because pandas supports the importing of multiple standard filetype formats, such as csv, excel, and parquet. Matplotlib is utilized for the plotting features, this is because matplotlib interfaces well with the PyQt background, as well as being another standard data science library. 
 
-![Diagram of the overall software architecture.  ](paper_images/inner_workings_drawing.svg "Image showing the software design of the GUI")
+![Diagram of the overall software architecture. ](paper_images/inner_workings_drawing.png "Image showing the software design of the GUI")
+
+A built in feature is the automatic encoding of strings as classes, the purpose of this is to simplify the user experience. This means that 
+
+{...More here...}
 
 
 # Research impact statement

@@ -4,6 +4,7 @@ from PyQt5.QtCore import  QPoint
 from PyQt5.QtCore import Qt, QMimeData
 from PyQt5.QtGui import QDrag , QIcon
 import PyQt5.QtCore as QtCore 
+import ast
 import pandas as pd
 import pickle
 from datascratch.draggable_parameter import parameter_filter
@@ -140,8 +141,7 @@ class PredictionGUI(QtW.QScrollArea):
             x_values = []
             for x_col in self.x_cols_ptr_lst:
                 curr_value = x_col.text()
-                print("Pred type" , type(curr_value))
-                x_values.append(curr_value)
+                x_values.append(ast.literal_eval(curr_value))
 
             res = self.engine_results.predict(x_values)
             for pipeline_ptr , value in res.items():

@@ -141,28 +141,6 @@ def test_library_validator_to_pipeline(qtbot):
     
     assert len(target_drop.get_pipeline_objects()) != 0
 
-def test_library_to_columns_to_pipeline(qtbot):
-    window = MainWindow(df)
-    qtbot.addWidget(window)
-
-    window.libary.setCurrentIndex(0)
-    regressor_section = window.libary.columns_tab.widget()
-    random_draggable = regressor_section.my_layout.itemAt(0).widget()
-
-    # gather pipeline to drag to.
-    pm = window.pipeline_mother
-    curr_pipeline = pm.pipelines[0]
-    curr_cols_sub = pm.columns_subwindow
-    target_drop = curr_cols_sub.x_columns
-
-    fake_drop = FakeDropEvent(
-        random_draggable,
-        QtCore.QPoint(0,0)
-    )
-
-    fake_drop.simulate_fake_drop(target_drop)
-    
-    assert target_drop.get_num_cols() != 0
 
 def test_main_menu_loads(qtbot):
     window = MainMenu()

@@ -14,7 +14,7 @@ from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFu
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch.library_submodules import PipelineSubmodule , ColumnsSubmodule
 from datascratch.notes_subwindow import NotesSubwindow , NotesData
-from datascratch.video_subwindow import VideoSubwindow
+#from datascratch.video_subwindow import VideoSubwindow
 
 class ColumnsWindowData():
     def __init__(self , x_cols : list[str] , y_cols : list[str]):

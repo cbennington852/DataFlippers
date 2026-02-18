@@ -344,6 +344,8 @@ class SklearnEngine():
         # load x and y_values        
         x = main_dataframe[pipeline_x_values].iloc[:, 0]
         y = main_dataframe[pipeline_y_value].iloc[:, 0] # 
+        non_iloc_y = main_dataframe[pipeline_y_value]
+        non_iloc_x = main_dataframe[pipeline_x_values]
         pipeline_x_name = pipeline_x_values[0]
         pipeline_y_name = pipeline_y_value[0]
         if (len(pipeline_x_values) == 1 and len(pipeline_y_value) == 1):
@@ -406,7 +408,9 @@ class SklearnEngine():
             color_cycle = SklearnEngine.get_color_map()
             fig = plt.figure()
             ax = fig.add_subplot(111, projection='3d')
-            ax.scatter(x.iloc[:, 0], x.iloc[:, 1], y, c=color_cycle[1], edgecolor='k')
+            print(non_iloc_x)
+            print("Hello" , non_iloc_x.iloc[:, 0] , non_iloc_x.iloc[:, 1] , y)
+            ax.scatter(non_iloc_x.iloc[:, 0], non_iloc_x.iloc[:, 1], non_iloc_y, c=color_cycle[1], edgecolor='k')
             ax.set_xlabel(f"{pipeline_x_values[0]}")
             ax.set_ylabel(f"{pipeline_x_values[1]}")
             ax.set_position([0.05, 0.05, 0.9, 0.9]) 

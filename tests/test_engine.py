@@ -223,7 +223,7 @@ def test_metrics_classification():
     assert len(res.trained_models[0].model_results.relevant_statistical_results) != 0
 
 def test_plot_no_model():
-    res : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
+    res  : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
         main_dataframe=classifier_dataframe,
         pipeline_x_values=['sepal_width' , 'petal_length'],
         pipeline_y_value=['species'],
@@ -233,11 +233,22 @@ def test_plot_no_model():
     )
     assert res.visual_plot
 
-def test_plot_no_model():
+def test_plot_x_reg_y_class():
     res  : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
         main_dataframe=classifier_dataframe,
-        pipeline_x_values=['sepal_width' , 'petal_length'],
+        pipeline_x_values=['sepal_width'],
         pipeline_y_value=['species'],
+        curr_pipelines=[
+            
+        ]
+    )
+    assert res.visual_plot
+
+def test_plot_y_class_x_reg():
+    res  : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
+        main_dataframe=classifier_dataframe,
+        pipeline_x_values=['species'],
+        pipeline_y_value=['sepal_width'],
         curr_pipelines=[
             
         ]
