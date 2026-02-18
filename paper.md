@@ -82,10 +82,10 @@ Datascratch comes pre-loaded with several example datasets, which have been craf
 
 
 
-## Software architecture core project libraries
-The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;sklearn_api], which are standard tools for teaching machine learning[@burridge2022teaching]. 
+## Software architecture and core project libraries
+The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;], which are standard tools for teaching machine learning[@burridge2022teaching]. 
 
-The core machine learning models are provided by scikit-learn[@scikit-learn;sklearn_api]. There are several reasons for choosing scikit-learn, one of them is portability. scikit-learn is very common within the entry level machine learning field, so this means that skills that novice learn from DataScratch could translate easily to programmatic skills, if the novice decides to learn programming. Additionally, the scikit-learn is very friendly for first time users, featuring extensive documentation, which can be viewed by hovering on each items tooltip. Pandas[@reback2020pandas] is used for handling the data, this is because pandas supports the importing of multiple standard filetype formats, such as csv, excel, and parquet. Matplotlib is utilized for the plotting features, this is because matplotlib interfaces well with the PyQt background, as well as being another standard data science library. 
+The core machine learning models are provided by scikit-learn[@scikit-learn;]. There are several reasons for choosing scikit-learn, one of them is portability. scikit-learn is very common within the entry level machine learning field, so this means that skills that novice learn from DataScratch could translate easily to programmatic skills, if the novice decides to learn programming. Additionally, the scikit-learn is very friendly for first time users, featuring extensive documentation, which can be viewed by hovering on each items tooltip. Pandas[@reback2020pandas] is used for handling the data, this is because pandas supports the importing of multiple standard filetype formats, such as csv, excel, and parquet. Matplotlib is utilized for the plotting features, this is because matplotlib interfaces well with the PyQt background, as well as being another standard data science library. 
 
 ![Diagram of the overall software architecture.  ](paper_images/inner_workings_drawing.svg "Image showing the software design of the GUI")
 

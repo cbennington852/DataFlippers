@@ -320,6 +320,24 @@ class SklearnEngine():
                 ax.set_yticks(list_of_indexes(converted_col))
                 ax.set_yticklabels(converted_col.code_map)
 
+    def handle_3d_column_conversion(ax , list_converted_columns , pipeline_x_values , pipeline_y_value):
+        def list_of_indexes(converted_col) -> list[int]:
+                curr_list = []
+                for x in range(0 , len(converted_col.code_map)):
+                    curr_list.append(x)
+                return curr_list
+        # Handleing special graphing. 
+        for converted_col in list_converted_columns:
+            if converted_col.column_name == pipeline_x_values[0]:
+                ax.set_xticks(list_of_indexes(converted_col))
+                ax.set_xticklabels(converted_col.code_map)  
+            if converted_col.column_name == pipeline_x_values[1]:
+                ax.set_yticks(list_of_indexes(converted_col))
+                ax.set_yticklabels(converted_col.code_map)
+            if converted_col.column_name == pipeline_y_value[0]:
+                ax.set_zticks(list_of_indexes(converted_col))
+                ax.set_zticklabels(converted_col.code_map)
+
                 
     
     def plot_no_model(main_dataframe , curr_pipeline , pipeline_x_values , pipeline_y_value , list_converted_columns : list[ConvertedColumn]):
@@ -721,6 +739,7 @@ class SklearnEngine():
                     ax=current_ax
                 )
                 custom_convert()
+                
                 # Plot the data points
                 axs[i].scatter(x.iloc[:, 0], x.iloc[:, 1], cmap=cmap,  c=y_enc, edgecolors='k')
                 axs[i].set_title(f"Classifier for {pipeline_y_value[0]} : {curr_pipelines[i].name}")
@@ -866,24 +885,7 @@ class SklearnEngine():
             x , 
             y , 
             list_converted_columns
-        ):
-            def resolve_ticks():
-                def list_of_indexes(converted_col) -> list[int]:
-                        curr_list = []
-                        for x in range(0 , len(converted_col.code_map)):
-                            curr_list.append(x)
-                        return curr_list
-                # Handleing special graphing. 
-                for converted_col in list_converted_columns:
-                    if converted_col.column_name == pipeline_x_values[0]:
-                        ax.set_xticks(list_of_indexes(converted_col))
-                        ax.set_xticklabels(converted_col.code_map)
-                    if converted_col.column_name == pipeline_x_values[1]:
-                        ax.set_zticks(list_of_indexes(converted_col))
-                        ax.set_zticklabels(converted_col.code_map)
-                    if converted_col.column_name == pipeline_y_value[0]:
-                        ax.set_yticks(list_of_indexes(converted_col))
-                        ax.set_yticklabels(converted_col.code_map)
+        ):      
             # Step 3: Create grid for plotting
             x1_range = np.linspace(x.iloc[:, 0].min(), x.iloc[:, 0].max(), 50)
             x2_range = np.linspace(x.iloc[:, 1].min(), x.iloc[:, 1].max(), 50)
@@ -898,7 +900,12 @@ class SklearnEngine():
 
             fig = plt.figure()
             ax = fig.add_subplot(111, projection='3d')
-            resolve_ticks()
+            SklearnEngine.handle_3d_column_conversion(
+                    ax,
+                    list_converted_columns,
+                    pipeline_x_values,
+                    pipeline_y_value
+                )
 
             for i  in range(0 , len(curr_pipelines)):
                 pipeline = curr_pipelines[i]
