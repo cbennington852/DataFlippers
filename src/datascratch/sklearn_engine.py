@@ -425,8 +425,6 @@ class SklearnEngine():
             fig, ax = plt.subplots()
             return fig
 
-   
-        
 
     def validate_column_inputs(main_dataframe, curr_pipelines, pipeline_x_values , pipeline_y_value , list_converted_columns):
         lst_cols = main_dataframe.columns

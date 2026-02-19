@@ -12,29 +12,15 @@ import traceback
 from datascratch.sklearn_engine import EngineResults , Pipeline
 
 
-class PredictionGUI(QtW.QScrollArea):
-    def __init__(self, engine_results : EngineResults,  hide_export_features = False,  **kwargs):
-        """
-        A small part of the GUI which allows users to predict 
-
-        Args:
-            engine_results (EngineResults): _description_
-            hide_export_features (bool, optional): _description_. Defaults to False.
-        """
-        super().__init__(**kwargs)
-
-        self.engine_results = engine_results
-        # Setup layout
-        self.main = QtW.QWidget()
+class SinglePredictor(QtW.QGroupBox):
+    def __init__(self, title, engine_results,  **kwargs):
+        super().__init__(title , **kwargs)
         self.my_layout = QtW.QVBoxLayout()
-        self.main.setLayout(self.my_layout)
+        self.setLayout(self.my_layout)
+        self.engine_results = engine_results
 
-        # GENERAL PLAN:
-            # Have a GroupBox for the x_cols
-            # Have an individual groupbox for each predictor.
-
-        # 1. Remove all of the widgets from this page
-        for child in self.main.findChildren(QtW.QWidget):
+         # 1. Remove all of the widgets from this page
+        for child in self.findChildren(QtW.QWidget):
             child.deleteLater()
 
         # 2. Add Text entry for each of the x_cols
@@ -66,74 +52,16 @@ class PredictionGUI(QtW.QScrollArea):
             self.pipelines_groupbox_ptr.append(curr_pipeline)
             pipeline_holder_layout.addWidget(curr_pipeline)
 
+        self.my_layout.addWidget(x_cols_box)
+        self.my_layout.addWidget(pipeline_holder)
+
         # 4. Add and connect a button to get each prediction.
             # NOTE : the backend for this will be handled by the 
         # 4. We could also try having it be on type.
 
         self.predict_button = QPushButton("Predict")
         self.predict_button.clicked.connect(self.run_all_predictions)
-
-        self.export_as_software_button = QtW.QToolButton(self.main)
-        self.export_as_software_button.setIcon(QIcon(":images/export_icon.svg"))
-        self.export_as_software_button.setText("& Export")
-        self.export_as_software_button.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
-        self.export_as_software_button.setPopupMode(QtW.QToolButton.InstantPopup)
-        self.export_as_software_button.setMenu(QtW.QMenu(self.export_as_software_button))
-
-
-        export_as_software_action = QtW.QAction("Export as software" , self.main)
-        export_as_software_action.triggered.connect(lambda x : self.export_function_button_clicked(self.export_as_software , f"DataScratch Pipeline File (*{PredictionGUI.model_save_extension});;"))
-        self.export_as_software_button.menu().addAction(export_as_software_action)
-
-        export_as_pickle_action = QtW.QAction("Export as python pickle" , self.main)
-        export_as_pickle_action.triggered.connect(lambda x : self.export_function_button_clicked(self.export_as_pickle , "Pickle  (*.pickle);;"))
-        self.export_as_software_button.menu().addAction(export_as_pickle_action)
-
-        # Assemble page
-        self.my_layout.addWidget(x_cols_box)
         self.my_layout.addWidget(self.predict_button)
-        self.my_layout.addWidget(pipeline_holder)
-        if hide_export_features == False:
-            self.my_layout.addWidget(self.export_as_software_button)
-        self.setWidget(self.main)
-
-    model_save_extension = '.skgp'
-
-    def export_as_pickle(self):
-        if not file_name.endswith('.pickle'):
-            file_name += '.pickle'
-
-        with open(file_name, 'wb') as f:
-            pickle.dump(self.engine_results, f)
-
-
-
-    def export_function_button_clicked(self , function , file_type_string):
-        
-        # 1. Open a file dialog
-        file_path, _ = QtW.QFileDialog.getSaveFileName(
-                None, "Save Project", "",file_type_string 
-            )
-        if not file_path:
-            return
-        try:
-            function(file_path)
-        except Exception as e:
-            QtW.QMessageBox.critical(
-                        None,                        # Parent: Use None if not within a QWidget class
-                        "Error Saving file",            # Title bar text
-                        f"{str(e)}" # Main message
-                    )
-
-        
-
-    def export_as_software(self , file_name : str):
-        # 2. Save the Engine Results as a pickled file with special file extension.
-        if not file_name.endswith(PredictionGUI.model_save_extension):
-            file_name += PredictionGUI.model_save_extension
-
-        with open(file_name, 'wb') as f:
-            pickle.dump(self.engine_results, f)
 
     def run_all_predictions(self):
         # Get all of the x_values
@@ -157,6 +85,97 @@ class PredictionGUI(QtW.QScrollArea):
             )
             traceback.print_exception(e)
             print(e)
+
+
+class PredictionGUI(QtW.QScrollArea):
+    def __init__(self, engine_results : EngineResults,  hide_export_features = False,  **kwargs):
+        """
+        A small part of the GUI which allows users to predict 
+
+        Args:
+            engine_results (EngineResults): _description_
+            hide_export_features (bool, optional): _description_. Defaults to False.
+        """
+        super().__init__(**kwargs)
+
+        self.engine_results = engine_results
+        # Setup layout
+        self.main = QtW.QWidget()
+        self.my_layout = QtW.QHBoxLayout()
+        self.main.setLayout(self.my_layout)
+        self.left = SinglePredictor("Predict Single Value" , self.engine_results)
+        self.my_layout.addWidget(self.left)
+        self.my_layout.addWidget(QtW.QLabel("Testing label"))
+
+        # GENERAL PLAN:
+            # Have a GroupBox for the x_cols
+            # Have an individual groupbox for each predictor.
+
+       
+        # self.export_as_software_button = QtW.QToolButton(self.main)
+        # self.export_as_software_button.setIcon(QIcon(":images/export_icon.svg"))
+        # self.export_as_software_button.setText("& Export")
+        # self.export_as_software_button.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+        # self.export_as_software_button.setPopupMode(QtW.QToolButton.InstantPopup)
+        # self.export_as_software_button.setMenu(QtW.QMenu(self.export_as_software_button))
+
+
+        # export_as_software_action = QtW.QAction("Export as software" , self.main)
+        # export_as_software_action.triggered.connect(lambda x : self.export_function_button_clicked(self.export_as_software , f"DataScratch Pipeline File (*{PredictionGUI.model_save_extension});;"))
+        # self.export_as_software_button.menu().addAction(export_as_software_action)
+
+        # export_as_pickle_action = QtW.QAction("Export as python pickle" , self.main)
+        # export_as_pickle_action.triggered.connect(lambda x : self.export_function_button_clicked(self.export_as_pickle , "Pickle  (*.pickle);;"))
+        # self.export_as_software_button.menu().addAction(export_as_pickle_action)
+
+
+        # Assemble page
+
+        # if hide_export_features == False:
+        #     self.my_layout.addWidget(self.export_as_software_button)
+        # self.setWidget(self.main)
+
+        # Adding the single point predictor. 
+        
+
+
+    # def export_as_pickle(self):
+    #     if not file_name.endswith('.pickle'):
+    #         file_name += '.pickle'
+
+    #     with open(file_name, 'wb') as f:
+    #         pickle.dump(self.engine_results, f)
+
+
+
+    # def export_function_button_clicked(self , function , file_type_string):
+        
+    #     # 1. Open a file dialog
+    #     file_path, _ = QtW.QFileDialog.getSaveFileName(
+    #             None, "Save Project", "",file_type_string 
+    #         )
+    #     if not file_path:
+    #         return
+    #     try:
+    #         function(file_path)
+    #     except Exception as e:
+    #         QtW.QMessageBox.critical(
+    #                     None,                        # Parent: Use None if not within a QWidget class
+    #                     "Error Saving file",            # Title bar text
+    #                     f"{str(e)}" # Main message
+    #                 )
+
+        
+
+    # def export_as_software(self , file_name : str):
+    #     # 2. Save the Engine Results as a pickled file with special file extension.
+    #     if not file_name.endswith(PredictionGUI.model_save_extension):
+    #         file_name += PredictionGUI.model_save_extension
+
+    #     with open(file_name, 'wb') as f:
+    #         pickle.dump(self.engine_results, f)
+
+    
 
 
 
