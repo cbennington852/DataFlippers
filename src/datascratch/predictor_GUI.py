@@ -38,7 +38,7 @@ class PredictionGUI(QtW.QScrollArea):
             child.deleteLater()
 
         # 2. Add Text entry for each of the x_cols
-        x_cols_box = QtW.QGroupBox("X columns")
+        x_cols_box = QtW.QGroupBox("Inputs")
         x_cols_box_layout = QtW.QFormLayout()
         x_cols_box.setLayout(x_cols_box_layout)
         self.x_cols_ptr_lst = []
