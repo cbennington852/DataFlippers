@@ -62,7 +62,7 @@ class MainMenu(QMainWindow):
             "penguins",
             "diamonds_measurements",
             "flower_measurements",
-            "pokemon",
+            "pokemon_stats",
             "random_data",
             "tips",
         ]
@@ -151,7 +151,7 @@ class MainWindow(QMainWindow):
         if file_path is not None:
             self.setWindowTitle(f"{file_path}")
         else:
-            self.setWindowTitle("SciKit Grow")
+            self.setWindowTitle("DataScratch")
         self.file_path = file_path
 
         self.resize(MainWindow.BASE_WINDOW_WIDTH , MainWindow.BASE_WINDOW_HEIGHT)

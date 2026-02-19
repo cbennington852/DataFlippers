@@ -1,4 +1,13 @@
 import PyQt5.QtWidgets as QtW
+from decimal import Decimal
+
+def get_num_decimal_points(value : float) -> int:
+    print("Demical reader" , value)
+    s = repr(Decimal(value))
+    if '.' in s:
+        return len(s.split('.')[1])
+    else:
+        return 0
 
 # This is an abstract class BTW.
 class Parameter(QtW.QWidget):
@@ -38,6 +47,7 @@ class FloatSingleLine(QtW.QDoubleSpinBox):
         super().__init__(**kwargs)
         self.setMinimum(float('-inf')) # Or use a very small number like -1e9
         self.setMaximum(float('inf')) 
+        self.setDecimals(get_num_decimal_points(value))
         self.setValue(value)
 
     def text(self):

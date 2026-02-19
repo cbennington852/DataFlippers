@@ -6,7 +6,7 @@
     <qresource prefix="/example_datasets">
         <file>diamonds_measurements.csv</file>
         <file>minecraft_biome_and_block_counts.csv</file>
-        <file>pokemon.csv</file>
+        <file>pokemon_stats.csv</file>
         <file>flower_measurements.csv</file>
         <file>random_data.csv</file>
         <file>tips.csv</file>

@@ -40,6 +40,9 @@ class PipelineSection(QtW.QGroupBox):
             if isinstance(self.my_layout.itemAt(i) , QtW.QWidgetItem):
                 child = self.my_layout.itemAt(i).widget()
                 parameters_as_dict = dict(child.data.parameters)
+                print(parameters_as_dict)
+                for name , value in parameters_as_dict.items():
+                    print(f"Plotting .. {name} ... {type(value)} ... {value}")
                 curr = child.data.sklearn_function(**parameters_as_dict)
                 resulting_models.append(curr)
         return resulting_models

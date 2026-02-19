@@ -87,6 +87,7 @@ class Plotter(QtW.QTabWidget):
         if hasattr(self , "worker_thread"):
             self.worker_thread.exit()
             self.worker_thread.wait()
+            del self.worker_thread
 
     def do_regardless(self):
         self.ptr_to_train_models_button.setEnabled(True)
