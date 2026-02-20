@@ -322,8 +322,9 @@ class PlotterWorker(QtCore.QObject):
             else:
                 pass
         if isinstance(results , Exception):
-            self.crashed.emit("Error: " , str(results))
+            print("Below is the traceback except" , results , type(results))
             traceback.print_exception(results)
+            self.crashed.emit("Error: " , str(results))
         else:
             self.engine_results = results
             self.finished.emit()

@@ -710,57 +710,65 @@ class SklearnEngine():
                     list_converted_columns : list[ConvertedColumn]
 
                 ):
-            fig, axs = plt.subplots( 1 , len(curr_pipelines) )
-            if len(curr_pipelines) == 1:
-                axs = [axs]
-            y_enc = sklearn.preprocessing.LabelEncoder().fit_transform(y)
-            # Plot the decision boundary
-            n_classes = len(np.unique(y_enc))
-            cmap = ListedColormap(SklearnEngine.get_clf_color_map().colors[:n_classes])
-            classes = np.unique(main_dataframe[pipeline_y_value])
-            classes_color_encoding = np.unique(y_enc)
-            for i in range(0 , len(curr_pipelines)):
-                current_ax = axs[i]
-                
-                def custom_convert():
-                    # Custom Converted Columns snippet.
-                    def list_of_indexes(converted_col) -> list[int]:
-                            curr_list = []
-                            for x in range(0 , len(converted_col.code_map)):
-                                curr_list.append(x)
-                            return curr_list
-                    # Handleing special graphing. 
-                    for converted_col in list_converted_columns:
-                        if converted_col.column_name == pipeline_x_values[0]:
-                            current_ax.set_xticks(list_of_indexes(converted_col))
-                            current_ax.set_xticklabels(converted_col.code_map)
-                        if converted_col.column_name == pipeline_x_values[1]:
-                            current_ax.set_yticks(list_of_indexes(converted_col))
-                            current_ax.set_yticklabels(converted_col.code_map)
-                sklearn.inspection.DecisionBoundaryDisplay.from_estimator(
-                    curr_pipelines[i].model_results.trained_model,
-                    x,
-                    response_method="predict",
-                    cmap=cmap,
-                    ax=current_ax
-                )
-                custom_convert()
-                
-                # Plot the data points
-                axs[i].scatter(x.iloc[:, 0], x.iloc[:, 1], cmap=cmap,  c=y_enc, edgecolors='k')
-                axs[i].set_title(f"Classifier for {pipeline_y_value[0]} : {curr_pipelines[i].name}")
-                axs[i].set_xlabel(f"{pipeline_x_values[0]}")
-                axs[i].set_ylabel(f"{pipeline_x_values[1]}")
-                #custom_convert()
-                handles = []
-                for k in range(0 , len(classes)):
-                    class_val = classes_color_encoding[k]
-                    handles.append(
-                        axs[i].plot([], [], marker='o', linestyle='', color=cmap(class_val),
-                                label=f'Class {classes[k]}', markeredgecolor='k')
+            try:
+                fig, axs = plt.subplots( 1 , len(curr_pipelines) )
+                if len(curr_pipelines) == 1:
+                    axs = [axs]
+                print("X values " , x )
+                print("Y values " , y)
+                # Determine the conversion map
+                print("pipeline y value" , pipeline_y_value[0])
+                y_converted_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(list_converted_columns , pipeline_y_value[0])
+
+                # Plot the decision boundary
+                unique_y_vals = np.unique(y)
+                n_classes = len(unique_y_vals)
+                cmap = ListedColormap(SklearnEngine.get_clf_color_map().colors[:n_classes])
+                classes_color_encoding = unique_y_vals
+                for i in range(0 , len(curr_pipelines)):
+                    current_ax = axs[i]
+                    
+                    def custom_convert():
+                        # Custom Converted Columns snippet.
+                        def list_of_indexes(converted_col) -> list[int]:
+                                curr_list = []
+                                for x in range(0 , len(converted_col.code_map)):
+                                    curr_list.append(x)
+                                return curr_list
+                        # Handleing special graphing. 
+                        for converted_col in list_converted_columns:
+                            if converted_col.column_name == pipeline_x_values[0]:
+                                current_ax.set_xticks(list_of_indexes(converted_col))
+                                current_ax.set_xticklabels(converted_col.code_map)
+                            if converted_col.column_name == pipeline_x_values[1]:
+                                current_ax.set_yticks(list_of_indexes(converted_col))
+                                current_ax.set_yticklabels(converted_col.code_map)
+                    sklearn.inspection.DecisionBoundaryDisplay.from_estimator(
+                        curr_pipelines[i].model_results.trained_model,
+                        x,
+                        response_method="predict",
+                        cmap=cmap,
+                        ax=current_ax
                     )
-                axs[i].legend(loc='upper left')
-            return fig
+                    
+                    # Plot the data points
+                    axs[i].scatter(x.iloc[:, 0], x.iloc[:, 1], cmap=cmap,  c=y, edgecolors='k')
+                    axs[i].set_title(f"Classifier for {pipeline_y_value[0]} : {curr_pipelines[i].name}")
+                    axs[i].set_xlabel(f"{pipeline_x_values[0]}")
+                    axs[i].set_ylabel(f"{pipeline_x_values[1]}")
+                    custom_convert()
+                    handles = []
+                    for k in range(0 , len(classes_color_encoding)):
+                        class_val = classes_color_encoding[k]
+                        handles.append(
+                            axs[i].plot([], [], marker='o', linestyle='', color=cmap(class_val),
+                                    label=f'{y_converted_col.code_map[classes_color_encoding[k]]}', markeredgecolor='k')
+                        )
+                    axs[i].legend(loc='upper left')
+                return fig
+            except Exception as e:
+                traceback.print_exception(e)
+                print(str(e))
         
         def plot_3(
                     main_dataframe ,

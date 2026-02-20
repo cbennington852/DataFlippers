@@ -26,7 +26,7 @@ logging.getLogger('matplotlib.font_manager').setLevel(logging.ERROR)
 windows = []
 FILE_EXTENSION = 'dscr'
 FILE_EXTENSION_NAME = 'Data Scratch Project File'
-FILE_OPEN_STRING = f"All Files (*.{FILE_EXTENSION} *.csv *.xls *{PredictionGUI.model_save_extension});; {FILE_EXTENSION_NAME} (*.{FILE_EXTENSION});; CSV Files (*.csv);; Excel Files (*.xls);; DataScratch Pipeline File (*{PredictionGUI.model_save_extension});; "
+FILE_OPEN_STRING = f"All Files (*.{FILE_EXTENSION} *.csv *.xls);; {FILE_EXTENSION_NAME} (*.{FILE_EXTENSION});; CSV Files (*.csv);; Excel Files (*.xls);;"
 #DataScratchSettings.getSettings().setValue(DataScratchSettings.RECENT_FILES_KEY , [])
 
 class MainMenu(QMainWindow):

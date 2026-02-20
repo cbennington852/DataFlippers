@@ -5,7 +5,22 @@ import pandas as pd
 import PyQt5.QtWidgets as QtW
 
 
-class DataframeViewer(QtW.QTableView):
+class DataframeViewer(QtW.QWidget):
+    def __init__(self, df, **kwargs):
+        super().__init__(**kwargs)
+        self.my_layout = QtW.QVBoxLayout()
+        self.setLayout(self.my_layout)
+        
+        self.my_toolbar = QtW.QToolBar()
+        self.save_df_button = QtW.QPushButton("Save")
+        self.my_toolbar.addWidget(self.save_df_button)
+
+        self.dataframe_model = InternalDataframeViewer(df)
+
+        self.my_layout.addWidget(self.my_toolbar)
+        self.my_layout.addWidget(self.dataframe_model)
+
+class InternalDataframeViewer(QtW.QTableView):
     """
     Small data frame class to view a dataframe.
     """
@@ -17,7 +32,9 @@ class DataframeViewer(QtW.QTableView):
         self.setSelectionBehavior(QTableView.SelectRows)
         model = PandasModel(df)
         self.setModel(model)
-        self.show()
+
+    def save_dataframe(self, file_name):
+        pass
 
 
 

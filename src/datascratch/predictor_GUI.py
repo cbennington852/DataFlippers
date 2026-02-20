@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QLabel
+from PyQt5.QtWidgets import QWidget , QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QLabel
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtCore import  QPoint
 from PyQt5.QtCore import Qt, QMimeData
@@ -11,11 +11,52 @@ from datascratch.draggable_parameter import parameter_filter
 import traceback
 from datascratch.sklearn_engine import EngineResults , Pipeline
 
+FILE_EXTENSION = 'dscr'
+FILE_EXTENSION_NAME = 'Data Scratch Project File'
+FILE_OPEN_STRING = f"All Files (*.{FILE_EXTENSION} *.csv *.xls);; {FILE_EXTENSION_NAME} (*.{FILE_EXTENSION});; CSV Files (*.csv);; Excel Files (*.xls);;"
+
+
+class RowPredictor(QtW.QTabWidget):
+    def __init__(self, engine_results,  **kwargs):
+        super().__init__( **kwargs)
+        
+        self.engine_results = engine_results
+
+        self.addTab(self.upload_input_dataset() , "Upload dataset")
+        self.addTab(QWidget() , "View Dataset")
+        self.addTab(QWidget() , "Run Predictions")
+
+        # Allow for upload of .csv .exel .parquet
+
+    def show_uploaded_dataset(self) -> QWidget:
+        pass
+    
+    def upload_input_dataset(self) -> QWidget:
+        main = QWidget()
+        my_layout = QtW.QVBoxLayout()
+        main.setLayout(my_layout)
+
+        def input_dataset_clicked():
+            filename, _ = QtW.QFileDialog.getOpenFileName(
+                self,
+                "Select a dataset to import for prediction",
+                "", # Start directory (empty string defaults to current working directory)
+                FILE_OPEN_STRING # File filters
+            )
+            if filename:
+                pass
+            else:
+                pass
+
+        input_dataset = QtW.QPushButton("Import dataset for prediction!")
+        input_dataset.clicked.connect(input_dataset_clicked)
+        return main
+
 
 class SinglePredictor(QtW.QGroupBox):
     def __init__(self, title, engine_results,  **kwargs):
         super().__init__(title , **kwargs)
-        self.my_layout = QtW.QVBoxLayout()
+        self.my_layout = QtW.QHBoxLayout()
         self.setLayout(self.my_layout)
         self.engine_results = engine_results
 
@@ -105,7 +146,8 @@ class PredictionGUI(QtW.QScrollArea):
         self.main.setLayout(self.my_layout)
         self.left = SinglePredictor("Predict Single Value" , self.engine_results)
         self.my_layout.addWidget(self.left)
-        self.my_layout.addWidget(QtW.QLabel("Testing label"))
+        self.my_layout.addWidget(RowPredictor(self.engine_results))
+        self.setWidget(self.main)
 
         # GENERAL PLAN:
             # Have a GroupBox for the x_cols
