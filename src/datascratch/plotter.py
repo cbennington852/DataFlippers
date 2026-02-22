@@ -113,6 +113,14 @@ class Plotter(QtW.QTabWidget):
             # 1. Gather nessicary components from the pipeline.
             # 1.1 Gather pipelines
             lst_ptrs_to_pipelines : list[Pipeline] = self.pipeline_mother.pipelines
+            # Remove empty.
+            new_lst = []
+            for pipeline in lst_ptrs_to_pipelines:
+                if pipeline.get_pipeline_data().is_empty() == True:
+                    pass
+                else:
+                    new_lst.append(pipeline)
+            lst_ptrs_to_pipelines = new_lst
             # 1.2 Gather columns
             x_value_draggables = self.pipeline_mother.x_columns.get_cols()
             y_value_draggables = self.pipeline_mother.y_columns.get_cols()

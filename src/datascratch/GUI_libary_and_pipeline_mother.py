@@ -355,7 +355,7 @@ class ColumnsMDIWindow(QtW.QMdiSubWindow):
             max_num_cols=400
         )
         self.y_columns = ColumnsSection(
-            "Outputs",
+            "Output",
             my_parent=self,
             dataframe=self.dataframe,
             max_num_cols=1

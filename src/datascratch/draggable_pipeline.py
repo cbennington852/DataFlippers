@@ -239,6 +239,11 @@ class PipelineData():
         self.x_pos = x_pos,
         self.y_pos = y_pos
 
+    def is_empty(self) -> bool:
+        if (self.preprocessor_section == []) and (self.model_pipeline == []) and (self.validator == []):
+            return True
+        else:
+            return False
 
 class Pipeline(QtW.QMdiSubWindow):
     all_pipelines = []

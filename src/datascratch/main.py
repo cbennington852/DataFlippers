@@ -78,6 +78,7 @@ class MainMenu(QMainWindow):
 
         # Render all of the example datasets.
         list_widget = QListWidget()
+        list_widget.setMinimumHeight(200)
         list_widget.addItems(example_datasets)
         list_widget.clicked.connect(open_on_dataset)
 
@@ -86,6 +87,7 @@ class MainMenu(QMainWindow):
         recent_files_opened = settings.value(DataScratchSettings.RECENT_FILES_KEY , [] , type=list)
         print("Recent files opened" , recent_files_opened)
         recent_list_widget = QListWidget()
+        recent_list_widget.setMinimumHeight(100)
         recent_list_widget.addItems(recent_files_opened)
         recent_list_widget.clicked.connect(lambda x : open_on_file_handle(recent_files_opened[x.row()] ))
 
