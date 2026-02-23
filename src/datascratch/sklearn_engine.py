@@ -104,7 +104,7 @@ class EngineResults():
             accuracy_plot : list[plt.Figure], 
             trained_models : list[Pipeline] , 
             x_cols : list[str] , 
-            y_col : str,
+            y_col : list[str],
             list_converted_columns : list[ConvertedColumn],
             dataframe : pd.DataFrame
             ):
@@ -151,6 +151,60 @@ class EngineResults():
         for converted_col in self.list_converted_columns:
             if col_name == converted_col.column_name:
                 return converted_col
+        
+            
+    def predict_from_df(self , new_df : pd.DataFrame):
+
+        # 1. Perform conversion on converted columns using converted columns.
+        def convert_column(column : pd.Series): 
+            converted_col = self.get_converted_column(column.name)
+            if converted_col:
+                # perform conversion. 
+                def apply_to_rows(curr_item):
+                    return converted_col.convert_string_to_int(curr_item)
+                new_col = column.apply(apply_to_rows)
+                return new_col
+            else:
+                return column
+
+        # 2. Gather only the columns that we trained this model on. 
+        converted_df = new_df.apply(convert_column)
+        df_reduced = pd.DataFrame()
+        for col_name in self.x_cols:
+            # Check df has these col_names
+            try:
+                df_reduced[col_name] = converted_df[[col_name]]
+            except Exception as e:
+                traceback.print_exception(e)
+                raise InternalEngineError(f"The Inputted dataframe column names do not match the trained dataset column names. {col_name} is missing inputted dataset.")
+
+        # 3. Remove nan-values
+        df_cleaned = df_reduced.dropna()
+
+        # 4. Construct the new dataframe with our input rows. 
+        model_preds = df_cleaned.copy(deep=True)
+
+        # 5. Add each model prediction as a column.
+        for pipeline in self.trained_models:
+            try:
+                curr_df_pred = pipeline.sklearn_pipeline.predict(df_cleaned)
+                # If y_col in converted col, apply the conversion function. 
+                converted_col = self.get_converted_column(self.y_col[0])
+                def convert_back(item):
+                    return converted_col.code_map[item]
+                vectorised_func = np.vectorize(convert_back)
+                if converted_col:
+                    curr_df_pred = vectorised_func(curr_df_pred)
+                else:
+                    pass
+                model_preds[pipeline.name] = curr_df_pred
+            except Exception as e:
+                traceback.print_exception(e)
+                raise InternalEngineError(f"Model Training error. {str(e)}")
+
+        print("Model Preds" , model_preds)
+        return model_preds
+        
     
 
     def predict(self , x_values : list ):

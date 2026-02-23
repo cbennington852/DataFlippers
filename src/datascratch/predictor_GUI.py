@@ -7,6 +7,7 @@ import PyQt5.QtCore as QtCore
 import ast
 import pandas as pd
 import pickle
+from datascratch.dataframe_viewer import DataframeViewer
 from datascratch.draggable_parameter import parameter_filter
 import traceback
 from datascratch.sklearn_engine import EngineResults , Pipeline
@@ -19,22 +20,52 @@ FILE_OPEN_STRING = f"All Files (*.{FILE_EXTENSION} *.csv *.xls);; {FILE_EXTENSIO
 class RowPredictor(QtW.QTabWidget):
     def __init__(self, engine_results,  **kwargs):
         super().__init__( **kwargs)
+        self.setMinimumHeight(500)
         
-        self.engine_results = engine_results
-
+        self.engine_results : EngineResults = engine_results
+        self.new_df_viewer : DataframeViewer = None
         self.upload_dataset = self.upload_input_dataset()
+        self.view_dataset_tab = self.view_dataset()
+        self.pred_tab = self.run_predictions()
 
         self.addTab(self.upload_dataset , "Upload dataset")
-        self.addTab(QWidget() , "View Dataset")
-        self.addTab(QWidget() , "Run Predictions")
+        self.addTab(self.view_dataset_tab , "View Dataset")
+        self.addTab(self.pred_tab , "Run Predictions")
 
         # Allow for upload of .csv .exel .parquet
 
     def view_dataset(self) -> QWidget:
-        pass
-
+        self.view_widget = QWidget()
+        self.view_layout = QtW.QVBoxLayout()
+        self.view_widget.setLayout(self.view_layout)
+        return self.view_widget
+    
+    def run_predictions_on_dataframe(self) -> pd.DataFrame:
+        curr_dataframe = None
+        try:
+            curr_dataframe = self.new_df_viewer.get_pd_dataframe()
+        except Exception as e:
+            QtW.QMessageBox.warning(
+                        None,                        # Parent: Use None if not within a QWidget class
+                        f"No dataframe uploaded",            # Title bar text
+                        f"Please upload a dataframe to run predictions on. Supported types include (.csv , .xlsx)" # Main message
+                    )
+        self.engine_results.predict_from_df(curr_dataframe)
+        
+        
+            
+            
     def run_predictions(self) -> QWidget:
-        pass
+        self.pred_widget = QWidget()
+        self.pred_layout = QtW.QVBoxLayout()
+        self.pred_widget.setLayout(self.pred_layout)
+
+        # Run predicitons button
+        self.run_prediction_button = QPushButton("Run Predictions")
+        self.pred_layout.addWidget(self.run_prediction_button)
+        self.run_prediction_button.clicked.connect(self.run_predictions_on_dataframe)
+
+        return self.pred_widget
     
     def upload_input_dataset(self) -> QWidget:
         main = QWidget()
@@ -49,7 +80,24 @@ class RowPredictor(QtW.QTabWidget):
                 FILE_OPEN_STRING # File filters
             )
             if filename:
-                pass
+                new_df = None
+                if (filename.endswith('.csv')):
+                    new_df = pd.read_csv(filename)
+                elif (filename.endswith('.xlsx')):
+                    new_df = pd.read_excel(filename)
+                else: 
+                    QtW.QMessageBox.warning(
+                        None,                        # Parent: Use None if not within a QWidget class
+                        f"Unsupported file type",            # Title bar text
+                        f"File {filename} type not supported. supported types include (.csv , .xlsx)" # Main message
+                    )
+                # Now we have th excel
+                for child in self.view_widget.findChildren(QtW.QWidget):
+                    child.deleteLater()
+
+                self.new_df_viewer = DataframeViewer(new_df)
+                
+                self.view_layout.addWidget(self.new_df_viewer)
             else:
                 pass
 

@@ -26,6 +26,9 @@ class DataframeViewer(QtW.QWidget):
         self.my_layout.addWidget(self.my_toolbar)
         self.my_layout.addWidget(self.dataframe_model)
 
+    def get_pd_dataframe(self) -> pd.DataFrame:
+        return self.dataframe_model.model()._dataframe
+
     def save_clicked(self):
         file_name, selected_filter = QFileDialog.getSaveFileName(
             self, 
