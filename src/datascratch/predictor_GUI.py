@@ -22,13 +22,18 @@ class RowPredictor(QtW.QTabWidget):
         
         self.engine_results = engine_results
 
-        self.addTab(self.upload_input_dataset() , "Upload dataset")
+        self.upload_dataset = self.upload_input_dataset()
+
+        self.addTab(self.upload_dataset , "Upload dataset")
         self.addTab(QWidget() , "View Dataset")
         self.addTab(QWidget() , "Run Predictions")
 
         # Allow for upload of .csv .exel .parquet
 
-    def show_uploaded_dataset(self) -> QWidget:
+    def view_dataset(self) -> QWidget:
+        pass
+
+    def run_predictions(self) -> QWidget:
         pass
     
     def upload_input_dataset(self) -> QWidget:
@@ -50,6 +55,7 @@ class RowPredictor(QtW.QTabWidget):
 
         input_dataset = QtW.QPushButton("Import dataset for prediction!")
         input_dataset.clicked.connect(input_dataset_clicked)
+        my_layout.addWidget(input_dataset)
         return main
 
 
@@ -142,7 +148,7 @@ class PredictionGUI(QtW.QScrollArea):
         self.engine_results = engine_results
         # Setup layout
         self.main = QtW.QWidget()
-        self.my_layout = QtW.QHBoxLayout()
+        self.my_layout = QtW.QVBoxLayout()
         self.main.setLayout(self.my_layout)
         self.left = SinglePredictor("Predict Single Value" , self.engine_results)
         self.my_layout.addWidget(self.left)

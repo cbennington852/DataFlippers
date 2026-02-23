@@ -41,6 +41,7 @@
         <file>import_dataset.svg</file>
         <file>file_open.png</file>
         <file>add_notes.svg</file>
+        <file>filesave.svg</file>
 
     </qresource>
 </RCC>

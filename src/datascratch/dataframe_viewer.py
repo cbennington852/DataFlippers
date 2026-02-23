@@ -1,6 +1,7 @@
-from PyQt5.QtWidgets import QTableView, QApplication
+from PyQt5.QtWidgets import QFileDialog, QStyle, QTableView, QApplication
 from PyQt5.QtCore import QAbstractTableModel, Qt, QModelIndex
 import sys
+from PyQt5.QtGui import *
 import pandas as pd
 import PyQt5.QtWidgets as QtW
 
@@ -12,13 +13,45 @@ class DataframeViewer(QtW.QWidget):
         self.setLayout(self.my_layout)
         
         self.my_toolbar = QtW.QToolBar()
-        self.save_df_button = QtW.QPushButton("Save")
+
+        # Save Button
+        self.save_df_button = QtW.QPushButton("")
+        save_icon = QIcon(":/images/filesave.svg")
+        self.save_df_button.setIcon(save_icon)
+        self.save_df_button.clicked.connect(self.save_clicked)
         self.my_toolbar.addWidget(self.save_df_button)
 
         self.dataframe_model = InternalDataframeViewer(df)
 
         self.my_layout.addWidget(self.my_toolbar)
         self.my_layout.addWidget(self.dataframe_model)
+
+    def save_clicked(self):
+        file_name, selected_filter = QFileDialog.getSaveFileName(
+            self, 
+            "Save File", 
+            "", # Start in current directory or specific path like "/home/user"
+            ".csv;;.xls;;" # File filters separated by ';;'
+        )
+
+        # Check if a file name was selected (user didn't cancel)
+        if file_name:
+            try:
+                # Manually save the content to the selected file path
+                print("User file name: " , file_name)
+                print("User file path" , selected_filter)
+                with open(file_name, 'w') as f:
+                    # check file ending
+                    pd_df : pd.DataFrame = self.dataframe_model.model()._dataframe
+                    if selected_filter == ".csv":
+                        pd_df.to_csv(file_name + ".csv")
+                    elif selected_filter == ".xls":
+                        pd_df.to_excel(file_name + ".xls")
+                    else:
+                        raise Exception("Invalid file extension")
+                print(f"File saved successfully to: {file_name}")
+            except Exception as e:
+                print(f"Error saving file: {e}")
 
 class InternalDataframeViewer(QtW.QTableView):
     """
