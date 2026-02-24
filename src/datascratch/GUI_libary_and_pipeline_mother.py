@@ -1,47 +1,74 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QLabel
-from .sklearn_libary import SubLibary
+from PyQt5.QtWidgets import (
+    QApplication,
+    QMainWindow,
+    QListWidget,
+    QListWidgetItem,
+    QPushButton,
+    QMessageBox,
+    QWidget,
+    QVBoxLayout,
+    QLabel,
+)
+from datascratch.sklearn_libary import SubLibary
 import PyQt5.QtWidgets as QtW
-from PyQt5.QtCore import  QPoint
+from PyQt5.QtCore import QPoint
 from PyQt5.QtCore import Qt, QMimeData
-from PyQt5.QtGui import QDrag , QIcon , QPixmap , QCursor , QColor , QPolygon, QPen, QBrush, QIcon, QPainter
-import PyQt5.QtCore as QtCore 
-from .draggable import Draggable , DraggableColumn , DraggableData
+from PyQt5.QtGui import (
+    QDrag,
+    QIcon,
+    QPixmap,
+    QCursor,
+    QColor,
+    QPolygon,
+    QPen,
+    QBrush,
+    QIcon,
+    QPainter,
+)
+import PyQt5.QtCore as QtCore
+from .draggable import Draggable, DraggableColumn, DraggableData
 from sklearn.base import is_regressor, is_classifier
 import sklearn
 from datascratch.column_pipeline import ColumnsSection
-from datascratch.draggable_pipeline import DraggableColumn , PipelineSection, Pipeline, PipelineData
+from datascratch.draggable_pipeline import (
+    DraggableColumn,
+    PipelineSection,
+    Pipeline,
+    PipelineData,
+)
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 from datascratch.colors_and_appearance import AppAppearance
-from datascratch.library_submodules import PipelineSubmodule , ColumnsSubmodule
-from datascratch.notes_subwindow import NotesSubwindow , NotesData
-#from datascratch.video_subwindow import VideoSubwindow
+from datascratch.library_submodules import PipelineSubmodule, ColumnsSubmodule
+from datascratch.notes_subwindow import NotesSubwindow, NotesData
 
-class ColumnsWindowData():
-    def __init__(self , x_cols : list[str] , y_cols : list[str]):
+# from datascratch.video_subwindow import VideoSubwindow
+
+
+class ColumnsWindowData:
+    def __init__(self, x_cols: list[str], y_cols: list[str]):
         self.x_cols = x_cols
         self.y_cols = y_cols
 
+
 class GUILibary(QtW.QTabWidget):
-    def __init__(self , dataframe,  **kwargs):
+    def __init__(self, dataframe, **kwargs):
         super().__init__(**kwargs)
         self.dataframe = dataframe
-      
+
         # Styling
         self.setTabPosition(QtW.QTabWidget.West)
 
-        def addModule(name , q_widget_list):    
+        def addModule(name, q_widget_list):
             scroll_regressor = QtW.QScrollArea()
             scroll_regressor.setWidget(q_widget_list)
             scroll_regressor.setWidgetResizable(True)
-            if isinstance(name , QIcon):
-                self.addTab(scroll_regressor , "")
-                self.setTabIcon(self.curr_index , name)
-                self.setIconSize(QtCore.QSize(90 , 90))
+            if isinstance(name, QIcon):
+                self.addTab(scroll_regressor, "")
+                self.setTabIcon(self.curr_index, name)
+                self.setIconSize(QtCore.QSize(90, 90))
             else:
-                self.addTab(scroll_regressor , name)
+                self.addTab(scroll_regressor, name)
             self.curr_index += 1
-
-
 
         ########################################################
         # REGRESSORS
@@ -51,46 +78,43 @@ class GUILibary(QtW.QTabWidget):
         regressor_layout = QtW.QVBoxLayout()
         regressor_box.setLayout(regressor_layout)
 
-        # make sublibaries from the picked out lists. 
+        # make sublibaries from the picked out lists.
         self.lin_reg = PipelineSubmodule(
             sublibary=SubLibary(
-                SklearnAcceptableFunctions.REGRESSORS_LINEAR,
-                "Linear Models"
+                SklearnAcceptableFunctions.REGRESSORS_LINEAR, "Linear Models"
             ),
             render_type=Draggable.BUBBLE,
-            hex_value=AppAppearance.REGRESSOR_LINEAR_COLOR
-        ) 
+            hex_value=AppAppearance.REGRESSOR_LINEAR_COLOR,
+        )
         self.lin_ens = PipelineSubmodule(
             sublibary=SubLibary(
-                SklearnAcceptableFunctions.REGRESSORS_ENSEMBLE,
-                "Ensemble Models"
+                SklearnAcceptableFunctions.REGRESSORS_ENSEMBLE, "Ensemble Models"
             ),
             render_type=Draggable.BUBBLE,
-            hex_value=AppAppearance.REGRESSOR_ENSEMBLE_COLOR
-        ) 
+            hex_value=AppAppearance.REGRESSOR_ENSEMBLE_COLOR,
+        )
         self.lin_neu = PipelineSubmodule(
             sublibary=SubLibary(
                 SklearnAcceptableFunctions.REGRESSORS_NEURAL_NETWORK,
-                "Neural Network Models"
+                "Neural Network Models",
             ),
             render_type=Draggable.BUBBLE,
-            hex_value=AppAppearance.REGRESSOR_NEURAL_COLOR
-        ) 
+            hex_value=AppAppearance.REGRESSOR_NEURAL_COLOR,
+        )
         self.lin_tre = PipelineSubmodule(
             sublibary=SubLibary(
-                SklearnAcceptableFunctions.REGRESSORS_TREE,
-                "Tree Models"
+                SklearnAcceptableFunctions.REGRESSORS_TREE, "Tree Models"
             ),
             render_type=Draggable.BUBBLE,
-            hex_value=AppAppearance.REGRESSOR_TREE_COLOR
-        ) 
+            hex_value=AppAppearance.REGRESSOR_TREE_COLOR,
+        )
         regressor_layout.addWidget(self.lin_reg)
         regressor_layout.addWidget(self.lin_ens)
         regressor_layout.addWidget(self.lin_tre)
         regressor_layout.addWidget(self.lin_neu)
 
         ########################################################
-        # CLASSIFIERS 
+        # CLASSIFIERS
         ########################################################
 
         classifier_box = QtW.QWidget()
@@ -98,41 +122,36 @@ class GUILibary(QtW.QTabWidget):
         classifier_box.setLayout(classifier_layout)
         self.cla_reg = PipelineSubmodule(
             sublibary=SubLibary(
-                SklearnAcceptableFunctions.CLASSIFIERS_LINEAR,
-                "Linear Models"
+                SklearnAcceptableFunctions.CLASSIFIERS_LINEAR, "Linear Models"
             ),
             render_type=Draggable.BUBBLE,
-            hex_value=AppAppearance.CLASSIFIER_LINEAR_COLOR
-        ) 
+            hex_value=AppAppearance.CLASSIFIER_LINEAR_COLOR,
+        )
         self.cla_ens = PipelineSubmodule(
             sublibary=SubLibary(
-                SklearnAcceptableFunctions.CLASSIFIERS_ENSEMBLE,
-                "Ensemble Models"
+                SklearnAcceptableFunctions.CLASSIFIERS_ENSEMBLE, "Ensemble Models"
             ),
             render_type=Draggable.BUBBLE,
-            hex_value=AppAppearance.CLASSIFIER_ENSEMBLE_COLOR
-        ) 
+            hex_value=AppAppearance.CLASSIFIER_ENSEMBLE_COLOR,
+        )
         self.cla_neu = PipelineSubmodule(
             sublibary=SubLibary(
-                SklearnAcceptableFunctions.CLASSIFIERS_NEURAL,
-                "Neural Network Models"
+                SklearnAcceptableFunctions.CLASSIFIERS_NEURAL, "Neural Network Models"
             ),
             render_type=Draggable.BUBBLE,
-            hex_value=AppAppearance.CLASSIFIER_NEURAL_COLOR
-        ) 
+            hex_value=AppAppearance.CLASSIFIER_NEURAL_COLOR,
+        )
         self.cla_tre = PipelineSubmodule(
             sublibary=SubLibary(
-                SklearnAcceptableFunctions.CLASSIFIERS_TREE,
-                "Tree Models"
+                SklearnAcceptableFunctions.CLASSIFIERS_TREE, "Tree Models"
             ),
             render_type=Draggable.BUBBLE,
-            hex_value=AppAppearance.CLASSIFIER_TREE_COLOR
-        ) 
+            hex_value=AppAppearance.CLASSIFIER_TREE_COLOR,
+        )
         classifier_layout.addWidget(self.cla_reg)
         classifier_layout.addWidget(self.cla_ens)
         classifier_layout.addWidget(self.cla_tre)
         classifier_layout.addWidget(self.cla_neu)
-
 
         ########################################################
         # PRE_PROCESSORS
@@ -141,15 +160,11 @@ class GUILibary(QtW.QTabWidget):
         preproccessor_layout = QtW.QVBoxLayout()
         preproccessor_box.setLayout(preproccessor_layout)
         self.pre_sub_module = PipelineSubmodule(
-            sublibary=SubLibary(
-                SklearnAcceptableFunctions.PREPROCESSORS,
-                ""
-            ),
+            sublibary=SubLibary(SklearnAcceptableFunctions.PREPROCESSORS, ""),
             render_type=Draggable.INTERLOCK_RIGHT,
-            hex_value=AppAppearance.PREPROCESSOR_COLOR
-        ) 
+            hex_value=AppAppearance.PREPROCESSOR_COLOR,
+        )
         preproccessor_layout.addWidget(self.pre_sub_module)
-
 
         ########################################################
         # VALIDATORS
@@ -159,27 +174,25 @@ class GUILibary(QtW.QTabWidget):
         validator_layout = QtW.QVBoxLayout()
         validator_box.setLayout(validator_layout)
         self.vali_submodule = PipelineSubmodule(
-            sublibary=SubLibary(
-                SklearnAcceptableFunctions.VALIDATORS,
-                ""
-            ),
+            sublibary=SubLibary(SklearnAcceptableFunctions.VALIDATORS, ""),
             render_type=Draggable.POINTY,
-            hex_value=AppAppearance.VALIDATOR_COLOR
-        ) 
+            hex_value=AppAppearance.VALIDATOR_COLOR,
+        )
         validator_layout.addWidget(self.vali_submodule)
 
         self.columns_tab = self.cols_tab()
         self.curr_index = 0
-        addModule(QIcon(":/images/columns_icon.svg") , self.columns_tab)
-        addModule(QIcon(":/images/reggessor_icon.svg") , regressor_box)
-        addModule(QIcon(":/images/classification_icon.svg") , classifier_box)
-        addModule(QIcon(":/images/preproccessor_icon.svg") , preproccessor_box)
-        addModule(QIcon(":/images/validators_icon.svg") , validator_box)
-
+        addModule(QIcon(":/images/columns_icon.svg"), self.columns_tab)
+        addModule(QIcon(":/images/reggessor_icon.svg"), regressor_box)
+        addModule(QIcon(":/images/classification_icon.svg"), classifier_box)
+        addModule(QIcon(":/images/preproccessor_icon.svg"), preproccessor_box)
+        addModule(QIcon(":/images/validators_icon.svg"), validator_box)
 
     def cols_tab(self):
-        cols = ColumnsSubmodule(self.dataframe.columns.to_list() , self.dataframe , True)
-        cols_2 = ColumnsSubmodule(self.dataframe.columns.to_list() , self.dataframe , False)
+        cols = ColumnsSubmodule(self.dataframe.columns.to_list(), self.dataframe, True)
+        cols_2 = ColumnsSubmodule(
+            self.dataframe.columns.to_list(), self.dataframe, False
+        )
 
         box_holder = QtW.QWidget()
         box_holder_layout = QtW.QVBoxLayout()
@@ -196,7 +209,6 @@ class GUILibary(QtW.QTabWidget):
         return regressor_box
 
 
-
 class PipelineMDIArea(QtW.QMdiArea):
     def __init__(self, parent):
         super().__init__(parent)
@@ -206,14 +218,13 @@ class PipelineMDIArea(QtW.QMdiArea):
 
 
 class PipelineMother(QtW.QMainWindow):
-    def __init__(self, dataframe , **kwargs):
+    def __init__(self, dataframe, **kwargs):
         super().__init__(**kwargs)
         self.setWindowFlags(Qt.WindowType.Widget)
-        self.pipelines : Pipeline = []
+        self.pipelines: Pipeline = []
         self.dataframe = dataframe
-        self.notes : NotesSubwindow = []
+        self.notes: NotesSubwindow = []
         self.train_models = None
-
 
         toolbar = QtW.QToolBar()
         self.main_thing = PipelineMDIArea(self)
@@ -227,105 +238,108 @@ class PipelineMother(QtW.QMainWindow):
         self.add_notes_button.clicked.connect(self.add_notes)
         toolbar.addWidget(self.add_notes_button)
 
-        #self.add_video = QtW.QPushButton("Add Video")
-        #self.add_video.clicked.connect(self.add_video_widget)
-        #toolbar.addWidget(self.add_video)
+        # self.add_video = QtW.QPushButton("Add Video")
+        # self.add_video.clicked.connect(self.add_video_widget)
+        # toolbar.addWidget(self.add_video)
 
         self.setCentralWidget(self.main_thing)
         self.addToolBar(toolbar)
 
         self.add_pipeline()
 
-        self.columns_subwindow = ColumnsMDIWindow(self.main_thing , self.dataframe)
-        
+        self.columns_subwindow = ColumnsMDIWindow(self.main_thing, self.dataframe)
+
         self.x_columns = self.columns_subwindow.x_columns
         self.y_columns = self.columns_subwindow.y_columns
         self.train_models = self.columns_subwindow.train_models
 
     def get_columns_data(self) -> ColumnsWindowData:
         return self.columns_subwindow.save_data()
-    
+
     def get_notes_data(self) -> list[NotesData]:
         lst_notes_data = []
         for note in self.notes:
             lst_notes_data.append(note.to_notes_data())
         return lst_notes_data
-    
+
     # def add_video_widget(self):
     #     new_video = VideoSubwindow(self.main_thing , self)
     #     new_video.show()
     #     new_video.move(80 , 60)
 
-      
     def get_data(self) -> list[PipelineData]:
         # Only really need to save the pipelines ... and maybe also the column sections.
         lst_pipeline_data = []
         for pipeline in self.pipelines:
             lst_pipeline_data.append(pipeline.get_pipeline_data())
         return lst_pipeline_data
-    
-    def load_from_data(self , pipelines_data : list[PipelineData] , cols_data : ColumnsWindowData , list_notes_data : list[NotesData] ):
+
+    def load_from_data(
+        self,
+        pipelines_data: list[PipelineData],
+        cols_data: ColumnsWindowData,
+        list_notes_data: list[NotesData],
+    ):
         # Make sure to remove the starter pipeline
         for pipeline in self.pipelines:
             pipeline.close()
         # Simply loop thru the parsel, and re-populate the pipelines.
         for pipe_data in pipelines_data:
             curr = Pipeline.pipeline_from_data(
-                my_parent=self, 
+                my_parent=self,
                 GUI_parent=self.main_thing,
                 data=pipe_data,
             )
             self.pipelines.append(curr)
-        #also tell the cols to re-populate
+        # also tell the cols to re-populate
         self.columns_subwindow.load_data(cols_data)
         # also load the notes windows.
         for note_data in list_notes_data:
-            new_notes = NotesSubwindow(self.main_thing , self)
+            new_notes = NotesSubwindow(self.main_thing, self)
             new_notes.from_notes_data(note_data)
             new_notes.show()
             self.notes.append(new_notes)
 
     def add_notes(self):
-        new_notes = NotesSubwindow(self.main_thing , self)
+        new_notes = NotesSubwindow(self.main_thing, self)
         self.notes.append(new_notes)
         new_notes.show()
-        new_notes.move(60 , 60)
-
+        new_notes.move(60, 60)
 
     def add_pipeline(self):
-        new_pipeline = Pipeline(self , self.main_thing)
-        new_pipeline.move(30 , 30)
+        new_pipeline = Pipeline(self, self.main_thing)
+        new_pipeline.move(30, 30)
         new_pipeline.show()
         self.pipelines.append(new_pipeline)
-
 
 
 class ColumnsMDIWindow(QtW.QMdiSubWindow):
     BASE_HEIGHT = 300
     BASE_WIDTH = 400
-    def __init__(self, parent , dataframe , **kwargs):
+
+    def __init__(self, parent, dataframe, **kwargs):
         super().__init__(parent, **kwargs)
         self.dataframe = dataframe
-        self.setFixedSize(ColumnsMDIWindow.BASE_WIDTH , ColumnsMDIWindow.BASE_HEIGHT)
+        self.setFixedSize(ColumnsMDIWindow.BASE_WIDTH, ColumnsMDIWindow.BASE_HEIGHT)
         main_widget = QtW.QWidget()
         mayo = QtW.QVBoxLayout()
         main_widget.setLayout(mayo)
         self.setWidget(main_widget)
-        self.setWindowFlag(Qt.WindowMinimizeButtonHint , False)
-        self.setWindowFlag(Qt.WindowMaximizeButtonHint , False)
+        self.setWindowFlag(Qt.WindowMinimizeButtonHint, False)
+        self.setWindowFlag(Qt.WindowMaximizeButtonHint, False)
         self.setWindowFlag(Qt.WindowCloseButtonHint, False)
 
-        self.setStyleSheet(f"background-color:{AppAppearance.PIPELINE_BACKGROUND_COLOR}")
+        self.setStyleSheet(
+            f"background-color:{AppAppearance.PIPELINE_BACKGROUND_COLOR}"
+        )
 
-        
         play_icon = self.style().standardIcon(QtW.QStyle.SP_MediaPlay)
         # Set the icon on the button
-        self.train_models = QtW.QPushButton(
-            "Train Models"
-        )
+        self.train_models = QtW.QPushButton("Train Models")
         self.train_models.setIcon(play_icon)
 
-        self.train_models.setStyleSheet(f"""
+        self.train_models.setStyleSheet(
+            f"""
             QPushButton {{
                 background-color: {AppAppearance.TRAIN_BUTTON_BACKGROUND_COLOR};
                 color: black;
@@ -345,20 +359,14 @@ class ColumnsMDIWindow(QtW.QMdiSubWindow):
                 padding-top: 12px;
                 padding-bottom: 8px;
             }}
-        """)
-
+        """
+        )
 
         self.x_columns = ColumnsSection(
-            "Inputs",
-            my_parent=self,
-            dataframe=self.dataframe,
-            max_num_cols=400
+            "Inputs", my_parent=self, dataframe=self.dataframe, max_num_cols=400
         )
         self.y_columns = ColumnsSection(
-            "Output",
-            my_parent=self,
-            dataframe=self.dataframe,
-            max_num_cols=1
+            "Output", my_parent=self, dataframe=self.dataframe, max_num_cols=1
         )
 
         mayo.addWidget(self.train_models)
@@ -371,23 +379,28 @@ class ColumnsMDIWindow(QtW.QMdiSubWindow):
     def save_data(self):
         return ColumnsWindowData(
             self.x_columns.get_cols_as_string_list(),
-            self.y_columns.get_cols_as_string_list()
+            self.y_columns.get_cols_as_string_list(),
         )
-    
-    def load_data(self , data : ColumnsWindowData):
+
+    def load_data(self, data: ColumnsWindowData):
         self.x_columns.set_cols_as_string_list(data.x_cols)
         self.y_columns.set_cols_as_string_list(data.y_cols)
 
     def closeEvent(self, event):
         event.ignore()
-    
+
     def resize_based_on_children(self):
-        # get the number of pre-proccessors and their height, default to zero if one or below. 
-        # Get natural height of x cols = 
-        
+        # get the number of pre-proccessors and their height, default to zero if one or below.
+        # Get natural height of x cols =
+
         curr_num_x_cols = self.x_columns.get_num_cols()
-        x_col_needed_height = (curr_num_x_cols + 2) * DraggableColumn.BASE_HEIGHT 
-        #y_col_height = max(curr_num_cols * DraggableColumn.BASE_HEIGHT + DraggableColumn.BASE_HEIGHT, 0)
+        x_col_needed_height = (curr_num_x_cols + 2) * DraggableColumn.BASE_HEIGHT
+        # y_col_height = max(curr_num_cols * DraggableColumn.BASE_HEIGHT + DraggableColumn.BASE_HEIGHT, 0)
         # Resize the pipeline based on the children size n_stuff.
-        final_height = self.y_natural_height + x_col_needed_height + self.x_natural_height + self.train_models.height()
+        final_height = (
+            self.y_natural_height
+            + x_col_needed_height
+            + self.x_natural_height
+            + self.train_models.height()
+        )
         self.setFixedHeight(final_height)

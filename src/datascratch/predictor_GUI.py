@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QLabel,
 )
+from datascratch.colors_and_appearance import AppAppearance
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtCore import QPoint
 from PyQt5.QtCore import Qt, QMimeData
@@ -63,29 +64,21 @@ class RowPredictor(QWidget):
         self.my_layout.addWidget(self.right)
 
     def remove_previous_dataset(self):
-        for child in self.view_widget.findChildren(QtW.QWidget):
-            if isinstance(child, DataframeViewer):
-                child.deleteLater()
+        try:
+            self.new_dataframe_results_viewer
+            self.new_dataframe_results_viewer.deleteLater()
+            del self.new_dataframe_results_viewer
+        except Exception as e:
+            pass
 
     def view_dataset(self) -> QWidget:
         self.view_widget = QtW.QGroupBox("Imported Dataset")
         self.view_layout = QtW.QVBoxLayout()
         self.view_widget.setLayout(self.view_layout)
-        self.back_button = QPushButton("< Back")
-
-        def back_function():
-            self.new_df_viewer = None
-            self.left_lay.setCurrentIndex(0)
-            # Remove previous dataset.
-            self.remove_previous_dataset()
-
-            self.pred_widget.setVisible(False)
-
-        self.back_button.clicked.connect(back_function)
-        self.view_layout.addWidget(self.back_button)
         return self.view_widget
 
     def run_predictions_on_dataframe(self) -> pd.DataFrame:
+        self.remove_previous_dataset()
         curr_dataframe = None
         try:
             curr_dataframe = self.new_df_viewer.get_pd_dataframe()
@@ -98,8 +91,8 @@ class RowPredictor(QWidget):
         results_prediction_df = None
         try:
             results_prediction_df = self.engine_results.predict_from_df(curr_dataframe)
-            new_dataframe_results_viewer = DataframeViewer(results_prediction_df)
-            self.pred_layout.addWidget(new_dataframe_results_viewer)
+            self.new_dataframe_results_viewer = DataframeViewer(results_prediction_df)
+            self.pred_layout.addWidget(self.new_dataframe_results_viewer)
         except Exception as e:
             QtW.QMessageBox.critical(
                 None,  # Parent: Use None if not within a QWidget class
@@ -149,6 +142,19 @@ class RowPredictor(QWidget):
                 for child in self.view_widget.findChildren(QtW.QWidget):
                     child.deleteLater()
 
+                self.back_button = QPushButton("< Back")
+
+                def back_function():
+                    self.new_df_viewer = None
+                    self.left_lay.setCurrentIndex(0)
+                    # Remove previous dataset.
+                    self.remove_previous_dataset()
+
+                    self.pred_widget.setVisible(False)
+
+                self.back_button.clicked.connect(back_function)
+                self.view_layout.addWidget(self.back_button)
+
                 group_wrapper = QtW.QGroupBox()
                 wrapper_layout = QtW.QVBoxLayout()
                 group_wrapper.setLayout(wrapper_layout)
@@ -161,11 +167,16 @@ class RowPredictor(QWidget):
                 pass
 
         input_dataset = QtW.QToolButton()
+        label_with_info = QLabel(
+            f"Upload a dataset for the model to perform predictions on. Supported formats include .csv and .xlsx. Additional Documentation available on our website at {AppAppearance.WEBSITE_URL}/Basics/Predictions"
+        )
+        label_with_info.setWordWrap(True)
         input_dataset.setText("Import dataset for prediction!")
         input_dataset.setIcon(QIcon(":images/import_dataset.svg"))
         input_dataset.setIconSize(QSize(48, 48))
         input_dataset.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         input_dataset.clicked.connect(input_dataset_clicked)
+        my_layout.addWidget(label_with_info)
         my_layout.addWidget(input_dataset)
         return main
 
@@ -266,8 +277,9 @@ class PredictionGUI(QtW.QTabWidget):
             QtW.QSizePolicy.Policy.Expanding, QtW.QSizePolicy.Policy.Preferred
         )
         self.left = SinglePredictor("Predict Single Value", self.engine_results)
+        self.right = RowPredictor(self.engine_results)
+        self.addTab(self.right, "Predict Multiple Values")
         self.addTab(self.left, "Predict Single Value")
-        self.addTab(RowPredictor(self.engine_results), "Predict on a dataset")
 
         # GENERAL PLAN:
         # Have a GroupBox for the x_cols

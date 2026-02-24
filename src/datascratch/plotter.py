@@ -1,33 +1,58 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QLabel
+from PyQt5.QtWidgets import (
+    QApplication,
+    QMainWindow,
+    QListWidget,
+    QListWidgetItem,
+    QPushButton,
+    QMessageBox,
+    QWidget,
+    QVBoxLayout,
+    QLabel,
+)
 import PyQt5.QtWidgets as QtW
-from PyQt5.QtCore import  QPoint
+from PyQt5.QtCore import QPoint
 from PyQt5.QtCore import Qt, QMimeData
 from PyQt5.QtGui import QIcon
-import PyQt5.QtCore as QtCore 
+import PyQt5.QtCore as QtCore
 import multiprocessing
 import sys
 import time
 import matplotlib
 from datascratch.canvas_with_toolbar import CanvasWithToolbar
 import traceback
-matplotlib.use('Qt5Agg')
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg , NavigationToolbar2QT
+
+matplotlib.use("Qt5Agg")
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
 from matplotlib.figure import Figure
 from datascratch import sklearn_engine
 import sklearn
 import pandas as pd
 import threading
-from datascratch.GUI_libary_and_pipeline_mother import PipelineMother , Pipeline
+from datascratch.GUI_libary_and_pipeline_mother import PipelineMother, Pipeline
 import matplotlib.pyplot as plt
 from datascratch.predictor_GUI import PredictionGUI
-from PyQt5.QtGui import QDrag , QPixmap , QPainter , QPalette , QImage , QColor , QPolygon, QPen, QBrush, QIcon
-from datascratch.descriptor_statistics_GUI import DescriptorStatisticsGUI , GeneralDescriptor
-
-
+from PyQt5.QtGui import (
+    QDrag,
+    QPixmap,
+    QPainter,
+    QPalette,
+    QImage,
+    QColor,
+    QPolygon,
+    QPen,
+    QBrush,
+    QIcon,
+)
+from datascratch.descriptor_statistics_GUI import (
+    DescriptorStatisticsGUI,
+    GeneralDescriptor,
+)
 
 
 # This is at the top to allow for pcikle to access it!
-def runner_wrapper(queue , main_dataframe , curr_pipelines , pipeline_x_values , pipeline_y_values):
+def runner_wrapper(
+    queue, main_dataframe, curr_pipelines, pipeline_x_values, pipeline_y_values
+):
     try:
         curr_results = sklearn_engine.SklearnEngine.main_sklearn_pipe(
             main_dataframe=main_dataframe,
@@ -39,17 +64,18 @@ def runner_wrapper(queue , main_dataframe , curr_pipelines , pipeline_x_values ,
     except Exception as e:
         queue.put(e)
 
+
 class ScikitGrowEngineAssemblyError(Exception):
     pass
-
 
 
 class Plotter(QtW.QTabWidget):
 
     TIME_DELAY_UNTIL_PROGRESS_WINDOW = 0.7
 
-
-    def __init__(self , pipeline_mother : PipelineMother, dataframe : pd.DataFrame , **kwargs):
+    def __init__(
+        self, pipeline_mother: PipelineMother, dataframe: pd.DataFrame, **kwargs
+    ):
         super().__init__(**kwargs)
         self.pipeline_mother = pipeline_mother
         self.work_done = False
@@ -57,34 +83,33 @@ class Plotter(QtW.QTabWidget):
         self.dataframe = dataframe
 
         fig, ax = plt.subplots(figsize=(2, 2))
-        ax.grid(visible=True, color='white', linestyle='-', linewidth=0.5)
+        ax.grid(visible=True, color="white", linestyle="-", linewidth=0.5)
         ax.set_xlim(0, 10)
         ax.set_ylim(0, 10)
-        ax.set_xlabel('X Axis')
-        ax.set_ylabel('Y Axis')
+        ax.set_xlabel("X Axis")
+        ax.set_ylabel("Y Axis")
 
         fig2, ax2 = plt.subplots(figsize=(2, 2))
-        ax2.grid(visible=True,  linestyle='-', linewidth=0.5)
+        ax2.grid(visible=True, linestyle="-", linewidth=0.5)
         ax2.set_xlim(0, 10)
         ax2.set_ylim(0, 10)
-        ax2.set_xlabel('X Axis')
-        ax2.set_ylabel('Y Axis')
+        ax2.set_xlabel("X Axis")
+        ax2.set_ylabel("Y Axis")
 
         self.visual_plot = CanvasWithToolbar(fig)
         self.accuracy_plot = CanvasWithToolbar(fig)
 
         self.prediction_tab = QWidget()
         self.descriptive_statistics = QWidget()
-        
-        self.addTab(self.visual_plot , "Visualization Plot")
-        self.addTab(self.accuracy_plot , "Accuracy")
-        self.addTab(self.prediction_tab , "Manual Predictions")
-        self.addTab(self.descriptive_statistics , "Descriptive Statistics")
 
+        self.addTab(self.visual_plot, "Visualization Plot")
+        self.addTab(self.accuracy_plot, "Accuracy")
+        self.addTab(self.prediction_tab, "Manual Predictions")
+        self.addTab(self.descriptive_statistics, "Descriptive Statistics")
 
     def handle_thread_crashing(self):
         self.do_regardless()
-        if hasattr(self , "worker_thread"):
+        if hasattr(self, "worker_thread"):
             self.worker_thread.exit()
             self.worker_thread.wait()
             del self.worker_thread
@@ -95,24 +120,21 @@ class Plotter(QtW.QTabWidget):
             self.prog_box.close()
         except:
             pass
-        if hasattr(self , 'spinner_thread'):
+        if hasattr(self, "spinner_thread"):
             self.spinner_thread.join()
-        if hasattr(self , 'worker'):
+        if hasattr(self, "worker"):
             self.worker.ptr_to_training_button.setEnabled(True)
         self.work_done = True
-        
 
-        
-        
     @QtCore.pyqtSlot()
     def plot_pipeline(self):
         self.work_done = False
         self.ptr_to_train_models_button = self.sender()
-        
+
         try:
             # 1. Gather nessicary components from the pipeline.
             # 1.1 Gather pipelines
-            lst_ptrs_to_pipelines : list[Pipeline] = self.pipeline_mother.pipelines
+            lst_ptrs_to_pipelines: list[Pipeline] = self.pipeline_mother.pipelines
             # Remove empty.
             new_lst = []
             for pipeline in lst_ptrs_to_pipelines:
@@ -130,7 +152,6 @@ class Plotter(QtW.QTabWidget):
                 raise ScikitGrowEngineAssemblyError("X values cannot be empty.")
             if y_value_draggables == []:
                 raise ScikitGrowEngineAssemblyError("Y values cannot be empty")
-            
 
             # 2.1 load the components into the engine.
             lst_engine_pipelines = []
@@ -138,35 +159,45 @@ class Plotter(QtW.QTabWidget):
             for gui_pipeline in lst_ptrs_to_pipelines:
                 list_tuples_pipe_sklearn_objs = []
                 # 2.2 Pre-proccessors
-                for pre_proccessor in gui_pipeline.preproccessor_pipe.get_pipeline_objects():
-                    list_tuples_pipe_sklearn_objs.append((f"{len(list_tuples_pipe_sklearn_objs)}" , pre_proccessor))
+                for (
+                    pre_proccessor
+                ) in gui_pipeline.preproccessor_pipe.get_pipeline_objects():
+                    list_tuples_pipe_sklearn_objs.append(
+                        (f"{len(list_tuples_pipe_sklearn_objs)}", pre_proccessor)
+                    )
 
                 # 2.3 Models
-                model_pipeline_lst =  gui_pipeline.model_pipe.get_pipeline_objects()
+                model_pipeline_lst = gui_pipeline.model_pipe.get_pipeline_objects()
                 if model_pipeline_lst == []:
-                    raise ScikitGrowEngineAssemblyError(f"{gui_pipeline.name_pipeline.text()} is missing a model")
+                    raise ScikitGrowEngineAssemblyError(
+                        f"{gui_pipeline.name_pipeline.text()} is missing a model"
+                    )
                 for models in model_pipeline_lst:
-                    list_tuples_pipe_sklearn_objs.append((f"{len(list_tuples_pipe_sklearn_objs)}" , models))
+                    list_tuples_pipe_sklearn_objs.append(
+                        (f"{len(list_tuples_pipe_sklearn_objs)}", models)
+                    )
 
                 # 2.4 Gather the validator
                 if len(gui_pipeline.validator.get_pipeline_objects()) != 0:
                     built_validator = gui_pipeline.validator.get_pipeline_objects()[0]
                 else:
                     built_validator = None
-                
+
                 # 2.5 Assemble pipeline object
                 new_pipeline = sklearn_engine.Pipeline(
-                    sklearn_pipeline=sklearn.pipeline.Pipeline(list_tuples_pipe_sklearn_objs),
+                    sklearn_pipeline=sklearn.pipeline.Pipeline(
+                        list_tuples_pipe_sklearn_objs
+                    ),
                     name=gui_pipeline.name_pipeline.text(),
-                    validator=built_validator
+                    validator=built_validator,
                 )
                 lst_engine_pipelines.append(new_pipeline)
             x_cols = [item.name for item in x_value_draggables]
             y_cols = [item.name for item in y_value_draggables]
             # 3. start the engine on it's own thread.
             # 3.1 before we start the enngine, make sure to disable the button for this.
-            # TESTING : Make a small popup to for this. 
-            
+            # TESTING : Make a small popup to for this.
+
             self.ptr_to_train_models_button.setEnabled(False)
             self.worker_thread = QtCore.QThread()
             self.worker = PlotterWorker(
@@ -174,12 +205,12 @@ class Plotter(QtW.QTabWidget):
                 ptr_to_training_button=self.ptr_to_train_models_button,
                 x_cols=x_cols,
                 y_cols=y_cols,
-                dataframe=self.dataframe
+                dataframe=self.dataframe,
             )
             self.worker.moveToThread(self.worker_thread)
-        
+
             self.worker_thread.started.connect(self.worker.start_plotting)
-            #self.worker.progress.connect(self.progress_bar.setValue) # Allows us to update it
+            # self.worker.progress.connect(self.progress_bar.setValue) # Allows us to update it
             self.worker.finished.connect(self.plotting_finished)
             self.worker.crashed.connect(self.crashed_handler)
             self.worker.finished.connect(self.worker_thread.quit)
@@ -188,38 +219,44 @@ class Plotter(QtW.QTabWidget):
             self.worker_thread.start()
 
             # Start a popup with a dialog
-            self.prog_box = QtW.QProgressDialog("Training Models...", "Abort", 0, 0, self)
-            self.prog_box.canceled.connect(lambda : self.worker_thread.requestInterruption())
+            self.prog_box = QtW.QProgressDialog(
+                "Training Models...", "Abort", 0, 0, self
+            )
+            self.prog_box.canceled.connect(
+                lambda: self.worker_thread.requestInterruption()
+            )
             self.prog_box.show()
         except ScikitGrowEngineAssemblyError as e:
             self.handle_thread_crashing()
             QtW.QMessageBox.critical(
-                 None,                        # Parent: Use None if not within a QWidget class
-                 "Engine Assembly Error",            # Title bar text
-                 f"{str(e)}" # Main message
+                None,  # Parent: Use None if not within a QWidget class
+                "Engine Assembly Error",  # Title bar text
+                f"{str(e)}",  # Main message
             )
             print(e)
         except Exception as e:
             self.handle_thread_crashing()
             QtW.QMessageBox.critical(
-                None,                        # Parent: Use None if not within a QWidget class
-                "Unexpected Error",            # Title bar text
-                f"Unexpected error : {str(e)}" # Main message
+                None,  # Parent: Use None if not within a QWidget class
+                "Unexpected Error",  # Title bar text
+                f"Unexpected error : {str(e)}",  # Main message
             )
 
-    @QtCore.pyqtSlot(str , str)
-    def crashed_handler(self , title, message):
-        if (title == PlotterWorker.INTERRUPT_TITLE) and (message == PlotterWorker.INTERRUPT_MESSAGE):
+    @QtCore.pyqtSlot(str, str)
+    def crashed_handler(self, title, message):
+        if (title == PlotterWorker.INTERRUPT_TITLE) and (
+            message == PlotterWorker.INTERRUPT_MESSAGE
+        ):
             pass
         else:
             QtW.QMessageBox.critical(
-                None,                        # Parent: Use None if not within a QWidget class
-                f"{title}",            # Title bar text
-                f"{message}" # Main message
+                None,  # Parent: Use None if not within a QWidget class
+                f"{title}",  # Title bar text
+                f"{message}",  # Main message
             )
         self.handle_thread_crashing()
-        
-    def resolve_accuracy(self , engine_results):
+
+    def resolve_accuracy(self, engine_results):
         # scroller
         scroller = QtW.QScrollArea()
         # Main area
@@ -236,9 +273,12 @@ class Plotter(QtW.QTabWidget):
             pipeline_group_box.setTitle(f"{pipeline.name}")
             pipeline_group_box_lay = QtW.QFormLayout()
             pipeline_group_box.setLayout(pipeline_group_box_lay)
-            for stat_name , value in pipeline.model_results.relevant_statistical_results:
+            for stat_name, value in pipeline.model_results.relevant_statistical_results:
                 print(f"stat: {stat_name} , Val:{value}")
-                pipeline_group_box_lay.addRow(QtW.QLabel(stat_name) , QtW.QLabel(str(round(value , GeneralDescriptor.digit_rounding))))
+                pipeline_group_box_lay.addRow(
+                    QtW.QLabel(stat_name),
+                    QtW.QLabel(str(round(value, GeneralDescriptor.digit_rounding))),
+                )
             stats_layout.addWidget(pipeline_group_box)
 
         main_layout.addWidget(CanvasWithToolbar(engine_results.accuracy_plot))
@@ -248,8 +288,8 @@ class Plotter(QtW.QTabWidget):
 
     @QtCore.pyqtSlot()
     def plotting_finished(self):
-        print("Engine : " , self.worker.engine_results)
-        for i in range(0 , self.count()):
+        print("Engine : ", self.worker.engine_results)
+        for i in range(0, self.count()):
             widget = self.widget(i)
             widget.deleteLater()
             del widget
@@ -263,57 +303,63 @@ class Plotter(QtW.QTabWidget):
         try:
             self.prediction_tab = PredictionGUI(self.worker.engine_results)
         except Exception as e:
-            print("ERROR PREDICTION GUI" , str(e))
+            print("ERROR PREDICTION GUI", str(e))
             traceback.print_exception(e)
             self.prediction_tab = QtW.QWidget()
-        try: 
-            self.descriptive_statistics = DescriptorStatisticsGUI(self.worker.engine_results , self.dataframe)
-            print("HIIIII" , self.descriptive_statistics)
+        try:
+            self.descriptive_statistics = DescriptorStatisticsGUI(
+                self.worker.engine_results, self.dataframe
+            )
+            print("HIIIII", self.descriptive_statistics)
         except Exception as e:
             traceback.print_exception(e)
-            print("ERROR DESCRIPTOR STATS" , str(e))
+            print("ERROR DESCRIPTOR STATS", str(e))
             self.descriptive_statistics = QtW.QWidget()
-        self.addTab(self.visual_plot , "Visualization Plot")
-        self.addTab(self.accuracy_plot , "Accuracy")
-        self.addTab(self.prediction_tab , "Manual Predictions")
-        self.addTab(self.descriptive_statistics , "Descriptive Statistics")
+        self.addTab(self.visual_plot, "Visualization Plot")
+        self.addTab(self.accuracy_plot, "Accuracy")
+        self.addTab(self.prediction_tab, "Predictions")
+        self.addTab(self.descriptive_statistics, "Descriptive Statistics")
 
         self.visual_plot.show()
         self.do_regardless()
-        
+
         # Tell the predictor to re-render
-        
 
 
 class PlotterWorker(QtCore.QObject):
     progress = QtCore.pyqtSignal(int)
-    crashed = QtCore.pyqtSignal(str , str)
+    crashed = QtCore.pyqtSignal(str, str)
     finished = QtCore.pyqtSignal()
 
-    def __init__(self, lst_engine_pipelines , x_cols , y_cols , dataframe , ptr_to_training_button):
+    def __init__(
+        self, lst_engine_pipelines, x_cols, y_cols, dataframe, ptr_to_training_button
+    ):
         super(PlotterWorker, self).__init__()
         self.lst_engine_pipelines = lst_engine_pipelines
         self.x_cols = x_cols
         self.y_cols = y_cols
         self.ptr_to_training_button = ptr_to_training_button
-        self.dataframe = dataframe    
+        self.dataframe = dataframe
 
     INTERRUPT_TITLE = "Ended"
     INTERRUPT_MESSAGE = "Process interrupted by user."
 
-    @QtCore.pyqtSlot() # What does this do?
+    @QtCore.pyqtSlot()  # What does this do?
     def start_plotting(self):
-        
-        # required for windows support 
-        multiprocessing.set_start_method('spawn', force=True)
+
+        # required for windows support
+        multiprocessing.set_start_method("spawn", force=True)
         queue = multiprocessing.Queue()
-        process = multiprocessing.Process(target=runner_wrapper, args=(
-            queue,
-            self.dataframe,
-            self.lst_engine_pipelines,
-            self.x_cols,
-            self.y_cols
-        ))
+        process = multiprocessing.Process(
+            target=runner_wrapper,
+            args=(
+                queue,
+                self.dataframe,
+                self.lst_engine_pipelines,
+                self.x_cols,
+                self.y_cols,
+            ),
+        )
         process.start()
         results = 0
         while process.is_alive():
@@ -321,22 +367,20 @@ class PlotterWorker(QtCore.QObject):
             is_interruption = self.thread().isInterruptionRequested()
             if is_interruption == True:
                 process.kill()
-                self.crashed.emit(PlotterWorker.INTERRUPT_TITLE , PlotterWorker.INTERRUPT_MESSAGE)
+                self.crashed.emit(
+                    PlotterWorker.INTERRUPT_TITLE, PlotterWorker.INTERRUPT_MESSAGE
+                )
                 return
-            
+
             # Check for the result
             if not queue.empty():
                 results = queue.get()
             else:
                 pass
-        if isinstance(results , Exception):
-            print("Below is the traceback except" , results , type(results))
+        if isinstance(results, Exception):
+            print("Below is the traceback except", results, type(results))
             traceback.print_exception(results)
-            self.crashed.emit("Error: " , str(results))
+            self.crashed.emit("Error: ", str(results))
         else:
             self.engine_results = results
             self.finished.emit()
-
-
-
-
