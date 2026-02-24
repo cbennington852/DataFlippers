@@ -143,6 +143,7 @@ class ColumnsSection(QtW.QGroupBox):
         # Top level calculations
         width = self.width()
         height = self.height()
+        print(f"Resized : {width} __ {height}")
 
         #space_needed_for_mouth = height - ColumnsSection.height_between_top_mouth_and_top_bar*2
         space_needed_for_mouth = 0
@@ -251,9 +252,9 @@ class ColumnsSection(QtW.QGroupBox):
         def resize_self():
             base_addition = 100
             if self.max_num_cols == 1: # Y cols
-                self.setFixedHeight(DraggableColumn.BASE_HEIGHT + base_addition)
+                self.setMinimumHeight(150)
             else: # X cols
-                self.setFixedHeight(num_cols * DraggableColumn.BASE_HEIGHT + base_addition)
+                self.setMinimumHeight((1+num_cols) * DraggableColumn.BASE_HEIGHT + base_addition)
         
         def if_limit_remove_all_other_widgets():
             if (num_cols == self.max_num_cols):

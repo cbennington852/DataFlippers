@@ -153,7 +153,7 @@ class EngineResults():
                 return converted_col
         
             
-    def predict_from_df(self , new_df : pd.DataFrame):
+    def predict_from_df(self , new_df : pd.DataFrame) -> pd.DataFrame:
 
         # 1. Perform conversion on converted columns using converted columns.
         def convert_column(column : pd.Series): 
@@ -197,7 +197,7 @@ class EngineResults():
                     curr_df_pred = vectorised_func(curr_df_pred)
                 else:
                     pass
-                model_preds[pipeline.name] = curr_df_pred
+                model_preds[f"{self.y_col[0]}_{pipeline.name}"] = curr_df_pred
             except Exception as e:
                 traceback.print_exception(e)
                 raise InternalEngineError(f"Model Training error. {str(e)}")

@@ -17,26 +17,58 @@ FILE_EXTENSION_NAME = 'Data Scratch Project File'
 FILE_OPEN_STRING = f"All Files (*.{FILE_EXTENSION} *.csv *.xls);; {FILE_EXTENSION_NAME} (*.{FILE_EXTENSION});; CSV Files (*.csv);; Excel Files (*.xls);;"
 
 
-class RowPredictor(QtW.QTabWidget):
+class RowPredictor(QWidget):
     def __init__(self, engine_results,  **kwargs):
         super().__init__( **kwargs)
-        self.setMinimumHeight(500)
-        
         self.engine_results : EngineResults = engine_results
+        self.my_layout = QtW.QHBoxLayout()
+        self.setLayout(self.my_layout)
+
+        # Note: This is the pointer to the current input dataframe
         self.new_df_viewer : DataframeViewer = None
-        self.upload_dataset = self.upload_input_dataset()
-        self.view_dataset_tab = self.view_dataset()
-        self.pred_tab = self.run_predictions()
 
-        self.addTab(self.upload_dataset , "Upload dataset")
-        self.addTab(self.view_dataset_tab , "View Dataset")
-        self.addTab(self.pred_tab , "Run Predictions")
 
-        # Allow for upload of .csv .exel .parquet
+        # We gonna seperatre this into two sections. 
+        # Left
+            # StackedWidget
+                # Upload dataset, which shifts to view dataset, with a back button on upload. 
+                # Run Predications on dataframe, which has a run predications button, and a DataframeViewer. This deletes previous dataframes on run preds.
+        
+        # Left side setup
+        self.left = QWidget()
+        self.left_lay = QtW.QStackedLayout()
+        self.left.setLayout(self.left_lay)
+        # Stack 0 ... upload_input_dataset
+        self.left_lay.addWidget(self.upload_input_dataset())
+        # Stack 1 ... view dataset
+        self.left_lay.addWidget(self.view_dataset())
+
+
+        self.right = QWidget()
+        self.right_lay = QtW.QVBoxLayout()
+        self.right.setLayout(self.right_lay)
+        self.right_lay.addWidget(self.run_predictions_widget())
+
+
+        self.my_layout.addWidget(self.left)
+        self.my_layout.addWidget(self.right)
 
     def view_dataset(self) -> QWidget:
-        self.view_widget = QWidget()
+        self.view_widget = QtW.QGroupBox("Imported Dataset")
         self.view_layout = QtW.QVBoxLayout()
+        back_button = QPushButton("< Back")
+        def back_function():
+            self.new_df_viewer = None
+            self.left_lay.setCurrentIndex(0)
+            # Remove previous dataset.
+            for child in self.view_widget.findChildren(QtW.QWidget):
+                    if isinstance(child , DataframeViewer):
+                        child.deleteLater()
+
+            self.pred_widget.setVisible(False)
+
+        back_button.clicked.connect(back_function)
+        self.view_layout.addWidget(back_button)
         self.view_widget.setLayout(self.view_layout)
         return self.view_widget
     
@@ -50,21 +82,24 @@ class RowPredictor(QtW.QTabWidget):
                         f"No dataframe uploaded",            # Title bar text
                         f"Please upload a dataframe to run predictions on. Supported types include (.csv , .xlsx)" # Main message
                     )
-        self.engine_results.predict_from_df(curr_dataframe)
+        results_prediction_df = self.engine_results.predict_from_df(curr_dataframe)
         
+        new_dataframe_results_viewer = DataframeViewer(results_prediction_df)
+
+        self.pred_layout.addWidget(new_dataframe_results_viewer)
         
             
             
-    def run_predictions(self) -> QWidget:
+    def run_predictions_widget(self) -> QWidget:
         self.pred_widget = QWidget()
         self.pred_layout = QtW.QVBoxLayout()
         self.pred_widget.setLayout(self.pred_layout)
 
         # Run predicitons button
-        self.run_prediction_button = QPushButton("Run Predictions")
+        self.run_prediction_button = QPushButton("Run All Pipeline Predictions")
         self.pred_layout.addWidget(self.run_prediction_button)
         self.run_prediction_button.clicked.connect(self.run_predictions_on_dataframe)
-
+        self.pred_widget.setVisible(False)
         return self.pred_widget
     
     def upload_input_dataset(self) -> QWidget:
@@ -95,9 +130,14 @@ class RowPredictor(QtW.QTabWidget):
                 for child in self.view_widget.findChildren(QtW.QWidget):
                     child.deleteLater()
 
+                group_wrapper = QtW.QGroupBox()
+                wrapper_layout = QtW.QVBoxLayout()
+                group_wrapper.setLayout(wrapper_layout)
                 self.new_df_viewer = DataframeViewer(new_df)
-                
-                self.view_layout.addWidget(self.new_df_viewer)
+                wrapper_layout.addWidget(self.new_df_viewer)
+                self.left_lay.setCurrentIndex(1)
+                self.pred_widget.setVisible(True)
+                self.view_layout.addWidget(group_wrapper)
             else:
                 pass
 
@@ -110,11 +150,11 @@ class RowPredictor(QtW.QTabWidget):
 class SinglePredictor(QtW.QGroupBox):
     def __init__(self, title, engine_results,  **kwargs):
         super().__init__(title , **kwargs)
-        self.my_layout = QtW.QHBoxLayout()
+        self.my_layout = QtW.QVBoxLayout()
         self.setLayout(self.my_layout)
         self.engine_results = engine_results
 
-         # 1. Remove all of the widgets from this page
+        # 1. Remove all of the widgets from this page
         for child in self.findChildren(QtW.QWidget):
             child.deleteLater()
 
@@ -182,7 +222,7 @@ class SinglePredictor(QtW.QGroupBox):
             print(e)
 
 
-class PredictionGUI(QtW.QScrollArea):
+class PredictionGUI(QtW.QTabWidget):
     def __init__(self, engine_results : EngineResults,  hide_export_features = False,  **kwargs):
         """
         A small part of the GUI which allows users to predict 
@@ -195,84 +235,14 @@ class PredictionGUI(QtW.QScrollArea):
 
         self.engine_results = engine_results
         # Setup layout
-        self.main = QtW.QWidget()
-        self.my_layout = QtW.QVBoxLayout()
-        self.main.setLayout(self.my_layout)
+        self.setSizePolicy(QtW.QSizePolicy.Policy.Expanding , QtW.QSizePolicy.Policy.Preferred)
         self.left = SinglePredictor("Predict Single Value" , self.engine_results)
-        self.my_layout.addWidget(self.left)
-        self.my_layout.addWidget(RowPredictor(self.engine_results))
-        self.setWidget(self.main)
+        self.addTab(self.left , "Predict Single Value")
+        self.addTab(RowPredictor(self.engine_results) , "Predict on a dataset")
 
         # GENERAL PLAN:
             # Have a GroupBox for the x_cols
             # Have an individual groupbox for each predictor.
-
-       
-        # self.export_as_software_button = QtW.QToolButton(self.main)
-        # self.export_as_software_button.setIcon(QIcon(":images/export_icon.svg"))
-        # self.export_as_software_button.setText("& Export")
-        # self.export_as_software_button.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
-        # self.export_as_software_button.setPopupMode(QtW.QToolButton.InstantPopup)
-        # self.export_as_software_button.setMenu(QtW.QMenu(self.export_as_software_button))
-
-
-        # export_as_software_action = QtW.QAction("Export as software" , self.main)
-        # export_as_software_action.triggered.connect(lambda x : self.export_function_button_clicked(self.export_as_software , f"DataScratch Pipeline File (*{PredictionGUI.model_save_extension});;"))
-        # self.export_as_software_button.menu().addAction(export_as_software_action)
-
-        # export_as_pickle_action = QtW.QAction("Export as python pickle" , self.main)
-        # export_as_pickle_action.triggered.connect(lambda x : self.export_function_button_clicked(self.export_as_pickle , "Pickle  (*.pickle);;"))
-        # self.export_as_software_button.menu().addAction(export_as_pickle_action)
-
-
-        # Assemble page
-
-        # if hide_export_features == False:
-        #     self.my_layout.addWidget(self.export_as_software_button)
-        # self.setWidget(self.main)
-
-        # Adding the single point predictor. 
-        
-
-
-    # def export_as_pickle(self):
-    #     if not file_name.endswith('.pickle'):
-    #         file_name += '.pickle'
-
-    #     with open(file_name, 'wb') as f:
-    #         pickle.dump(self.engine_results, f)
-
-
-
-    # def export_function_button_clicked(self , function , file_type_string):
-        
-    #     # 1. Open a file dialog
-    #     file_path, _ = QtW.QFileDialog.getSaveFileName(
-    #             None, "Save Project", "",file_type_string 
-    #         )
-    #     if not file_path:
-    #         return
-    #     try:
-    #         function(file_path)
-    #     except Exception as e:
-    #         QtW.QMessageBox.critical(
-    #                     None,                        # Parent: Use None if not within a QWidget class
-    #                     "Error Saving file",            # Title bar text
-    #                     f"{str(e)}" # Main message
-    #                 )
-
-        
-
-    # def export_as_software(self , file_name : str):
-    #     # 2. Save the Engine Results as a pickled file with special file extension.
-    #     if not file_name.endswith(PredictionGUI.model_save_extension):
-    #         file_name += PredictionGUI.model_save_extension
-
-    #     with open(file_name, 'wb') as f:
-    #         pickle.dump(self.engine_results, f)
-
-    
-
 
 
 class PredictionGUIPipeline(QtW.QGroupBox):
