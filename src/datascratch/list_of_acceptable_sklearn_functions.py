@@ -6,8 +6,11 @@ import sklearn.model_selection as val
 import sklearn.neural_network as neu
 import sklearn.tree as tre
 
-class SklearnAcceptableFunctions():
-    REGRESSORS_LINEAR = {
+
+class SklearnAcceptableFunctions:
+    REGRESSORS_LINEAR = [
+        lin.LinearRegression,
+        lin.Ridge,
         lin.ARDRegression,
         lin.BayesianRidge,
         lin.ElasticNet,
@@ -17,67 +20,62 @@ class SklearnAcceptableFunctions():
         lin.Lasso,
         lin.LassoLars,
         lin.LassoLarsIC,
-        lin.LinearRegression,
         lin.PassiveAggressiveRegressor,
         lin.PoissonRegressor,
         lin.QuantileRegressor,
         lin.RANSACRegressor,
-        lin.Ridge,
         lin.SGDRegressor,
         lin.TheilSenRegressor,
-        lin.TweedieRegressor
-    }
-    REGRESSORS_ENSEMBLE = {
+        lin.TweedieRegressor,
+    ]
+    REGRESSORS_ENSEMBLE = [
         ens.AdaBoostRegressor,
         ens.BaggingRegressor,
         ens.ExtraTreesRegressor,
         ens.GradientBoostingRegressor,
         ens.HistGradientBoostingRegressor,
         ens.RandomForestRegressor,
-    }
-    REGRESSORS_NEURAL_NETWORK = {
-        neu.MLPRegressor
-    }
-    REGRESSORS_TREE = {
-        tre.DecisionTreeRegressor,
-        tre.ExtraTreeRegressor
-    }
+    ]
+    REGRESSORS_NEURAL_NETWORK = [neu.MLPRegressor]
+    REGRESSORS_TREE = [tre.DecisionTreeRegressor, tre.ExtraTreeRegressor]
 
-    REGRESSORS = REGRESSORS_ENSEMBLE | REGRESSORS_LINEAR | REGRESSORS_NEURAL_NETWORK | REGRESSORS_TREE
+    REGRESSORS = (
+        REGRESSORS_ENSEMBLE
+        + REGRESSORS_LINEAR
+        + REGRESSORS_NEURAL_NETWORK
+        + REGRESSORS_TREE
+    )
 
-    CLASSIFIERS_LINEAR = {
+    CLASSIFIERS_LINEAR = [
         lin.LogisticRegression,
+        lin.RidgeClassifier,
         lin.PassiveAggressiveClassifier,
         lin.Perceptron,
-        lin.RidgeClassifier,
         lin.SGDClassifier,
-    }
+    ]
 
-    CLASSIFIERS_ENSEMBLE = {
+    CLASSIFIERS_ENSEMBLE = [
         ens.AdaBoostClassifier,
         ens.BaggingClassifier,
         ens.ExtraTreesClassifier,
         ens.GradientBoostingClassifier,
         ens.HistGradientBoostingClassifier,
         ens.RandomForestClassifier,
-    }
+    ]
 
-    CLASSIFIERS_NEURAL = {
-        neu.MLPClassifier
-    }
+    CLASSIFIERS_NEURAL = [neu.MLPClassifier]
 
-    CLASSIFIERS_TREE = {
-        tre.DecisionTreeClassifier,
-        tre.ExtraTreeClassifier
-    }
+    CLASSIFIERS_TREE = [tre.DecisionTreeClassifier, tre.ExtraTreeClassifier]
 
     # | is union in set
-    CLASSIFIERS = CLASSIFIERS_ENSEMBLE | CLASSIFIERS_LINEAR | CLASSIFIERS_NEURAL | CLASSIFIERS_TREE
+    CLASSIFIERS = (
+        CLASSIFIERS_ENSEMBLE
+        + CLASSIFIERS_LINEAR
+        + CLASSIFIERS_NEURAL
+        + CLASSIFIERS_TREE
+    )
 
-
-    PREPROCESSORS = {
-        pre.Binarizer,
-        pre.KBinsDiscretizer,
+    PREPROCESSORS = [
         pre.MaxAbsScaler,
         pre.MinMaxScaler,
         pre.Normalizer,
@@ -87,9 +85,9 @@ class SklearnAcceptableFunctions():
         pre.RobustScaler,
         pre.SplineTransformer,
         pre.StandardScaler,
-    }
+    ]
 
-    VALIDATORS = {
+    VALIDATORS = [
         val.KFold,
         val.StratifiedKFold,
         val.RepeatedKFold,
@@ -104,8 +102,6 @@ class SklearnAcceptableFunctions():
         val.GroupKFold,
         val.StratifiedGroupKFold,
         val.TimeSeriesSplit,
-    }
+    ]
 
-    MODELS = CLASSIFIERS | REGRESSORS
-
-    
+    MODELS = CLASSIFIERS + REGRESSORS
