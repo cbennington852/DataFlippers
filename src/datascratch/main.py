@@ -35,6 +35,7 @@ list_modules = [
 ######################################################
 import tkinter as tk
 import importlib
+from multiprocessing import current_process, Process
 from tkinter import ttk
 from PIL import Image, ImageTk
 from datascratch.logo_embbedded import get_datascratch_logo
@@ -72,8 +73,11 @@ label_with_splash_image.pack(pady=20)
 label_summary.pack(pady=20)
 label.pack(pady=20)
 progress_bar.pack(pady=20)
-splash_root.deiconify()
-
+process_name = current_process().name
+if process_name == "MainProcess":
+    splash_root.deiconify()
+else:
+    pass
 
 def dynamic_import_function(splash_root):
     """This function recursively and dynamically loads the libraries required for this application.

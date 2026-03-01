@@ -104,7 +104,7 @@ class Plotter(QtW.QTabWidget):
 
         self.addTab(self.visual_plot, "Visualization Plot")
         self.addTab(self.accuracy_plot, "Accuracy")
-        self.addTab(self.prediction_tab, "Manual Predictions")
+        self.addTab(self.prediction_tab, "Predictions")
         self.addTab(self.descriptive_statistics, "Descriptive Statistics")
 
     def handle_thread_crashing(self):

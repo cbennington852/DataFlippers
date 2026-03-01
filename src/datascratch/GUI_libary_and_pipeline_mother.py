@@ -108,7 +108,15 @@ class GUILibary(QtW.QTabWidget):
             render_type=Draggable.BUBBLE,
             hex_value=AppAppearance.REGRESSOR_TREE_COLOR,
         )
+        self.lin_svm = PipelineSubmodule(
+            sublibary=SubLibary(
+                SklearnAcceptableFunctions.REGRESSORS_TREE, "Support Vector Machines"
+            ),
+            render_type=Draggable.BUBBLE,
+            hex_value=AppAppearance.REGRESSOR_SUPPORT_VECTOR_MACHINES_COLOR,
+        )
         regressor_layout.addWidget(self.lin_reg)
+        regressor_layout.addWidget(self.lin_svm)
         regressor_layout.addWidget(self.lin_ens)
         regressor_layout.addWidget(self.lin_tre)
         regressor_layout.addWidget(self.lin_neu)
@@ -148,7 +156,15 @@ class GUILibary(QtW.QTabWidget):
             render_type=Draggable.BUBBLE,
             hex_value=AppAppearance.CLASSIFIER_TREE_COLOR,
         )
+        self.cla_svm = PipelineSubmodule(
+            sublibary=SubLibary(
+                SklearnAcceptableFunctions.CLASSIFIERS_SUPPORT_VECTOR_MACHINES, "Support Vector Machines"
+            ),
+            render_type=Draggable.BUBBLE,
+            hex_value=AppAppearance.CLASSIFIER_SUPPORT_VECTOR_MACHINES_COLOR,
+        )
         classifier_layout.addWidget(self.cla_reg)
+        classifier_layout.addWidget(self.cla_svm)
         classifier_layout.addWidget(self.cla_ens)
         classifier_layout.addWidget(self.cla_tre)
         classifier_layout.addWidget(self.cla_neu)

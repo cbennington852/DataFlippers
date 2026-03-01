@@ -240,7 +240,13 @@ class SinglePredictor(QtW.QGroupBox):
             x_values = []
             for x_col in self.x_cols_ptr_lst:
                 curr_value = x_col.text()
-                x_values.append(ast.literal_eval(curr_value))
+                print("Current Value : " , curr_value)
+                new_val = None
+                try:
+                    new_val = ast.literal_eval(curr_value)
+                except:
+                    new_val = str(curr_value)
+                x_values.append(new_val)
 
             res = self.engine_results.predict(x_values)
             for pipeline_ptr, value in res.items():

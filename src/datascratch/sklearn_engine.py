@@ -813,10 +813,14 @@ class SklearnEngine():
                     custom_convert()
                     handles = []
                     for k in range(0 , len(classes_color_encoding)):
-                        class_val = classes_color_encoding[k]
+                        class_val = None
+                        try: 
+                            class_val = y_converted_col.code_map[classes_color_encoding[k]]
+                        except:
+                            class_val = classes_color_encoding[k]
                         handles.append(
-                            axs[i].plot([], [], marker='o', linestyle='', color=cmap(class_val),
-                                    label=f'{y_converted_col.code_map[classes_color_encoding[k]]}', markeredgecolor='k')
+                            axs[i].plot([], [], marker='o', linestyle='', color=cmap(k),
+                                    label=f'{class_val}', markeredgecolor='k')
                         )
                     axs[i].legend(loc='upper left')
                 return fig

@@ -5,6 +5,7 @@ import sklearn.preprocessing as pre
 import sklearn.model_selection as val
 import sklearn.neural_network as neu
 import sklearn.tree as tre
+import sklearn.svm as svm
 
 
 class SklearnAcceptableFunctions:
@@ -28,6 +29,11 @@ class SklearnAcceptableFunctions:
         lin.TheilSenRegressor,
         lin.TweedieRegressor,
     ]
+    REGRESSORS_SUPPORT_VECTOR_MACHINES = [
+        svm.LinearSVR,
+        svm.NuSVR,
+        svm.SVR
+    ]
     REGRESSORS_ENSEMBLE = [
         ens.AdaBoostRegressor,
         ens.BaggingRegressor,
@@ -44,6 +50,7 @@ class SklearnAcceptableFunctions:
         + REGRESSORS_LINEAR
         + REGRESSORS_NEURAL_NETWORK
         + REGRESSORS_TREE
+        + REGRESSORS_SUPPORT_VECTOR_MACHINES
     )
 
     CLASSIFIERS_LINEAR = [
@@ -53,7 +60,11 @@ class SklearnAcceptableFunctions:
         lin.Perceptron,
         lin.SGDClassifier,
     ]
-
+    CLASSIFIERS_SUPPORT_VECTOR_MACHINES = {
+        svm.LinearSVC,
+        svm.NuSVC,
+        svm.SVC
+    }
     CLASSIFIERS_ENSEMBLE = [
         ens.AdaBoostClassifier,
         ens.BaggingClassifier,
@@ -73,6 +84,7 @@ class SklearnAcceptableFunctions:
         + CLASSIFIERS_LINEAR
         + CLASSIFIERS_NEURAL
         + CLASSIFIERS_TREE
+        + CLASSIFIERS_SUPPORT_VECTOR_MACHINES
     )
 
     PREPROCESSORS = [
@@ -90,18 +102,7 @@ class SklearnAcceptableFunctions:
     VALIDATORS = [
         val.KFold,
         val.StratifiedKFold,
-        val.RepeatedKFold,
-        val.RepeatedStratifiedKFold,
         val.LeaveOneOut,
-        val.LeavePOut,
-        val.LeaveOneGroupOut,
-        val.LeavePGroupsOut,
-        val.ShuffleSplit,
-        val.StratifiedShuffleSplit,
-        val.GroupShuffleSplit,
-        val.GroupKFold,
-        val.StratifiedGroupKFold,
-        val.TimeSeriesSplit,
     ]
 
     MODELS = CLASSIFIERS + REGRESSORS
