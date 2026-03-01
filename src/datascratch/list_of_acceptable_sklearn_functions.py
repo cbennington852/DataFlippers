@@ -60,11 +60,11 @@ class SklearnAcceptableFunctions:
         lin.Perceptron,
         lin.SGDClassifier,
     ]
-    CLASSIFIERS_SUPPORT_VECTOR_MACHINES = {
+    CLASSIFIERS_SUPPORT_VECTOR_MACHINES = [
         svm.LinearSVC,
         svm.NuSVC,
         svm.SVC
-    }
+    ]
     CLASSIFIERS_ENSEMBLE = [
         ens.AdaBoostClassifier,
         ens.BaggingClassifier,

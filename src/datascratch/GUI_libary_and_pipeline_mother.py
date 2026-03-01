@@ -110,7 +110,7 @@ class GUILibary(QtW.QTabWidget):
         )
         self.lin_svm = PipelineSubmodule(
             sublibary=SubLibary(
-                SklearnAcceptableFunctions.REGRESSORS_TREE, "Support Vector Machines"
+                SklearnAcceptableFunctions.REGRESSORS_SUPPORT_VECTOR_MACHINES, "Support Vector Machines"
             ),
             render_type=Draggable.BUBBLE,
             hex_value=AppAppearance.REGRESSOR_SUPPORT_VECTOR_MACHINES_COLOR,
