@@ -82,10 +82,6 @@ The core machine learning models are provided by scikit-learn[@scikit-learn;]. T
 
 ![Diagram of the overall software architecture. ](paper_images/inner_workings_drawing.png "Image showing the software design of the GUI")
 
-A built in feature is the automatic encoding of strings as classes, the purpose of this is to simplify the user experience. This means that 
-
-{...More here...}
-
 
 # Research impact statement
 
@@ -96,8 +92,7 @@ The current codebase also supports the automatic building of installers for both
 ## User documentation and educational materials
 Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft].  
 
-Each 
-
+Guided active learning greatly improves student engagement[@rossi2021active]. These lab exercise questions are to give educators a semi-guided foundation for designing lesson plans around this software. 
 
 
 # AI usage disclosure

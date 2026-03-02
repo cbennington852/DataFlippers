@@ -84,7 +84,8 @@ class ConvertedColumn():
         return None
 
     def convert_int_to_string(self , value):
-        return self.code_map[value]
+        # Regressors could feed a non-int into here.
+        return self.code_map[int(value)]
     
     def convert_string_to_int(self, value):
         for x in range(0 , len(self.code_map)):
@@ -155,7 +156,10 @@ class EngineResults():
             
     def predict_from_df(self , new_df : pd.DataFrame) -> pd.DataFrame:
 
-        # 1. Perform conversion on converted columns using converted columns.
+        # 1. Remove nan-values
+        df_na_dropped = new_df.dropna()
+
+        # 2. Perform conversion on converted columns using converted columns.
         def convert_column(column : pd.Series): 
             converted_col = self.get_converted_column(column.name)
             if converted_col:
@@ -167,8 +171,8 @@ class EngineResults():
             else:
                 return column
 
-        # 2. Gather only the columns that we trained this model on. 
-        converted_df = new_df.apply(convert_column)
+        # 3. Gather only the columns that we trained this model on. 
+        converted_df = df_na_dropped.apply(convert_column)
         df_reduced = pd.DataFrame()
         for col_name in self.x_cols:
             # Check df has these col_names
@@ -178,16 +182,15 @@ class EngineResults():
                 traceback.print_exception(e)
                 raise InternalEngineError(f"The Inputted dataframe column names do not match the trained dataset column names. {col_name} is missing inputted dataset.")
 
-        # 3. Remove nan-values
-        df_cleaned = df_reduced.dropna()
-
-        # 4. Construct the new dataframe with our input rows. 
-        model_preds = df_cleaned.copy(deep=True)
+        # 4. Get dataframe for user
+        df_shown_to_user = pd.DataFrame()
+        for col_name in self.x_cols:
+            df_shown_to_user[col_name] = df_na_dropped[[col_name]]
 
         # 5. Add each model prediction as a column.
         for pipeline in self.trained_models:
             try:
-                curr_df_pred = pipeline.sklearn_pipeline.predict(df_cleaned)
+                curr_df_pred = pipeline.sklearn_pipeline.predict(df_reduced)
                 # If y_col in converted col, apply the conversion function. 
                 converted_col = self.get_converted_column(self.y_col[0])
                 def convert_back(item):
@@ -197,13 +200,13 @@ class EngineResults():
                     curr_df_pred = vectorised_func(curr_df_pred)
                 else:
                     pass
-                model_preds[f"{self.y_col[0]}_{pipeline.name}"] = curr_df_pred
+                df_shown_to_user[f"{self.y_col[0]}_{pipeline.name}"] = curr_df_pred
             except Exception as e:
                 traceback.print_exception(e)
                 raise InternalEngineError(f"Model Training error. {str(e)}")
 
-        print("Model Preds" , model_preds)
-        return model_preds
+        print("Model Preds" , df_shown_to_user)
+        return df_shown_to_user
         
     
 
@@ -228,6 +231,7 @@ class EngineResults():
             if self.list_converted_columns != []:
                 for converted_col in self.list_converted_columns:
                     if self.y_col[0] == converted_col.column_name:
+                        # Perform an int conversion because someone could "theoretically" put in a non int here.
                         results[pipeline] = converted_col.convert_int_to_string(curr)
                     else:
                         results[pipeline] = curr

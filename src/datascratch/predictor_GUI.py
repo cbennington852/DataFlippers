@@ -88,6 +88,8 @@ class RowPredictor(QWidget):
                 f"No dataframe uploaded",  # Title bar text
                 f"Please upload a dataframe to run predictions on. Supported types include (.csv , .xlsx)",  # Main message
             )
+        # Drop na values
+        curr_dataframe = curr_dataframe.dropna()
         results_prediction_df = None
         try:
             results_prediction_df = self.engine_results.predict_from_df(curr_dataframe)
