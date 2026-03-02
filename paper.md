@@ -73,13 +73,7 @@ Users are also enabled to perform basic statistical analysis, this can be done b
 
 The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataScratch also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired.
 
-## Built in Educational Materials
-
-Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft].  
-
 ![Image of the fullscreen DataScratch project page. The example dataset here is the penguins dataset.  ](paper_images/Full_software.png "Image showing a full view of the DataScratch suite.")
-
-
 
 ## Software architecture and core project libraries
 The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;], which are standard tools for teaching machine learning[@burridge2022teaching]. 
@@ -98,6 +92,12 @@ A built in feature is the automatic encoding of strings as classes, the purpose 
 There is an need for open source AI learning, and the democratization of AI literacy[@prinsloo2024democratisation], in a world rapidly being shaped by AI. DataScratch offers a way for students to learn more about the core concepts of AI and data science, while maintaining a high interactivity. 
 
 The current codebase also supports the automatic building of installers for both windows and linux. In linux, this is in the form of a debian package, and for windows, it is the form of a executable. This shows near term significance in the form of reproducible materials.
+
+## User documentation and educational materials
+Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft].  
+
+Each 
+
 
 
 # AI usage disclosure
