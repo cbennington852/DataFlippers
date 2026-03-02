@@ -181,9 +181,9 @@ class RowPredictor(QWidget):
         return main
 
 
-class SinglePredictor(QtW.QGroupBox):
+class SinglePredictor(QtW.QWidget):
     def __init__(self, title, engine_results, **kwargs):
-        super().__init__(title, **kwargs)
+        super().__init__(**kwargs)
         self.my_layout = QtW.QVBoxLayout()
         self.setLayout(self.my_layout)
         self.engine_results = engine_results
