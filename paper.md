@@ -91,17 +91,15 @@ The current codebase also supports the automatic building of installers for both
 ## User documentation and educational materials
 Guided active learning greatly improves student engagement[@rossi2021active], to accommodate this desire Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft]. 
 
-![image showing the lab questions for penguins](paper_images/image.png)
+![image showing the lab questions for the penguins example dataset.](paper_images/image.png)
 
 These example datasets come with 3-5 lab questions each. The lab questions can be categorized as the following.
-1. Questions encouraging novices to be critical of the models they are creating. 
-  Example:
-    1. Make a box plot to compare the gender of the waiter versus the total tip. Do men or women get more tips? Does this seem fair?
-    2. Using the model constructed in step 1, do a single prediction, compare a total bill of 200$ if the waiter is Male versus Female. Does you model have gender bias? Discuss whether the model’s behavior could be categorized as sexist.
-2. Questions asking typical data science inquires.
-  Example: 
-    1. What is the relationship between flipper_length_mm and body_mass_g?
-    2. Create a linear AI model that takes in flipper_length_mm and body_mass_g as inputs, and predicts the gender of the penguins
+1. Questions encouraging novices to be critical of the models they are creating. Below are some examples.
+  1. Make a box plot to compare the gender of the waiter versus the total tip. Do men or women get more tips? Does this seem fair?
+  2. Using the model constructed in step 1, do a single prediction, compare a total bill of 200$ if the waiter is Male versus Female. Does you model have gender bias? Discuss whether the model’s behavior could be categorized as sexist.
+2. Questions asking typical data science inquires. Below are some examples.
+  1. What is the relationship between flipper_length_mm and body_mass_g?
+  2. Create a linear AI model that takes in flipper_length_mm and body_mass_g as inputs, and predicts the gender of the penguins
 
 # AI usage disclosure
 ~95% of this project was written by humans, and ~5% would be what is consider "AI assisted". Google was used to search for API documentation. The built in AI overview on google cannot be deactivated, and thus the AI overview was used upon each google search. Oftentimes, the google AI overview provided false information, and was ignored in the later stages of the project due to a lack of verifiability. Generative AI was later used during the proofreading stage of writing the paper, with it helping catch several grammatical errors. 
