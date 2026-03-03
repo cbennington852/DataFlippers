@@ -5,6 +5,7 @@ class AppAppearance:
     """
 
     WEBSITE_URL = "TBD"
+    APP_NAME = "DataFlippers"
 
     MDI_AREA_COLOR = "#F0F0F0"
     TRAIN_BUTTON_BACKGROUND_COLOR = "#F0F0F0"

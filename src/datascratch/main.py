@@ -39,6 +39,7 @@ from multiprocessing import current_process, Process
 from tkinter import ttk
 from PIL import Image, ImageTk
 from datascratch.logo_embbedded import get_datascratch_logo
+from datascratch.colors_and_appearance import AppAppearance
 
 def center_window(win, width, height):
     """Centers a Tkinter window on the screen."""
@@ -55,7 +56,7 @@ splash_root.overrideredirect(True)
 splash_root.title("Loading...")
 center_window(splash_root , 600 , 400)
 label = tk.Label(splash_root, wraplength=370 , text="", font=("Helvetica", 12))
-label_summary = tk.Label(splash_root, wraplength=370, text="Loading DataScratch core libraries, this may be slower the first time.", font=("Helvetica", 12))
+label_summary = tk.Label(splash_root, wraplength=370, text=f"Loading {AppAppearance.APP_NAME} core libraries, this may be slower the first time.", font=("Helvetica", 12))
 
 pixel_scale = 10
 progress_bar = ttk.Progressbar(
@@ -149,7 +150,7 @@ logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
 
 windows = []
 FILE_EXTENSION = "dscr"
-FILE_EXTENSION_NAME = "Data Scratch Project File"
+FILE_EXTENSION_NAME = f"{AppAppearance.APP_NAME} Project File"
 FILE_OPEN_STRING = f"All Files (*.{FILE_EXTENSION} *.csv *.xls);; {FILE_EXTENSION_NAME} (*.{FILE_EXTENSION});; CSV Files (*.csv);; Excel Files (*.xls);;"
 # DataScratchSettings.getSettings().setValue(DataScratchSettings.RECENT_FILES_KEY , [])
 
@@ -159,10 +160,9 @@ class MainMenu(QtW.QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("DataScratchMain Menu")
-        self.setWindowIcon(QIcon(":/images/Mini_Logo_Alantis_Learn_book.svg"))
+        self.setWindowTitle(f"{AppAppearance.APP_NAME} Main Menu")
         self.title_image = QtW.QLabel(
-            pixmap=QPixmap(":images/Full_logo_SciKit_Grow.svg")
+            pixmap=QPixmap(":images/DataFlippers.png")
         )
         self.setMaximumWidth(self.title_image.width())
 
@@ -244,7 +244,7 @@ class MainMenu(QtW.QMainWindow):
 
         # Hello Text.
         hello_text = QtW.QLabel(
-            f"""Welcome to DataScratch! You can import datasets through the Open Dataset button. Supported file types include excel, csv, parquet, and {FILE_EXTENSION}"""
+            f"""Welcome to {AppAppearance.APP_NAME}! You can import datasets through the Open Dataset button. Supported file types include excel, csv, parquet, and {FILE_EXTENSION}"""
         )
         hello_text.setWordWrap(True)
 
@@ -283,7 +283,7 @@ class MainWindow(QtW.QMainWindow):
         if file_path is not None:
             self.setWindowTitle(f"{file_path}")
         else:
-            self.setWindowTitle("DataScratch")
+            self.setWindowTitle(f"{AppAppearance.APP_NAME}")
         self.file_path = file_path
 
         self.resize(MainWindow.BASE_WINDOW_WIDTH, MainWindow.BASE_WINDOW_HEIGHT)
@@ -489,8 +489,7 @@ def open_on_file_handle(file_handle):
                     print("Opened and loaded pickle")
                     model_pred = PredictionGUI(loaded_data, True)
                     new_win = QtW.QMainWindow()
-                    new_win.setWindowIcon(QIcon(":images/Mini_Logo_Alantis_2_Box.svg"))
-                    new_win.setWindowTitle("DataScratch Pipeline File")
+                    new_win.setWindowTitle(f"{AppAppearance.APP_NAME} Pipeline File")
                     new_win.setCentralWidget(model_pred)
                     new_win.show()
                     windows.append(new_win)
@@ -534,7 +533,6 @@ def main():
     QtW.QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
     app = QtW.QApplication(sys.argv)  # Create the application instance
-    app.setWindowIcon(QIcon(":/images/Mini_Logo_Alantis_Learn_book.svg"))
     stylesheet = qdarktheme.load_stylesheet(theme="light")
     file_curr = QFile(f":/styles/new_stylesheet.css")
     if not file_curr.open(
@@ -552,6 +550,9 @@ def main():
     else:
         main_menu = MainMenu()
         main_menu.show()
+
+    app.setWindowIcon(QIcon(":/images/DataPenguins.svg"))
+    
     sys.exit(app.exec_())  # Start the application's event loop
 
 

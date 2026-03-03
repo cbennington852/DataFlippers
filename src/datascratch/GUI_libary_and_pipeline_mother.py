@@ -230,7 +230,7 @@ class PipelineMDIArea(QtW.QMdiArea):
         super().__init__(parent)
         self.setBackground(QColor(AppAppearance.MDI_AREA_COLOR))
         self.setAcceptDrops(True)
-        self.setWindowIcon(QIcon(":/images/Mini_Logo_Alantis_Learn_book.svg"))
+        #self.setWindowIcon(QIcon(":/images/DataPenguins.svg"))
 
 
 class PipelineMother(QtW.QMainWindow):
