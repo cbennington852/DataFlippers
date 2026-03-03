@@ -1,12 +1,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url>
-    <loc>https://quartz.jzhao.xyz/</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
-  </url><url>
     <loc>https://quartz.jzhao.xyz/Basics/Classifiers</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Basics/Importing-your-own-dataset</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
+    <lastmod>2026-03-03T22:13:08.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Basics/My-First-AI-Model</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
@@ -18,27 +15,9 @@
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Basics/Regressors</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
+    <lastmod>2026-03-03T22:13:08.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Basics/Validators</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Model-Documentation/Ensemble-Models</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Model-Documentation/Linear-Models</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Model-Documentation/Neural-Networks</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Model-Documentation/Support-Vector-Machines</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Model-Documentation/Tree-Models</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Model-Documentation/</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Example-Datasets/diamond_measurements</loc>
@@ -60,6 +39,24 @@
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Example-Datasets/tips</loc>
+    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Model-Documentation/Ensemble-Models</loc>
+    <lastmod>2026-03-03T22:13:08.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Model-Documentation/Linear-Models</loc>
+    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Model-Documentation/Neural-Networks</loc>
+    <lastmod>2026-03-03T22:13:08.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Model-Documentation/Support-Vector-Machines</loc>
+    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Model-Documentation/Tree-Models</loc>
+    <lastmod>2026-03-03T22:13:08.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Model-Documentation/</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Plotting-Models/2-Dimensional-Classification</loc>
@@ -88,4 +85,7 @@
   </url><url>
     <loc>https://quartz.jzhao.xyz/Plotting-Models/Scatter-Plot</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/</loc>
+    <lastmod>2026-03-03T22:13:08.000Z</lastmod>
   </url></urlset>
