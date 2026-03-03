@@ -351,7 +351,7 @@ class ColumnsMDIWindow(QtW.QMdiSubWindow):
 
         play_icon = self.style().standardIcon(QtW.QStyle.SP_MediaPlay)
         # Set the icon on the button
-        self.train_models = QtW.QPushButton("Train Models")
+        self.train_models = QtW.QPushButton("Go!")
         self.train_models.setIcon(play_icon)
 
         self.train_models.setStyleSheet(

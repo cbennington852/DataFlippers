@@ -1,5 +1,13 @@
 # Importing your own training data
 To import your own training data, start by clicking on the "import dataset" button from the main menu. Supported file types are excel, csv, parquet. 
+
+These datasets are formatted automatically. There are several things to note.
+1. Upon training, any row with NaN(Not a number) is dropped automatically.
+2. Categorical data should be stored as strings.
+	1. Example: time_of_day -> "day" , "night" , "morning"
+3. Columns should only include values of the same type. 
+	1. Example: apple_price -> 1.3 , 1.6 , 1.9
+4. Each Column should have a column name, which is the first row. 
 ![[import button.png]]
 # Importing data for model Predictions
 The DataScratch models allow for you to input your own predications. This can be accessed after training one or more pipelines. This is accessed from the predications tab. 

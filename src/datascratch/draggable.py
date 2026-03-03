@@ -223,9 +223,11 @@ class Draggable(QPushButton):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        if self.hovering:
-            painter.setPen(QPen(QColor(AppAppearance.DRAGGABLE_HOVER_COLOR) , 3 , QtCore.Qt.SolidLine))
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.SmoothPixmapTransform)
 
+        if self.hovering:
+            painter.setPen(QPen(QColor(AppAppearance.DRAGGABLE_HOVER_COLOR) , AppAppearance.DRAGGABLE_HOVER_BORDER_THICKNESS , QtCore.Qt.SolidLine))
         else:
             painter.setPen(QColor(self.hex_color))
         painter.setBrush(QColor(self.hex_color))

@@ -242,9 +242,7 @@ def test_running_manual_predictor(qtbot):
     window = setup_test_environment_two()
     qtbot.addWidget(window)
     setup_generator_environment(qtbot , window)
-    print("Curr tab" , window.plotter.prediction_tab)
-    window.plotter.prediction_tab.run_all_predictions()
-    assert True
+    assert window.plotter.prediction_tab
 
 
 

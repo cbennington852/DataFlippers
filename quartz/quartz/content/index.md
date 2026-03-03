@@ -3,7 +3,9 @@ title: Welcome to DataFlippers!
 ---
 ![[DataFlippers.svg]]
 
-Welcome to DataFlippers! This is an educational software that enables novices to build AI models, without the prerequisite of knowing how to code. 
+# Learn Machine Learning the fun way!
+
+Welcome to DataFlippers! Learn machine learning and data science the **fun** way! DataFlippers allows you to learn through intuitive and fun drag and drop blocks! 
 
 ## Downloads
 

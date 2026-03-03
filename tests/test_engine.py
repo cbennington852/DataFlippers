@@ -233,6 +233,29 @@ def test_plot_no_model():
     )
     assert res.visual_plot
 
+
+def test_plot_no_model_2d():
+    res  : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
+        main_dataframe=classifier_dataframe,
+        pipeline_x_values=['sepal_width' ],
+        pipeline_y_value=['petal_length'],
+        curr_pipelines=[
+            
+        ]
+    )
+    assert res.visual_plot
+
+def test_plot_no_model_3d():
+    res  : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
+        main_dataframe=classifier_dataframe,
+        pipeline_x_values=['sepal_width' ],
+        pipeline_y_value=['petal_length'],
+        curr_pipelines=[
+            
+        ]
+    )
+    assert res.visual_plot
+
 def test_plot_x_reg_y_class():
     res  : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
         main_dataframe=classifier_dataframe,
@@ -501,3 +524,43 @@ def test_is_pipeline_empty():
             )
     except:
         assert True
+
+
+def test_predict_from_df():
+    res : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
+                main_dataframe=classifier_dataframe,
+                pipeline_x_values=['sepal_width' ],
+                pipeline_y_value=['species'],
+                curr_pipelines=[
+                    Pipeline(
+                        sklearn_pipeline=classifier_pipe,
+                    ),
+                    Pipeline(
+                        sklearn_pipeline=classifier_pipe_2,
+                    )
+                ]
+            )
+    test_df = pd.read_csv('resources/flower_measurements.csv')
+    resulting_df = res.predict_from_df(test_df)
+    assert resulting_df.any().any()
+
+
+def test_predict_from_df_2():
+    res : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
+                main_dataframe=dataframe,
+                pipeline_x_values=['Example Chemical 2' ,  'Example Chemical 3'],
+                pipeline_y_value=['Example Chemical 1'],
+                curr_pipelines=[
+                    Pipeline(
+                        sklearn_pipeline=linear_pipe,
+                        validator=val.KFold(n_splits=2),
+                    ),
+                    Pipeline(
+                        sklearn_pipeline=tree_pipe_1,
+                        validator=val.KFold(n_splits=2)
+                    )
+                ]
+            )
+    test_df = pd.read_csv('resources/random_data.csv')
+    resulting_df = res.predict_from_df(test_df)
+    assert resulting_df.any().any()

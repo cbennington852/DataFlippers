@@ -1,5 +1,5 @@
 ---
-title: 'DataScratch : A drag and drop interface to build machine learning models'
+title: 'DataFlippers : A drag and drop interface to build machine learning models'
 tags:
   - Python
   - Data Science
@@ -23,7 +23,7 @@ Important Notes:
 
 # Summary
 
-Machine learning is often taught at the upper undergraduate levels, with programming often cited as a prerequisite for learning Machine learning[@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This creates an barrier to entry that bars some novices, who want to learn Machine learning, but are unable to do so due to a lack of programming knowledge. DataScratch aims to teach novices the core concepts of statistical machine learning through a intuitive drag and drop interface inspired by scratch[@resnick2009scratch].
+Machine learning is often taught at the upper undergraduate levels, with programming often cited as a prerequisite for learning Machine learning[@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This creates an barrier to entry that bars some novices, who want to learn Machine learning, but are unable to do so due to a lack of programming knowledge. DataFlippers aims to teach novices the core concepts of statistical machine learning through a intuitive drag and drop interface inspired by scratch[@resnick2009scratch].
 
 
 # Statement of need
@@ -57,7 +57,7 @@ Scratch[@resnick2009scratch], a visual programming language designed for childre
 ## Drag and drop design
 The drag and drop interface is designed to reduce the syntactic complexity of programming down to drag and drop blocks, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later. 
 
-![Image showing the difference between python blocks, and the drag and drop DataScratch interface. Both the code and the DataScratch blocks result in the same thing, however the blocks are much easier for novices to understand.  ](paper_images/Python_v_datascratch.png "Image showing the complexity of coding versus the new drag and drop interface.")
+![Image showing the difference between python blocks, and the drag and drop DataFlippers interface. Both the code and the DataFlippers blocks result in the same thing, however the blocks are much easier for novices to understand.  ](paper_images/Python_v_datascratch.png "Image showing the complexity of coding versus the new drag and drop interface.")
 
 
 Each drag and drop block is modeled after basic shapes, this gives the user visual signifier, indicating where each block should be dropped on the interface. This ensures the interface is intuitive to people without machine learning experience. 
@@ -69,16 +69,16 @@ Training multiple models at once is a core feature, allowing for quick model com
 
 Users are also enabled to perform basic statistical analysis, this can be done by removing all of the pipeline blocks, and only plotting via the "Inputs and Outputs" block. The software also automatically runs a descriptive statistics plotting on all columns inputted, whenever a model training job is submitted. 
 
-![Image showing the basic statistical capabilities of the DataScratch framework. This shows the island type versus the bill length on the penguins.   ](paper_images/basic_stats.png "Image showing model comparison for the software. ")
+![Image showing the basic statistical capabilities of the DataFlippers framework. This shows the island type versus the bill length on the penguins.   ](paper_images/basic_stats.png "Image showing model comparison for the software. ")
 
-The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataScratch also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired.
+The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataFlippers also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired.
 
-![Image of the fullscreen DataScratch project page. The example dataset here is the penguins dataset.  ](paper_images/Full_software.png "Image showing a full view of the DataScratch suite.")
+![Image of the fullscreen DataFlippers project page. The example dataset here is the penguins dataset.  ](paper_images/Full_software.png "Image showing a full view of the DataFlippers suite.")
 
 ## Software architecture and core project libraries
 The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;], which are standard tools for teaching machine learning[@burridge2022teaching]. 
 
-The core machine learning models are provided by scikit-learn[@scikit-learn;]. There are several reasons for choosing scikit-learn, one of them is portability. scikit-learn is very common within the entry level machine learning field, so this means that skills that novice learn from DataScratch could translate easily to programmatic skills, if the novice decides to learn programming. Additionally, the scikit-learn is very friendly for first time users, featuring extensive documentation, which can be viewed by hovering on each items tooltip. Pandas[@reback2020pandas] is used for handling the data, this is because pandas supports the importing of multiple standard filetype formats, such as csv, excel, and parquet. Matplotlib is utilized for the plotting features, this is because matplotlib interfaces well with the PyQt background, as well as being another standard data science library. 
+The core machine learning models are provided by scikit-learn[@scikit-learn;]. There are several reasons for choosing scikit-learn, one of them is portability. scikit-learn is very common within the entry level machine learning field, so this means that skills that novice learn from DataFlippers could translate easily to programmatic skills, if the novice decides to learn programming. Additionally, the scikit-learn is very friendly for first time users, featuring extensive documentation, which can be viewed by hovering on each items tooltip. Pandas[@reback2020pandas] is used for handling the data, this is because pandas supports the importing of multiple standard filetype formats, such as csv, excel, and parquet. Matplotlib is utilized for the plotting features, this is because matplotlib interfaces well with the PyQt background, as well as being another standard data science library. 
 
 ![Diagram of the overall software architecture. ](paper_images/inner_workings_drawing.png "Image showing the software design of the GUI")
 
