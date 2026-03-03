@@ -36,6 +36,10 @@ jobs:
       - name: List files in the workspace
         run: ls
       - name: List files in the workspace
+        run: ls quartz/
+      - name: List files in the workspace
+        run: ls quartz/quartz
+      - name: List files in the workspace
         run: ls quartz/quartz/public
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
