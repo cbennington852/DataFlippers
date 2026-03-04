@@ -540,6 +540,7 @@ QDockWidget::title {
     border: none;
     background-color: rgba(237.000, 238.000, 240.000, 1.000);
 }
+
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
     background-color: rgba(226.000, 234.000, 251.000, 1.000);
@@ -550,6 +551,7 @@ QFrame {
     padding: 1px;
     border-radius: 4px;
 }
+
 QLCDNumber {
     color: rgba(77.000, 81.000, 87.000, 1.000);
     min-width: 2em;
@@ -919,4 +921,18 @@ QComboBox QAbstractItemView {
 PlotWidget {
     padding: 0px;
 }
-
+QMainWindow::separator {
+    background: transparent;
+    width:10px;
+    height: 10px;
+    border-radius: 15px;
+}
+QMainWindow::separator:hover {
+    background: rgb(165, 165, 241);
+    width:10px;
+    height: 10px;
+    border-radius: 15px;
+}
+QFrame{
+    border: transparent;
+}

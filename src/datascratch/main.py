@@ -301,15 +301,20 @@ class MainWindow(QtW.QMainWindow):
 
         self.render_menu_bar()
 
-        dock_libary = QtW.QDockWidget("Libary", self)
-        dock_dataframe = QtW.QDockWidget("Dataframe", self)
-        dock_plot = QtW.QDockWidget("Plots", self)
+        dock_libary = QtW.QDockWidget("", self)
+        dock_dataframe = QtW.QDockWidget("", self)
+        dock_plot = QtW.QDockWidget("", self)
+
+        dock_libary.setTitleBarWidget(QtW.QWidget())
+        dock_dataframe.setTitleBarWidget(QtW.QWidget())
+        dock_plot.setTitleBarWidget(QtW.QWidget())
+
 
         dock_libary.setFeatures(
-            dock_libary.features() & ~QtW.QDockWidget.DockWidgetClosable
+            dock_libary.features() & ~QtW.QDockWidget.DockWidgetClosable 
         )
         dock_dataframe.setFeatures(
-            dock_dataframe.features() & ~QtW.QDockWidget.DockWidgetClosable
+            dock_dataframe.features() & ~QtW.QDockWidget.DockWidgetClosable 
         )
         dock_plot.setFeatures(
             dock_plot.features() & ~QtW.QDockWidget.DockWidgetClosable
