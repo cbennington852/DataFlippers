@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Basics/Importing your own dataset.md",
+                "file": "Plotting Models/Stacked Bar Charts.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Importing your own dataset"
+              "title": "Stacked Bar Charts"
             }
           }
         ]
@@ -185,8 +185,10 @@
   },
   "active": "5407736e433ba739",
   "lastOpenFiles": [
-    "Basics/Classifiers.md",
+    "Pasted image 20260304125936.png",
     "Basics/Importing your own dataset.md",
+    "Plotting Models/Stacked Bar Charts.md",
+    "Basics/Classifiers.md",
     "Basics/My First AI Model.md",
     "Basics/Preproccessors.md",
     "Basics/Regression Versus Classification.md",
@@ -209,8 +211,6 @@
     "Plotting Models/Scatter Plot.md",
     "Plotting Models/Model Hyper Parameters.md",
     "Plotting Models/Descriptive Statistics.md",
-    "Plotting Models/Box and Whiskers plot.md",
-    "Plotting Models/3 Dimensional Regression.md",
     "DataFlippers.svg",
     "Pasted image 20260302095911.png",
     "Pasted image 20260302095744.png",

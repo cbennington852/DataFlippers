@@ -6,6 +6,12 @@
       <description>Last 10 notes on DataFlippers</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
+    <title>Stacked Bar Charts</title>
+    <link>https://quartz.jzhao.xyz/Plotting-Models/Stacked-Bar-Charts</link>
+    <guid>https://quartz.jzhao.xyz/Plotting-Models/Stacked-Bar-Charts</guid>
+    <description><![CDATA[ You can plot stacked bar charts from two designated classifiers. These are a way to see the counts of each value. ]]></description>
+    <pubDate>Wed, 04 Mar 2026 21:00:26 GMT</pubDate>
+  </item><item>
     <title>Importing your own dataset</title>
     <link>https://quartz.jzhao.xyz/Basics/Importing-your-own-dataset</link>
     <guid>https://quartz.jzhao.xyz/Basics/Importing-your-own-dataset</guid>
@@ -58,12 +64,6 @@
     <link>https://quartz.jzhao.xyz/Basics/Preproccessors</link>
     <guid>https://quartz.jzhao.xyz/Basics/Preproccessors</guid>
     <description><![CDATA[ Preproccessors are functions that transform and change the data before they are run through the AI model. ]]></description>
-    <pubDate>Tue, 03 Mar 2026 20:24:41 GMT</pubDate>
-  </item><item>
-    <title>Regression Versus Classification</title>
-    <link>https://quartz.jzhao.xyz/Basics/Regression-Versus-Classification</link>
-    <guid>https://quartz.jzhao.xyz/Basics/Regression-Versus-Classification</guid>
-    <description><![CDATA[ There are two different types of AI models, Regressors and Classifiers. Both of these fit within the “model” category within the pipeline. ]]></description>
     <pubDate>Tue, 03 Mar 2026 20:24:41 GMT</pubDate>
   </item>
     </channel>
