@@ -4,7 +4,7 @@
   <Metadata productVersion="1.6.1" projectFileVersion="2.0"/>
   <ProductInformation>
     <Name>DataScratch</Name>
-    <Version>1</Version>
+    <Version>1.0</Version>
     <CompanyName>datascratch</CompanyName>
     <WebURI>https://github.com/cbennington852/DataScratch</WebURI>
   </ProductInformation>
@@ -40,8 +40,12 @@
     </Languages>
     <Variables/>
     <Commands/>
-    <Registry/>
-    <Shortcuts defaultPath="&lt;Company&gt;\&lt;AppName&gt;\" isDefaultPathAlterable="false" isCreateStartmenuShortcutsForAllUsers="false" isCreateDesktopShortcutsForAllUsers="false">
+    <Registry>
+      <Entry rootKey="HKEY_CLASSES_ROOT" subKey=".dscr" valueName="" valueData="DataScratchProjectFile" isRemoveWhenUninstalling="true"/>
+      <Entry rootKey="HKEY_CLASSES_ROOT" subKey="DataScratchProjectFile\DefaultIcon" valueName="" valueData="&lt;InstallPath&gt;\Mini_Logo_Alantis_2.ico" isRemoveWhenUninstalling="true"/>
+      <Entry rootKey="HKEY_CLASSES_ROOT" subKey="HKEY_CLASSES_ROOT\DataScratchProjectFile" valueName="" valueData="Data Scratch Project File" isRemoveWhenUninstalling="true"/>
+    </Registry>
+    <Shortcuts defaultPath="&lt;Company&gt;\&lt;AppName&gt;\" isDefaultPathAlterable="false" isCreateStartmenuShortcutsForAllUsers="true" isCreateDesktopShortcutsForAllUsers="false">
       <Shortcut destination="Desktop" name="DataScratch" targetFile="&lt;InstallPath&gt;\datascratch.exe" commandLineArguments="" iconFilePath="" iconIndex="0"/>
     </Shortcuts>
     <Serials isDialogEnabled="false" count="1000" mask ="#####-#####-#####-#####"/>
@@ -59,7 +63,7 @@
   <UninstallerConfiguration isPackaged="true">
     <UninstallerExecutableFileName>Uninstall</UninstallerExecutableFileName>
     <OpenWebURIAfterUninstallation isEnabled="false">https://</OpenWebURIAfterUninstallation>
-    <CustomDisplayIcon isEnabled="false" iconFilePath="&lt;InstallPath&gt;\"/>
+    <CustomDisplayIcon isEnabled="true" iconFilePath="&lt;InstallPath&gt;\Mini_Logo_Alantis_2.ico"/>
   </UninstallerConfiguration>
   <VisualUpdateConfiguration isPackaged="false">
     <ProductName>&lt;AppName&gt;</ProductName>
@@ -76,8 +80,8 @@
   </VisualUpdateConfiguration>
   <BuildConfiguration>
     <SetupFilePath>C:\Users\vboxuser\Desktop\install_datascratch.exe</SetupFilePath>
-    <SetupIconPath>..\icons\ancient.ico</SetupIconPath>
-    <UninstallerIconPath>..\icons\ancient.ico</UninstallerIconPath>
+    <SetupIconPath>C:\Program Files (x86)\solicus\InstallForge\icons\modern.ico</SetupIconPath>
+    <UninstallerIconPath>C:\Program Files (x86)\solicus\InstallForge\icons\modern.ico</UninstallerIconPath>
     <Compression method="0" level="2"/>
     <CodeSigning isEnabled="false" signToolCommandLine="/n &quot;Subject&quot; /tr http://timestamp.digicert.com /td sha256 /fd sha256 &quot;&lt;ExecutableFilePath&gt;&quot;"/>
   </BuildConfiguration>
