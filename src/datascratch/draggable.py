@@ -237,15 +237,21 @@ class Draggable(QPushButton):
             width_center_block = self.label_inferred_width + 35
             width_triangle = Draggable.POINTY_TRIANGLE_WIDTH
             triangle_mid_y_axis = int(height_block / 2)
-            
-            pointy_block = QPolygon([
+
+            list_points = [
                 QPoint(0 , triangle_mid_y_axis), # end of left point.
                 QPoint(width_triangle , 0), # Top Left corner of triangle / box
                 QPoint(width_center_block + width_triangle , 0), # Top Right corner of triangle / box
                 QPoint(width_center_block + 2*width_triangle , triangle_mid_y_axis), # end of right point.
                 QPoint(width_center_block + width_triangle , height_block),
                 QPoint(width_triangle , height_block),
-            ])
+            ]
+            
+            pointy_block = QPolygon(list_points)
+
+            
+            
+            painter.setBrush(QColor(self.hex_color))
 
             painter.drawPolygon(pointy_block)
             painter.setPen(QColor(Qt.white))
@@ -269,6 +275,8 @@ class Draggable(QPushButton):
             width_triangle = Draggable.POINTY_TRIANGLE_WIDTH
             triangle_mid_y_axis = int(height_block / 2)
 
+            painter.setBrush(QColor(self.hex_color))
+            
             painter.drawRoundedRect(
                 0 , # x
                 0 , # y
@@ -281,7 +289,9 @@ class Draggable(QPushButton):
             painter.setPen(QColor(Qt.white))
             start_y_for_text = int(self.size().height() / 2) + 5
             painter.drawText(width_triangle + 15 , start_y_for_text, f"{self.name}")
+
             
+
             if self.hovering:
                 painter.drawPixmap(
                     5, # x
