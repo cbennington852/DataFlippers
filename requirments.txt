@@ -11,3 +11,4 @@ pytest-cov
 docstring_parser
 markdown
 PyInstaller
+pandasql
