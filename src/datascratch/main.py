@@ -254,11 +254,7 @@ class MainMenu(QtW.QMainWindow):
         self.setCentralWidget(main_box)
 
     def open_main_window_on_dataset(dataframe):
-        pixmap = QPixmap(":/images/Full_logo_SciKit_Grow.svg")
-        splash = QtW.QSplashScreen(pixmap)
-        splash.show()
         my_window = MainWindow(dataframe)  # Create an instance of our custom window
-        splash.finish(my_window)
         return my_window
 
     def import_datasets_clicked(self):
@@ -433,6 +429,15 @@ class MainWindow(QtW.QMainWindow):
         open_action = QtW.QAction("Open Project", self)
         open_action.triggered.connect(self.open_button_pressed)
         file_menu.addAction(open_action)
+
+        themes_button = QtW.QToolButton()
+        themes_button.setText("Graph Theme")
+        file_menu = QtW.QMenu("Graph Theme")
+        themes_button.setPopupMode(QtW.QToolButton.InstantPopup)
+        themes_button.setMenu(file_menu)
+
+
+
         menu.addWidget(tool_button)
 
     def save_button_pressed(self):
