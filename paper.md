@@ -92,14 +92,15 @@ The core machine learning models are provided by scikit-learn[@scikit-learn;]. T
 # Research impact statement
 
 ## Installable executables
-The current codebase also supports the automatic building of installers for both windows and linux. In linux, this is in the form of a debian package, and for windows, it is the form of a executable. This shows near term significance in the form of reproducible materials. These are both available from the main Datascratch page. 
+The current codebase also supports the automatic building of installers for both windows and linux. In linux, this is in the form of a debian package, and for windows, it is the form of a executable. This shows near term significance in the form of reproducible materials. These are both available from the main DataFlippers page. 
 
 ## User documentation and educational materials
-Guided active learning greatly improves student engagement[@rossi2021active], to accommodate this desire Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft]. 
+The main DataFlippers page features a walk thought tutorial on how to use the software, and a brief explanation of the the different components on the screen. 
 
-![image showing the lab questions for the penguins example dataset.](paper_images/image.png)
+![A screenshot from the DataFlippers website "My first AI model".](image.png)
 
-These example datasets come with 3-5 lab questions each. The lab questions can be categorized as the following.
+Guided active learning greatly improves student engagement[@rossi2021active], to accommodate this desire Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft]. These example datasets come with 3-5 lab questions each, which can be accessed from the main DataFlippers website. The lab questions can be categorized as the following.
+
 1. Questions encouraging novices to be critical of the models they are creating. Below are some examples.
   1. Make a box plot to compare the gender of the waiter versus the total tip. Do men or women get more tips? Does this seem fair?
   2. Using the model constructed in step 1, do a single prediction, compare a total bill of 200$ if the waiter is Male versus Female. Does you model have gender bias? Discuss whether the model’s behavior could be categorized as sexist.
