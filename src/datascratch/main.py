@@ -31,7 +31,7 @@ list_modules = [
 ]
 
 ######################################################
-# Loading the splash screen.
+# Importing a second time to make pyinstaller happy This has no effect on performance.
 ######################################################
 import tkinter as tk
 import importlib
@@ -41,6 +41,29 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from datascratch.logo_embbedded import get_datascratch_logo
 from datascratch.colors_and_appearance import AppAppearance
+import sys
+import PyQt5.QtWidgets as QtW
+from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QAction
+from datascratch.GUI_libary_and_pipeline_mother import PipelineMother , GUILibary
+from datascratch.sklearn_libary import SubLibary 
+from datascratch.dataframe_viewer import DataframeViewer
+import seaborn as sns
+from datascratch import image_resources
+from PyQt5.QtGui import QIcon , QPixmap
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+import multiprocessing
+from datascratch.plotter import Plotter
+from datascratch.save_file import SaveFileException , SaveFile
+import os
+import pickle
+import traceback
+import time
+import qdarktheme
+import pandas as pd
+from datascratch.settings_manager import DataScratchSettings
+from datascratch.predictor_GUI import PredictionGUI
+import logging
 
 def center_window(win, width, height):
     """Centers a Tkinter window on the screen."""
