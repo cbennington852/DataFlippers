@@ -35,6 +35,7 @@ list_modules = [
 ######################################################
 import tkinter as tk
 import importlib
+import multiprocessing
 from multiprocessing import current_process, Process
 from tkinter import ttk
 from PIL import Image, ImageTk
