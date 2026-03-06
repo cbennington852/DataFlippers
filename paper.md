@@ -29,7 +29,7 @@ Machine learning is often taught at the upper undergraduate levels, with program
 # Statement of need
 
 ## Programming as a barrier to machine learning
-Many educators cite that programming is a barrier to entry to machine learning [@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This is because many tools and libraries for machine learning are called programmatically. CLT(Cognitive Load Theory) often cites that learning prerequisites is nessicary for mastering new an complex topics [@bransford1972contextual]. The cognitive load associated with learning both programming syntax and complex statistical concepts associated with machine learning simultaneously can be too much on students. 
+Many educators cite that programming is a barrier to entry to machine learning [@bart2016implementing;@thayer2020practical;@brunner2016teaching]. This is because many tools and libraries for machine learning are called programmatically. Building a GUI to interface with theses tools would allow for novices to learn machine learning, without the pre-requisite of knowing how to code. 
 
 ## Machine learning literacy
 This lack of accessible entry points limits the potential for widespread machine learning literacy. As AI increasingly permeates various aspects of modern life understanding its underlying principles becomes essential.  AI literacy empowers individuals to critically evaluate these systems, fostering informed decision-making and promoting responsible technological development[@provost2013data;@jain2021smart]. Moreover, a basic grasp of AI models can demystify complex technologies, enabling students to navigate a world shaped by intelligent systems with greater confidence and agency.[@hsu2025effects]
@@ -52,7 +52,13 @@ The platforms that are free and tailored to students, such as JASP[@JASP2025] is
 # Software design
 
 ## Inspiration
-Scratch[@resnick2009scratch], a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when the transition to "real" programming[@armoni2015scratch].
+Scratch[@resnick2009scratch], a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when the transition to "real" programming[@armoni2015scratch]. 
+
+Scratch was constructed on 4 pillars, which makes up it's main philosophy.  DataFlippers follows these pillars closely. 
+1. **Passion** Learners are more motivated when they are learning things that they care about. To follow this pillar, DataFlippers uses crafted example datasets, which focus on topics that are intriguing to children. This is discussed more in the educational materials section. 
+2. **Peers** DataFlippers is intended to be shared with friends. For this purpose DataFlippers has it's own file type, and every chart and graph has the ability to be inspected and saved and shared. 
+3. **Play** The drag a drop nature implies a certain type of play. This makes is easy to novices to quickly try things, without the overhead of writing code. 
+4. **Projects** DataFlippers is focused around datasets, allowing for novices to center machine learning projects around a specific dataset. 
 
 ## Drag and drop design
 The drag and drop interface is designed to reduce the syntactic complexity of programming down to drag and drop blocks, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later. 
