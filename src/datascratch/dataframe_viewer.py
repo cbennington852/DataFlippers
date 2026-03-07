@@ -6,6 +6,42 @@ import pandas as pd
 import PyQt5.QtWidgets as QtW
 
 
+from qfluentwidgets import StyleSheetBase, Theme, isDarkTheme, qconfig
+
+from qfluentwidgets import FluentWindow, setTheme, Theme
+from qfluentwidgets import PushButton
+
+from qfluentwidgets import (
+    PushButton, PrimaryPushButton, TransparentPushButton, ToolButton,
+    RadioButton, CheckBox, SwitchButton, ComboBox, EditableComboBox,
+    Slider, SpinBox, DoubleSpinBox, DateEdit, TimeEdit, DateTimeEdit,
+    LineEdit, SearchLineEdit, PasswordLineEdit, TextEdit, PlainTextEdit,
+    ProgressBar, ProgressRing,CaptionLabel, BodyLabel, 
+    SubtitleLabel, TitleLabel, LargeTitleLabel, DisplayLabel,
+    ScrollArea, SmoothScrollArea, HorizontalFlipView, VerticalFlipView,
+    AvatarWidget, ImageLabel,  InfoBadge, DotInfoBadge, IconInfoBadge
+)
+
+from qfluentwidgets import (
+    FluentWindow, MSFluentWindow, SplitFluentWindow, NavigationInterface,
+    NavigationItemPosition, NavigationTreeWidget, NavigationBar, Pivot, SegmentedWidget, BreadcrumbBar
+)
+
+from qfluentwidgets import (
+    ListWidget, ListView, TableWidget, TableView, TreeWidget, TreeView,
+    FluentIcon, FluentIconBase, getIconColor, 
+    Theme, setTheme, ThemeColor, setThemeColor, HeaderCardWidget
+)
+
+
+from qfluentwidgets import (
+    SettingCard, SwitchSettingCard, RangeSettingCard, OptionsSettingCard,
+    PrimaryPushSettingCard, PushSettingCard, HyperlinkCard, 
+    SettingCardGroup, ExpandSettingCard, CustomColorSettingCard
+)
+
+from qfluentwidgets import CommandBar, Action, FluentIcon as FIF
+
 class DataframeViewer(QtW.QWidget):
     def __init__(self, df, **kwargs):
         super().__init__(**kwargs)
@@ -56,7 +92,7 @@ class DataframeViewer(QtW.QWidget):
             except Exception as e:
                 print(f"Error saving file: {e}")
 
-class InternalDataframeViewer(QtW.QTableView):
+class InternalDataframeViewer(TableView):
     """
     Small data frame class to view a dataframe.
     """
