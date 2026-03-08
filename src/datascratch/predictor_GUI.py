@@ -24,6 +24,7 @@ from datascratch.dataframe_viewer import DataframeViewer
 from datascratch.draggable_parameter import parameter_filter
 import traceback
 from datascratch.sklearn_engine import EngineResults, Pipeline
+from qfluentwidgets import ScrollArea , PushButton
 
 FILE_EXTENSION = "dscr"
 FILE_EXTENSION_NAME = "Data Scratch Project File"
@@ -144,7 +145,7 @@ class RowPredictor(QWidget):
                 for child in self.view_widget.findChildren(QtW.QWidget):
                     child.deleteLater()
 
-                self.back_button = QPushButton("< Back")
+                self.back_button = PushButton("< Back")
 
                 def back_function():
                     self.new_df_viewer = None
@@ -168,7 +169,7 @@ class RowPredictor(QWidget):
             else:
                 pass
 
-        input_dataset = QtW.QToolButton()
+        input_dataset = PushButton()
         label_with_info = QLabel(
             f"Upload a dataset for the model to perform predictions on. Supported formats include .csv and .xlsx. Additional Documentation available on our website at {AppAppearance.WEBSITE_URL}/Basics/Predictions"
         )

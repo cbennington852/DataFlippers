@@ -2,8 +2,8 @@ import PyQt5.QtWidgets as QtW
 from PyQt5.QtGui import QKeyEvent  , QFont
 from PyQt5.QtCore import Qt, QEvent
 
-
-
+from datascratch.custom_mdi_subwindow import CustomMDI
+from qfluentwidgets import PushButton
 
 class CustomTextEditor(QtW.QTextEdit):
     def __init__(self, parent , **kwargs):
@@ -31,7 +31,7 @@ class CustomTextEditor(QtW.QTextEdit):
             super().keyPressEvent(event)
 
 
-class CustomEditorButton(QtW.QPushButton):
+class CustomEditorButton(PushButton):
     def __init__(self, text_edit , function_to_apply , custom_style , **kwargs):
         """Custom buttons for the text editor.
 
@@ -67,34 +67,37 @@ class NotesData():
         self.x_pos = x_pos
         self.y_pos = y_pos
 
-class NotesSubwindow(QtW.QMdiSubWindow):
+class NotesSubwindow(CustomMDI):
     BASE_HEIGHT = 300
     BASE_WIDTH = 400
 
+    def __init__(self, parent , ptr_to_pipeline_parent , **kwargs):
+        super().__init__(parent, **kwargs)
+        self.resize(NotesSubwindow.BASE_WIDTH , NotesSubwindow.BASE_HEIGHT)
+        self.notes = NotesSubsection(parent , ptr_to_pipeline_parent)
+        self.content_layout.addWidget(self.notes)
+
+        self.setStyleSheet("""
+        NotesSubwindow {
+                           
+            background-color : lightgrey;                   
+        }
+
+        """)
+
+class NotesSubsection(QtW.QWidget):
+ 
     def __init__(self, parent , ptr_to_pipeline_parent, **kwargs):
         super().__init__(parent, **kwargs)
         self.my_parent = ptr_to_pipeline_parent
-        self.setWindowTitle("Notepad")
-        self.setWindowFlag(Qt.WindowMinimizeButtonHint , True)
-        # Nessicaty to enable draging via reszing. 
-        # self.setStyleSheet("""
-        #                    QMdiSubWindow {
-        #                    border-top: none;
-        #                     border-bottom: 2px solid transparent;
-        #                     border-right: 2px solid transparent;
-        #                     border-left: 2px solid transparent;
-        #                    }
-                           
-        #                    """)
-        self.setWindowFlag(Qt.WindowMaximizeButtonHint , False)
-        self.resize(NotesSubwindow.BASE_WIDTH , NotesSubwindow.BASE_HEIGHT)
+
+        
 
         self.cursor_bold = False
 
         # Adding a text editor
         self.my_layout = QtW.QVBoxLayout()
-        self.main_box = QtW.QWidget()
-        self.main_box.setLayout(self.my_layout)
+        self.setLayout(self.my_layout)
 
         self.text_edit = CustomTextEditor(self)
 
@@ -145,7 +148,6 @@ class NotesSubwindow(QtW.QMdiSubWindow):
         # Order
         self.my_layout.addWidget(self.tool_bar)
         self.my_layout.addWidget(self.text_edit)
-        self.setWidget(self.main_box)
 
     def check_button_states(self):
         self.bold_button.button_enabled = self.text_edit.fontWeight() >= QFont.Bold

@@ -44,7 +44,7 @@ class CustomMDI(QtW.QMdiSubWindow):
     CUSTOM_MDI_WINDOW_STYLING = """
         CustomMDI {
             border-radius : 15px;
-            background-color : grey;
+            background-color : lightgrey;
         }
     """
 
@@ -73,8 +73,11 @@ class CustomMDI(QtW.QMdiSubWindow):
         self.close_button = ToolButton(FluentIcon.CLOSE , self.toolbar)
         self.close_button.setStyleSheet("""
             ToolButton:hover  {
-                background-color:red;   
-                border-radius : 15px;           
+                background-color: red;   
+                border-radius : 10x;           
+            }
+            ToolButton {
+                border-radius : 10px;           
             }
         """)
         self.close_button.clicked.connect(self.close)

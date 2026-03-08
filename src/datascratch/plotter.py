@@ -47,7 +47,7 @@ from datascratch.descriptor_statistics_GUI import (
     DescriptorStatisticsGUI,
     GeneralDescriptor,
 )
-
+from qfluentwidgets import ProgressBar , MessageDialog , MessageBox , MessageBoxBase , Flyout , FlyoutView , IndeterminateProgressBar, PushButton
 
 # This is at the top to allow for pcikle to access it!
 def runner_wrapper(
@@ -219,13 +219,31 @@ class Plotter(QtW.QTabWidget):
             self.worker_thread.start()
 
             # Start a popup with a dialog
-            self.prog_box = QtW.QProgressDialog(
-                "Training Models...", "Abort", 0, 0, self
-            )
-            self.prog_box.canceled.connect(
-                lambda: self.worker_thread.requestInterruption()
-            )
+            prog_view = FlyoutView("Training Models" , "")
+            prog_view.setMinimumSize(200 , 200)
+            prog_view.move(self.mapToGlobal(prog_view.pos()))
+            self.prog_box = Flyout(prog_view)
+            # Make progress bar
+            prog_bar = IndeterminateProgressBar()
+            prog_view.viewLayout.addWidget(prog_bar)
+
+            def cancel_button_clicked():
+                self.worker_thread.requestInterruption()
+                prog_view.deleteLater()
+
+            cancel_button = PushButton(text="Abort Training")
+            cancel_button.clicked.connect(cancel_button_clicked)
+            prog_view.viewLayout.addWidget(cancel_button)
+
             self.prog_box.show()
+
+            # self.prog_box = QtW.QProgressDialog(
+            #     "Training Models...", "Abort", 0, 0, self
+            # )
+            # self.prog_box.canceled.connect(
+            #     
+            # )
+            # self.prog_box.show()
         except ScikitGrowEngineAssemblyError as e:
             self.handle_thread_crashing()
             QtW.QMessageBox.critical(
