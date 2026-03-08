@@ -8,7 +8,10 @@ from datascratch.canvas_with_toolbar import CanvasWithToolbar
 
 from datascratch.sklearn_engine import EngineResults , Pipeline
 
-class DescriptorStatisticsGUI(QtW.QScrollArea):
+from qfluentwidgets import ScrollArea , ListWidget , ListView
+from datascratch.theme_combo_box import ThemeComboBox
+
+class DescriptorStatisticsGUI(ScrollArea):
 
     def __init__(self, engine_results : EngineResults, dataframe : pd.DataFrame, **kwargs):
         """
@@ -22,6 +25,9 @@ class DescriptorStatisticsGUI(QtW.QScrollArea):
         super().__init__(**kwargs)
         self.engine_results = engine_results
         self.dataframe = dataframe
+        plt.style.use("default")
+        plt.style.use(ThemeComboBox.CURRENT_THEME)
+
 
         self.main = QtW.QWidget()
         self.cols = []
@@ -142,8 +148,8 @@ class ClassificationDescriptor(GeneralDescriptor):
             name = self.col_conv.code_map[x]
             count = self.sizes_occurrence[x]
             list_values.append(f"{name} ... {count}")
-        tiny_scroller = QtW.QScrollArea()
-        tiny_scroll_win = QtW.QListView()
+        tiny_scroller = ScrollArea()
+        tiny_scroll_win = ListView()
         tiny_scroll_win.setModel(QtCore.QStringListModel(list_values))
         tiny_scroller.setWidget(tiny_scroll_win)
         tiny_scroller.setMaximumHeight(self.height())

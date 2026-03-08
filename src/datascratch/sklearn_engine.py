@@ -12,6 +12,7 @@ import traceback
 from pandasql import sqldf
 from matplotlib.colors import ListedColormap
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
+from datascratch.theme_combo_box import ThemeComboBox
 
 
 def is_regressor(x):
@@ -108,7 +109,7 @@ class EngineResults():
             x_cols : list[str] , 
             y_col : list[str],
             list_converted_columns : list[ConvertedColumn],
-            dataframe : pd.DataFrame
+            dataframe : pd.DataFrame,
             ):
         self.visual_plot = visual_plot
         self.accuracy_plot = accuracy_plot
@@ -264,7 +265,7 @@ class SklearnEngine():
                 )
         return first.supervised_learning_type
 
-    def main_sklearn_pipe(main_dataframe : pd.DataFrame,  curr_pipelines : list[Pipeline] , pipeline_x_values  , pipeline_y_value ) -> EngineResults:
+    def main_sklearn_pipe(main_dataframe : pd.DataFrame,  curr_pipelines : list[Pipeline] , pipeline_x_values  , pipeline_y_value , current_theme = 'classic') -> EngineResults:
         """Runs the main sklearn pipeline, filtering through the different options that
           the user could have inputted into this software. 
 
@@ -274,6 +275,7 @@ class SklearnEngine():
             pipeline_x_values ([str]): _description_
             pipeline_y_value ([str]): _description_
         """
+        plt.style.use(current_theme)
 
         # make a copy of the dataframe
         try:

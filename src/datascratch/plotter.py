@@ -50,17 +50,20 @@ from datascratch.descriptor_statistics_GUI import (
 )
 from qfluentwidgets import BodyLabel , ProgressBar , MessageDialog , MessageBox , MessageBoxBase , Flyout , FlyoutView , IndeterminateProgressBar, PushButton 
 from qfluentwidgets import TabWidget , ScrollArea
+from datascratch.theme_combo_box import ThemeComboBox
 
 # This is at the top to allow for pcikle to access it!
 def runner_wrapper(
-    queue, main_dataframe, curr_pipelines, pipeline_x_values, pipeline_y_values
+    queue, main_dataframe, curr_pipelines, pipeline_x_values, pipeline_y_values , current_theme
 ):
     try:
+        print("Current Theme" , ThemeComboBox.CURRENT_THEME)
         curr_results = sklearn_engine.SklearnEngine.main_sklearn_pipe(
             main_dataframe=main_dataframe,
             curr_pipelines=curr_pipelines,
             pipeline_x_values=pipeline_x_values,
             pipeline_y_value=pipeline_y_values,
+            current_theme=current_theme
         )
         queue.put(curr_results)
     except Exception as e:
@@ -311,6 +314,9 @@ class Plotter(TabWidget):
 
         main_layout.addWidget(CanvasWithToolbar(engine_results.accuracy_plot))
         main_layout.addWidget(stats_box)
+
+
+
         scroller.setWidget(main_area)
         return scroller
 
@@ -392,6 +398,7 @@ class PlotterWorker(QtCore.QObject):
                 self.lst_engine_pipelines,
                 self.x_cols,
                 self.y_cols,
+                ThemeComboBox.CURRENT_THEME
             ),
         )
         process.start()

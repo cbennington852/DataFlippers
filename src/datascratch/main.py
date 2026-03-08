@@ -156,17 +156,8 @@ from qfluentwidgets import StyleSheetBase, Theme, isDarkTheme, qconfig
 
 from qfluentwidgets import FluentWindow, setTheme, Theme
 from qfluentwidgets import PushButton
+from datascratch.theme_combo_box import ThemeComboBox
 
-from qfluentwidgets import (
-    PushButton, PrimaryPushButton, TransparentPushButton, ToolButton,
-    RadioButton, CheckBox, SwitchButton, ComboBox, EditableComboBox,
-    Slider, SpinBox, DoubleSpinBox, DateEdit, TimeEdit, DateTimeEdit,
-    LineEdit, SearchLineEdit, PasswordLineEdit, TextEdit, PlainTextEdit,
-    ProgressBar, ProgressRing,CaptionLabel, BodyLabel, 
-    SubtitleLabel, TitleLabel, LargeTitleLabel, DisplayLabel,
-    ScrollArea, SmoothScrollArea, HorizontalFlipView, VerticalFlipView,
-    AvatarWidget, ImageLabel,  InfoBadge, DotInfoBadge, IconInfoBadge
-)
 
 from qfluentwidgets import (
     FluentWindow, MSFluentWindow, SplitFluentWindow, NavigationInterface,
@@ -369,8 +360,8 @@ class MainWindow(QtW.QMainWindow):
         dock_dataframe.setWidget(self.dataframeViewer)
         dock_plot.setWidget(self.plotter)
 
-        self.addDockWidget(Qt.RightDockWidgetArea, dock_plot)
         self.addDockWidget(Qt.RightDockWidgetArea, dock_dataframe)
+        self.addDockWidget(Qt.RightDockWidgetArea, dock_plot)
         self.addDockWidget(Qt.LeftDockWidgetArea, dock_libary)
 
         right_size = 20
@@ -457,37 +448,39 @@ class MainWindow(QtW.QMainWindow):
         menu = QtW.QToolBar()
         menu.setMovable(False)
         self.addToolBar(menu)
-        # for file related actions.
-        tool_button = QtW.QToolButton()
-        tool_button.setText("File")
+        
+        # The File Menu
+        file_tool_button = QtW.QToolButton()
+        file_tool_button.setText("File")
         file_menu = QtW.QMenu("File")
-        tool_button.setPopupMode(QtW.QToolButton.InstantPopup)
-        tool_button.setMenu(file_menu)
-        # graph_settings = menu.addMenu("&Graph Settings")
-        # Save action
+        file_tool_button.setPopupMode(QtW.QToolButton.InstantPopup)
+        file_tool_button.setMenu(file_menu)
         save_action = QtW.QAction("Save Project", self)
         save_action.triggered.connect(lambda x: self.save_button_pressed())
         file_menu.addAction(save_action)
-
-        # Save action
         save_as_action = QtW.QAction("Save Project As", self)
         save_as_action.triggered.connect(lambda x: self.save_button_pressed())
         file_menu.addAction(save_as_action)
-
-        # Open action
         open_action = QtW.QAction("Open Project", self)
         open_action.triggered.connect(self.open_button_pressed)
         file_menu.addAction(open_action)
 
-        themes_button = QtW.QToolButton()
-        themes_button.setText("Graph Theme")
-        file_menu = QtW.QMenu("Graph Theme")
-        themes_button.setPopupMode(QtW.QToolButton.InstantPopup)
-        themes_button.setMenu(file_menu)
+        # Themes
+        theme_tool_button = QtW.QToolButton()
+        theme_tool_button.setText("Theme")
+        theme_menu = QtW.QMenu("Theme")
+        theme_tool_button.setPopupMode(QtW.QToolButton.InstantPopup)
+        theme_tool_button.setMenu(theme_menu)
+        themes_button  = ThemeComboBox()
+        theme_action = QtW.QWidgetAction(self)
+        theme_action.setDefaultWidget(themes_button)
+        theme_menu.addAction(theme_action)
 
 
 
-        menu.addWidget(tool_button)
+        menu.addWidget(file_tool_button)
+        menu.addWidget(theme_tool_button)
+
 
     def save_button_pressed(self):
         if self.file_path is not None:
