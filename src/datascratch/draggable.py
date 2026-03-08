@@ -13,6 +13,7 @@ from docstring_parser import parse as docstring_parse_func
 from docstring_parser import DocstringStyle
 import time
 from markdown import markdown
+from qfluentwidgets import PushButton
 
 
 class DraggableColumn(QPushButton):
@@ -434,7 +435,7 @@ class ParameterPopup(QtW.QWidget):
         self.setLayout(self.my_layout)
 
     def render_layout(self):
-        self.reset_button = QtW.QPushButton("Reset")
+        self.reset_button = PushButton("Reset")
         self.reset_button.clicked.connect(self.reset_parameters)
         self.all_widgets = []
         icon = QApplication.instance().style().standardIcon(QtW.QStyle.StandardPixmap.SP_MessageBoxQuestion)

@@ -13,6 +13,7 @@ from datascratch.sklearn_libary import SubLibary
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtCore import QPoint
 from PyQt5.QtCore import Qt, QMimeData
+from datascratch.custom_mdi_subwindow import CustomMDI
 from PyQt5.QtGui import (
     QDrag,
     QIcon,
@@ -40,6 +41,41 @@ from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFu
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch.library_submodules import PipelineSubmodule, ColumnsSubmodule
 from datascratch.notes_subwindow import NotesSubwindow, NotesData
+from qfluentwidgets import FluentWindow, setTheme, Theme
+from qfluentwidgets import PushButton
+
+from qfluentwidgets import (
+    PushButton, PrimaryPushButton, TransparentPushButton, ToolButton,
+    RadioButton, CheckBox, SwitchButton, ComboBox, EditableComboBox,
+    Slider, SpinBox, DoubleSpinBox, DateEdit, TimeEdit, DateTimeEdit,
+    LineEdit, SearchLineEdit, PasswordLineEdit, TextEdit, PlainTextEdit,
+    ProgressBar, ProgressRing,CaptionLabel, BodyLabel, 
+    SubtitleLabel, TitleLabel, LargeTitleLabel, DisplayLabel,
+    ScrollArea, SmoothScrollArea, HorizontalFlipView, VerticalFlipView,
+    AvatarWidget, ImageLabel,  InfoBadge, DotInfoBadge, IconInfoBadge 
+)
+
+from qfluentwidgets import (
+    FluentWindow, MSFluentWindow, SplitFluentWindow, NavigationInterface,
+    NavigationItemPosition, NavigationTreeWidget, NavigationBar, Pivot, SegmentedWidget, BreadcrumbBar
+)
+
+from qfluentwidgets import HeaderCardWidget
+
+from qfluentwidgets import (
+    ListWidget, ListView, TableWidget, TableView, TreeWidget, TreeView,
+    FluentIcon, FluentIconBase, getIconColor, 
+    Theme, setTheme, ThemeColor, setThemeColor, HeaderCardWidget
+)
+
+
+from qfluentwidgets import (
+    SettingCard, SwitchSettingCard, RangeSettingCard, OptionsSettingCard,
+    PrimaryPushSettingCard, PushSettingCard, HyperlinkCard, 
+    SettingCardGroup, ExpandSettingCard, CustomColorSettingCard
+)
+
+from qfluentwidgets import CommandBar, Action, FluentIcon as FIF
 
 # from datascratch.video_subwindow import VideoSubwindow
 
@@ -59,7 +95,7 @@ class GUILibary(QtW.QTabWidget):
         self.setTabPosition(QtW.QTabWidget.West)
 
         def addModule(name, q_widget_list):
-            scroll_regressor = QtW.QScrollArea()
+            scroll_regressor = SmoothScrollArea() # Versus smooth? what is the fucking diffrence?
             scroll_regressor.setWidget(q_widget_list)
             scroll_regressor.setWidgetResizable(True)
             if isinstance(name, QIcon):
@@ -219,7 +255,7 @@ class GUILibary(QtW.QTabWidget):
         regressor_box = QtW.QWidget()
         regressor_layout = QtW.QVBoxLayout()
         regressor_box.setLayout(regressor_layout)
-        scroller = QtW.QScrollArea()
+        scroller = SmoothScrollArea()
         scroller.setWidget(box_holder)
         regressor_layout.addWidget(scroller)
         return regressor_box
@@ -230,6 +266,10 @@ class PipelineMDIArea(QtW.QMdiArea):
         super().__init__(parent)
         self.setBackground(QColor(AppAppearance.MDI_AREA_COLOR))
         self.setAcceptDrops(True)
+
+    def reload_styling(self):
+        self.setStyleSheet(CustomMDI.CUSTOM_MDI_WINDOW_STYLING)
+
         #self.setWindowIcon(QIcon(":/images/DataPenguins.svg"))
 
 
@@ -244,12 +284,12 @@ class PipelineMother(QtW.QMainWindow):
 
         toolbar = QtW.QToolBar()
         self.main_thing = PipelineMDIArea(self)
-        self.add_pipeline_button = QtW.QPushButton("Add Pipeline")
+        self.add_pipeline_button = PushButton("Add Pipeline")
         self.add_pipeline_button.setIcon(QIcon(":/images/add_pipeline.svg"))
         self.add_pipeline_button.clicked.connect(self.add_pipeline)
         toolbar.addWidget(self.add_pipeline_button)
 
-        self.add_notes_button = QtW.QPushButton("Add Notepad")
+        self.add_notes_button = PushButton("Add Notepad")
         self.add_notes_button.setIcon(QIcon(":/images/add_notes.svg"))
         self.add_notes_button.clicked.connect(self.add_notes)
         toolbar.addWidget(self.add_notes_button)
@@ -313,6 +353,7 @@ class PipelineMother(QtW.QMainWindow):
         for note_data in list_notes_data:
             new_notes = NotesSubwindow(self.main_thing, self)
             new_notes.from_notes_data(note_data)
+
             new_notes.show()
             self.notes.append(new_notes)
 
@@ -327,20 +368,22 @@ class PipelineMother(QtW.QMainWindow):
         new_pipeline.move(30, 30)
         new_pipeline.show()
         self.pipelines.append(new_pipeline)
+        self.main_thing.reload_styling()
 
 
-class ColumnsMDIWindow(QtW.QMdiSubWindow):
+class ColumnsMDIWindow(CustomMDI):
     BASE_HEIGHT = 300
     BASE_WIDTH = 400
 
     def __init__(self, parent, dataframe, **kwargs):
         super().__init__(parent, **kwargs)
         self.dataframe = dataframe
+        self.disableClose()
         self.setFixedSize(ColumnsMDIWindow.BASE_WIDTH, ColumnsMDIWindow.BASE_HEIGHT)
         main_widget = QtW.QWidget()
         mayo = QtW.QVBoxLayout()
         main_widget.setLayout(mayo)
-        self.setWidget(main_widget)
+        self.content_layout.addWidget(main_widget)
         self.setWindowFlag(Qt.WindowMinimizeButtonHint, False)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, False)
         self.setWindowFlag(Qt.WindowCloseButtonHint, False)

@@ -8,8 +8,8 @@ from datascratch.column_pipeline import DraggableColumn , ColumnsSection
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch import drag_and_drop_utility as dnd
-
-
+from datascratch.custom_mdi_subwindow import CustomMDI
+from qfluentwidgets import LineEdit 
 
 class PipelineSection(QtW.QGroupBox):
     """
@@ -245,7 +245,7 @@ class PipelineData():
         else:
             return False
 
-class Pipeline(QtW.QMdiSubWindow):
+class Pipeline(CustomMDI):
     all_pipelines = []
 
 
@@ -270,10 +270,17 @@ class Pipeline(QtW.QMdiSubWindow):
         self.my_parent = my_parent
         self.setWindowFlag(Qt.WindowMinimizeButtonHint , True)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint , False)
-        self.setStyleSheet(f"background-color:{AppAppearance.PIPELINE_BACKGROUND_COLOR}")
+        self.setStyleSheet(f"""
+                           Pipeline {{
+                           
+                           background-color:{AppAppearance.PIPELINE_BACKGROUND_COLOR}; border-radius : 15px;
+
+
+                           }}
+                           """)
         self.main_thing.setLayout(self.my_layout)
         self.setFixedSize(AppAppearance.BASE_PIPELINE_WIDTH , AppAppearance.BASE_PIPELINE_HEIGHT)
-        self.name_pipeline = QtW.QLineEdit()
+        self.name_pipeline = LineEdit()
         self.name_pipeline.setText(f"pipeline {1 + len(self.my_parent.pipelines)}")
         self.preproccessor_pipe = PipelineSection(
             title=Pipeline.SECTION_PREPROCCESSOR_TITLE,
@@ -295,7 +302,7 @@ class Pipeline(QtW.QMdiSubWindow):
         self.my_layout.addWidget(self.preproccessor_pipe)
         self.my_layout.addWidget(self.model_pipe)
         self.my_layout.addWidget(self.validator)
-        self.setWidget(self.main_thing)
+        self.content_layout.addWidget(self.main_thing)
 
     def get_pipeline_data(self) -> PipelineData:
         pipeline_data = PipelineData(

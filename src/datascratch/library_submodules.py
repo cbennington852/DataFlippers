@@ -10,7 +10,7 @@ from datascratch.colors_and_appearance import AppAppearance
 from datascratch import drag_and_drop_utility as dnd
 import pandas as pd
 from datascratch.draggable_pipeline import PipelineSection
-
+from qfluentwidgets import HeaderCardWidget
 
 class ColumnsSubmodule(QtW.QGroupBox):
     def __init__(self , lst_cols , dataframe, classes_cols , **kwargs):

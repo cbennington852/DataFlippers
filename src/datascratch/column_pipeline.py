@@ -7,7 +7,7 @@ from PyQt5.QtCore import Qt
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch import drag_and_drop_utility as dnd
 import pandas as pd
-
+from datascratch.custom_mdi_subwindow import CustomMDI
 
 class ColumnsSection(QtW.QGroupBox):
     def __init__(self, title, my_parent, dataframe, max_num_cols=100, **kwargs):

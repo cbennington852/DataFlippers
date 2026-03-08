@@ -1,5 +1,7 @@
+import traceback
 import PyQt5.QtWidgets as QtW
 from decimal import Decimal
+from qfluentwidgets import LineEdit , SpinBox , CheckBox , ComboBox , DoubleSpinBox
 
 def get_num_decimal_points(value : float) -> int:
     print("Demical reader" , value)
@@ -26,12 +28,12 @@ class Parameter(QtW.QWidget):
 # QSpinBox for int's
 # QDoubleSpinBox for doubles
 
-class SingleLineParameter(QtW.QLineEdit):
+class SingleLineParameter(LineEdit):
     def __init__(self , name , value,  **kwargs):
         super().__init__(**kwargs) 
         self.setText(str(value))
 
-class IntSingleLine(QtW.QSpinBox):
+class IntSingleLine(SpinBox):
     def __init__(self , name , value,  **kwargs):
         super().__init__(**kwargs)
         max_value = 2147483647 # this is the 32-bit int max for signed ints
@@ -42,7 +44,7 @@ class IntSingleLine(QtW.QSpinBox):
     def text(self):
         return str(int(super().text()))
 
-class FloatSingleLine(QtW.QDoubleSpinBox):
+class FloatSingleLine(DoubleSpinBox):
     def __init__(self , name , value,  **kwargs):
         super().__init__(**kwargs)
         self.setMinimum(float('-inf')) # Or use a very small number like -1e9
@@ -53,7 +55,7 @@ class FloatSingleLine(QtW.QDoubleSpinBox):
     def text(self):
         return str(float(super().text()))
 
-class BooleanSingleLine(QtW.QCheckBox):
+class BooleanSingleLine(CheckBox):
     def __init__(self , name , value,  **kwargs):
         super().__init__(**kwargs)
         self.setChecked(value)
@@ -61,7 +63,7 @@ class BooleanSingleLine(QtW.QCheckBox):
     def text(self):
         return str(self.isChecked())
     
-class StringListSingleLine(QtW.QComboBox):
+class StringListSingleLine(ComboBox):
     def __init__(self , name , value,  **kwargs):
         super().__init__(**kwargs)
         self.addItems(value)
@@ -104,5 +106,7 @@ def parameter_filter(name : str , value) -> Parameter:
                 print(str(e))
         else:
             return SingleLineParameter(name , value)
-    except:
+    except Exception as e:
+        print(e)
+        traceback.print_exception(e)
         return SingleLineParameter(name , value)
