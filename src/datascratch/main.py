@@ -183,7 +183,7 @@ from qfluentwidgets import (
 from qfluentwidgets import (
     SettingCard, SwitchSettingCard, RangeSettingCard, OptionsSettingCard,
     PrimaryPushSettingCard, PushSettingCard, HyperlinkCard, 
-    SettingCardGroup, ExpandSettingCard, CustomColorSettingCard
+    SettingCardGroup, ExpandSettingCard, CustomColorSettingCard , TabWidget
 )
 
 from qfluentwidgets import CommandBar, Action, FluentIcon as FIF
@@ -267,23 +267,22 @@ class MainMenu(QtW.QMainWindow):
             lambda x: open_on_file_handle(recent_files_opened[x.row()])
         )
 
-        recent_group_box = QtW.QGroupBox("Recent Datasets")
+        recent_group_box = QtW.QWidget()
         recent_group_box.setLayout(QtW.QVBoxLayout())
         recent_group_box.setMinimumHeight(100)
         recent_group_box.layout().addWidget(recent_list_widget)
 
-        group_box = QtW.QGroupBox("Example datasets")
+        group_box = QtW.QWidget()
         group_box.setLayout(QtW.QVBoxLayout())
         group_box.setMinimumHeight(100)
         group_box.layout().addWidget(list_widget)
+
 
         # second_box
         second_box = QtW.QWidget()
         second_box_lay = QtW.QVBoxLayout()
         second_box.setLayout(second_box_lay)
         second_box_lay.addWidget(curr_toolbar)
-        second_box_lay.addWidget(recent_group_box)
-        second_box_lay.addWidget(group_box)
 
         # Hello Text.
         hello_text = QtW.QLabel(
@@ -291,9 +290,15 @@ class MainMenu(QtW.QMainWindow):
         )
         hello_text.setWordWrap(True)
 
+        tab_widget = TabWidget(self)
+        tab_widget.tabBar.setAddButtonVisible(False)
+        tab_widget.setTabsClosable(False)
+        tab_widget.addPage(group_box , "Example Datasets")
+        tab_widget.addPage(recent_group_box , "Recent Datasets")
+
         my_layout.addWidget(self.title_image)
-        my_layout.addWidget(hello_text)
         my_layout.addWidget(second_box)
+        my_layout.addWidget(tab_widget)
 
         self.setCentralWidget(main_box)
 

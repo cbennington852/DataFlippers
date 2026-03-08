@@ -51,7 +51,7 @@ class DataframeViewer(QtW.QWidget):
         self.my_toolbar = QtW.QToolBar()
 
         # Save Button
-        self.save_df_button = QtW.QPushButton("")
+        self.save_df_button = ToolButton()
         save_icon = QIcon(":/images/filesave.svg")
         self.save_df_button.setIcon(save_icon)
         self.save_df_button.clicked.connect(self.save_clicked)
