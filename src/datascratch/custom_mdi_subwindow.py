@@ -75,9 +75,9 @@ class CustomMDI(QtW.QMdiSubWindow):
             ToolButton:hover  {
                 background-color: red;   
                 border-radius : 15px;
-                border : 1px solid black;
             }
         """)
+        self.close_button.setContentsMargins(0,0,15,0)
         self.close_button.clicked.connect(self.close)
     
 
@@ -103,8 +103,8 @@ class DragTopBar(QtW.QToolBar):
 
         self.setStyleSheet("""
             background-color : darkgrey;
-            border-top-left-radius : 15px;
-            border-top-right-radius : 15px;               
+            border-top-left-radius : 10px;
+            border-top-right-radius : 10px;               
         """)
         
         spacer = QtW.QWidget()

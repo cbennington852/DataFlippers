@@ -184,7 +184,7 @@ class Draggable(QPushButton):
         temp_label.adjustSize()
         required_text_width = temp_label.width()
         self.label_inferred_width = temp_label.width()
-        self.setMaximumWidth(required_text_width + 80)
+        self.setFixedWidth(required_text_width + 90)
         self.setFixedHeight(Draggable.BASE_HEIGHT)
         self.data = DraggableData(
             sklearn_function=sklearn_function,

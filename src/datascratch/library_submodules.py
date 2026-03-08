@@ -2,7 +2,7 @@ from .draggable import Draggable , DraggableData
 from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QLabel
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtGui import QDrag , QIcon , QPixmap , QCursor , QColor , QPolygon, QPen, QBrush, QIcon, QPainter
-from PyQt5.QtCore import  QPoint
+from PyQt5.QtCore import  QPoint , QEasingCurve
 from PyQt5.QtCore import Qt, QMimeData
 from datascratch.column_pipeline import DraggableColumn , ColumnsSection
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
@@ -10,7 +10,7 @@ from datascratch.colors_and_appearance import AppAppearance
 from datascratch import drag_and_drop_utility as dnd
 import pandas as pd
 from datascratch.draggable_pipeline import PipelineSection
-from qfluentwidgets import HeaderCardWidget
+from qfluentwidgets import HeaderCardWidget , FlowLayout 
 
 class ColumnsSubmodule(QtW.QGroupBox):
     def __init__(self , lst_cols , dataframe, classes_cols , **kwargs):
@@ -21,7 +21,11 @@ class ColumnsSubmodule(QtW.QGroupBox):
             lst_cols (str): list of strings of the dataframe columns.
         """
         super().__init__(**kwargs)
-        self.my_layout = QVBoxLayout(self)
+        self.my_layout = FlowLayout(self , needAni=True)
+        self.my_layout.setAnimation(200, QEasingCurve.OutQuad)
+        self.my_layout.setContentsMargins(30, 30, 30, 30)
+        self.my_layout.setVerticalSpacing(20)
+        self.my_layout.setHorizontalSpacing(10)
         self.setAcceptDrops(True)
         self.classes_cols = classes_cols
         if self.classes_cols:
@@ -78,7 +82,11 @@ class PipelineSubmodule(QtW.QGroupBox):
     
     def __init__(self , sublibary , render_type = "", hex_value = "",  **kwargs):
         super().__init__(**kwargs)
-        self.my_layout = QVBoxLayout(self)
+        self.my_layout = FlowLayout(self , needAni=True)
+        self.my_layout.setAnimation(200, QEasingCurve.OutQuad)
+        self.my_layout.setContentsMargins(30, 30, 30, 30)
+        self.my_layout.setVerticalSpacing(20)
+        self.my_layout.setHorizontalSpacing(10)
         self.setAcceptDrops(True)
         self.sublibary = sublibary
         self.setTitle(self.sublibary.library_name)

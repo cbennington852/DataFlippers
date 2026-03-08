@@ -3,9 +3,9 @@ from PyQt5.QtGui import QKeyEvent  , QFont
 from PyQt5.QtCore import Qt, QEvent
 
 from datascratch.custom_mdi_subwindow import CustomMDI
-from qfluentwidgets import PushButton
+from qfluentwidgets import PushButton , TextEdit
 
-class CustomTextEditor(QtW.QTextEdit):
+class CustomTextEditor(TextEdit):
     def __init__(self, parent , **kwargs):
         super().__init__( **kwargs)
         self.my_parent = parent
