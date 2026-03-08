@@ -48,7 +48,8 @@ from datascratch.descriptor_statistics_GUI import (
     DescriptorStatisticsGUI,
     GeneralDescriptor,
 )
-from qfluentwidgets import BodyLabel , ProgressBar , MessageDialog , MessageBox , MessageBoxBase , Flyout , FlyoutView , IndeterminateProgressBar, PushButton
+from qfluentwidgets import BodyLabel , ProgressBar , MessageDialog , MessageBox , MessageBoxBase , Flyout , FlyoutView , IndeterminateProgressBar, PushButton 
+from qfluentwidgets import TabWidget , ScrollArea
 
 # This is at the top to allow for pcikle to access it!
 def runner_wrapper(
@@ -70,7 +71,7 @@ class ScikitGrowEngineAssemblyError(Exception):
     pass
 
 
-class Plotter(QtW.QTabWidget):
+class Plotter(TabWidget):
 
     TIME_DELAY_UNTIL_PROGRESS_WINDOW = 0.7
 
@@ -82,6 +83,9 @@ class Plotter(QtW.QTabWidget):
         self.work_done = False
         self.pipeline_mother.train_models.clicked.connect(self.plot_pipeline)
         self.dataframe = dataframe
+
+        self.tabBar.setAddButtonVisible(False)
+        self.setTabsClosable(False)
 
         fig, ax = plt.subplots(figsize=(2, 2))
         ax.grid(visible=True, color="white", linestyle="-", linewidth=0.5)
@@ -103,10 +107,10 @@ class Plotter(QtW.QTabWidget):
         self.prediction_tab = QWidget()
         self.descriptive_statistics = QWidget()
 
-        self.addTab(self.visual_plot, "Visualization Plot")
-        self.addTab(self.accuracy_plot, "Accuracy")
-        self.addTab(self.prediction_tab, "Predictions")
-        self.addTab(self.descriptive_statistics, "Descriptive Statistics")
+        self.addPage(self.visual_plot, "Visualization Plot")
+        self.addPage(self.accuracy_plot, "Accuracy")
+        self.addPage(self.prediction_tab, "Predictions")
+        self.addPage(self.descriptive_statistics, "Descriptive Statistics")
 
     def handle_thread_crashing(self):
         self.do_regardless()
@@ -228,7 +232,6 @@ class Plotter(QtW.QTabWidget):
             # Make progress bar
             prog_bar = IndeterminateProgressBar()
 
-            message = BodyLabel(text="Processing query......")
 
             def cancel_button_clicked():
                 self.worker_thread.requestInterruption()
@@ -236,7 +239,6 @@ class Plotter(QtW.QTabWidget):
 
             cancel_button = PushButton(text="Abort Training")
             cancel_button.clicked.connect(cancel_button_clicked)
-            prog_lay.addWidget(message)
             prog_lay.addWidget(prog_bar)
             prog_lay.addWidget(cancel_button)
 
@@ -284,7 +286,7 @@ class Plotter(QtW.QTabWidget):
 
     def resolve_accuracy(self, engine_results):
         # scroller
-        scroller = QtW.QScrollArea()
+        scroller = ScrollArea()
         # Main area
         main_area = QtW.QWidget()
         main_layout = QtW.QVBoxLayout()
@@ -315,10 +317,7 @@ class Plotter(QtW.QTabWidget):
     @QtCore.pyqtSlot()
     def plotting_finished(self):
         print("Engine : ", self.worker.engine_results)
-        for i in range(0, self.count()):
-            widget = self.widget(i)
-            widget.deleteLater()
-            del widget
+        self.remove_all_pages()
         self.visual_plot = CanvasWithToolbar(self.worker.engine_results.visual_plot)
         try:
             self.accuracy_plot = self.resolve_accuracy(self.worker.engine_results)
@@ -341,15 +340,24 @@ class Plotter(QtW.QTabWidget):
             traceback.print_exception(e)
             print("ERROR DESCRIPTOR STATS", str(e))
             self.descriptive_statistics = QtW.QWidget()
-        self.addTab(self.visual_plot, "Visualization Plot")
-        self.addTab(self.accuracy_plot, "Accuracy")
-        self.addTab(self.prediction_tab, "Predictions")
-        self.addTab(self.descriptive_statistics, "Descriptive Statistics")
+        self.addPage(self.visual_plot, "Visualization Plot")
+        self.addPage(self.accuracy_plot, "Accuracy")
+        self.addPage(self.prediction_tab, "Predictions")
+        self.addPage(self.descriptive_statistics, "Descriptive Statistics")
 
         self.visual_plot.show()
         self.do_regardless()
 
         # Tell the predictor to re-render
+
+    def remove_all_pages(self):
+        for i in range(self.count() - 1, -1, -1):
+            self.removeTab(i)
+        for i in range(self.count() - 1, -1, -1):
+            page_widget = self.widget(i) # Get the page widget
+            self.removeTab(i)             # Remove the tab
+            if page_widget:
+                page_widget.deleteLater()   
 
 
 class PlotterWorker(QtCore.QObject):

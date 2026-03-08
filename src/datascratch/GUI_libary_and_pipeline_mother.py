@@ -389,7 +389,7 @@ class ColumnsMDIWindow(CustomMDI):
         self.setWindowFlag(Qt.WindowCloseButtonHint, False)
 
         self.setStyleSheet(
-            f"background-color:{AppAppearance.PIPELINE_BACKGROUND_COLOR}"
+            f""" background-color:{AppAppearance.PIPELINE_BACKGROUND_COLOR}; ColumnsMDIWindow {{ border-radius : 15px; }}"""
         )
 
         play_icon = self.style().standardIcon(QtW.QStyle.SP_MediaPlay)

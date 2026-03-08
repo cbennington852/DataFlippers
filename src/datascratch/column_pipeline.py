@@ -25,6 +25,9 @@ class ColumnsSection(QtW.QGroupBox):
         self.my_parent = my_parent
         self.max_num_cols = max_num_cols
         self.resize(200, 90)
+        self.setStyleSheet(f"""
+    background-color:{AppAppearance.PIPELINE_BACKGROUND_COLOR};
+""")
         self.hovering = False
         self.setAcceptDrops(True)
         self.setContentsMargins(
@@ -34,7 +37,6 @@ class ColumnsSection(QtW.QGroupBox):
             0,  # bottom
         )
         self.my_layout = QVBoxLayout()
-        self.setStyleSheet("")
         self.my_layout.setSpacing(0)
         self.setLayout(self.my_layout)
         self.setTitle(self.my_title)

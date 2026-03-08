@@ -24,7 +24,7 @@ from datascratch.dataframe_viewer import DataframeViewer
 from datascratch.draggable_parameter import parameter_filter
 import traceback
 from datascratch.sklearn_engine import EngineResults, Pipeline
-from qfluentwidgets import ScrollArea , PushButton
+from qfluentwidgets import ScrollArea , PushButton , TabWidget , HeaderCardWidget
 
 FILE_EXTENSION = "dscr"
 FILE_EXTENSION_NAME = "Data Scratch Project File"
@@ -109,7 +109,7 @@ class RowPredictor(QWidget):
         self.pred_widget.setLayout(self.pred_layout)
 
         # Run predicitons button
-        self.run_prediction_button = QPushButton("Run All Pipeline Predictions")
+        self.run_prediction_button = PushButton("Run All Pipeline Predictions")
         play_icon = self.style().standardIcon(QtW.QStyle.SP_MediaPlay)
         self.run_prediction_button.setIcon(play_icon)
         self.pred_layout.addWidget(self.run_prediction_button)
@@ -177,7 +177,6 @@ class RowPredictor(QWidget):
         input_dataset.setText("Import dataset for prediction!")
         input_dataset.setIcon(QIcon(":images/import_dataset.svg"))
         input_dataset.setIconSize(QSize(48, 48))
-        input_dataset.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         input_dataset.clicked.connect(input_dataset_clicked)
         my_layout.addWidget(label_with_info)
         my_layout.addWidget(input_dataset)
@@ -233,7 +232,7 @@ class SinglePredictor(QtW.QWidget):
         # NOTE : the backend for this will be handled by the
         # 4. We could also try having it be on type.
 
-        self.predict_button = QPushButton("Predict")
+        self.predict_button = PushButton("Predict")
         self.predict_button.clicked.connect(self.run_all_predictions)
         self.my_layout.addWidget(self.predict_button)
 
@@ -267,7 +266,7 @@ class SinglePredictor(QtW.QWidget):
             print(e)
 
 
-class PredictionGUI(QtW.QTabWidget):
+class PredictionGUI(TabWidget):
     def __init__(
         self, engine_results: EngineResults, hide_export_features=False, **kwargs
     ):
@@ -279,7 +278,8 @@ class PredictionGUI(QtW.QTabWidget):
             hide_export_features (bool, optional): _description_. Defaults to False.
         """
         super().__init__(**kwargs)
-
+        self.tabBar.setAddButtonVisible(False)
+        self.setTabsClosable(False)
         self.engine_results = engine_results
         # Setup layout
         self.setSizePolicy(
@@ -287,19 +287,18 @@ class PredictionGUI(QtW.QTabWidget):
         )
         self.left = SinglePredictor("Predict Single Value", self.engine_results)
         self.right = RowPredictor(self.engine_results)
-        self.addTab(self.right, "Predict Multiple Values")
-        self.addTab(self.left, "Predict Single Value")
+        self.addPage(self.right, "Predict Multiple Values")
+        self.addPage(self.left, "Predict Single Value")
 
         # GENERAL PLAN:
         # Have a GroupBox for the x_cols
         # Have an individual groupbox for each predictor.
 
 
-class PredictionGUIPipeline(QtW.QGroupBox):
+class PredictionGUIPipeline(HeaderCardWidget):
     def __init__(self, pipeline: Pipeline, **kwargs):
-        super().__init__(pipeline.name, **kwargs)
+        super().__init__(**kwargs)
+        self.setTitle(pipeline.name)
         self.pipeline = pipeline
-        self.my_layout = QtW.QVBoxLayout()
-        self.setLayout(self.my_layout)
         self.pred_value = QtW.QLabel("")
-        self.my_layout.addWidget(self.pred_value)
+        self.viewLayout.addWidget(self.pred_value)

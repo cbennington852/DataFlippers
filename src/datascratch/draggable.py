@@ -409,7 +409,7 @@ class Draggable(QPushButton):
     def reset_parameters(self):
         self.data.parameters = SubLibary.get_sklearn_parameters(self.data.sklearn_function)
 
-
+from qfluentwidgets import PixmapLabel , Icon , FluentIcon , IconWidget
 
 class ParameterPopup(QtW.QWidget):
     def __init__(self , draggable_data  : DraggableData , parent : Draggable,  **kwargs):
@@ -438,10 +438,8 @@ class ParameterPopup(QtW.QWidget):
         self.reset_button = PushButton("Reset")
         self.reset_button.clicked.connect(self.reset_parameters)
         self.all_widgets = []
-        icon = QApplication.instance().style().standardIcon(QtW.QStyle.StandardPixmap.SP_MessageBoxQuestion)
-        pixmap = icon.pixmap(32)
-        description_label = QtW.QLabel()
-        description_label.setPixmap(pixmap)
+        description_label = IconWidget(FluentIcon.QUESTION  , self)
+        description_label.setFixedSize(20, 20)
         description_label.setToolTip(self.doc_string.long_description)
         self.my_layout.insertRow(0 , description_label , self.reset_button)
         for parameter_name , default_value in self.draggable_data.parameters:

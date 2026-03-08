@@ -79,11 +79,12 @@ class NotesSubwindow(CustomMDI):
 
         self.setStyleSheet("""
         NotesSubwindow {
-                           
+            border-radius : 15px;
             background-color : lightgrey;                   
         }
 
         """)
+ 
 
 class NotesSubsection(QtW.QWidget):
  
@@ -148,6 +149,8 @@ class NotesSubsection(QtW.QWidget):
         # Order
         self.my_layout.addWidget(self.tool_bar)
         self.my_layout.addWidget(self.text_edit)
+
+        
 
     def check_button_states(self):
         self.bold_button.button_enabled = self.text_edit.fontWeight() >= QFont.Bold

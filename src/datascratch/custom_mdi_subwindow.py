@@ -29,9 +29,7 @@ from qfluentwidgets import (
 
 
 from qfluentwidgets import (
-    SettingCard, SwitchSettingCard, RangeSettingCard, OptionsSettingCard,
-    PrimaryPushSettingCard, PushSettingCard, HyperlinkCard, 
-    SettingCardGroup, ExpandSettingCard, CustomColorSettingCard 
+    CardWidget , ElevatedCardWidget
 )
 
 from qfluentwidgets import CommandBar, Action, FluentIcon as FIF
@@ -42,9 +40,8 @@ from PyQt5.QtCore import Qt, QMimeData
 class CustomMDI(QtW.QMdiSubWindow):
 
     CUSTOM_MDI_WINDOW_STYLING = """
-        CustomMDI {
-            border-radius : 15px;
-            background-color : lightgrey;
+        CustomMDI , Plotter , NotesSubwindow {
+            background: transparent;
         }
     """
 
@@ -60,7 +57,7 @@ class CustomMDI(QtW.QMdiSubWindow):
             # 3. Minimise not required but could be nice
 
         # Toolbar
-        self.main = QtW.QWidget()
+        self.main = CardWidget()
         self.toolbar = DragTopBar(self) # MDI window is parent
         self.my_layout = QtW.QVBoxLayout()
         self.my_layout.setContentsMargins(0 , 0, 0 , 0)
@@ -74,10 +71,6 @@ class CustomMDI(QtW.QMdiSubWindow):
         self.close_button.setStyleSheet("""
             ToolButton:hover  {
                 background-color: red;   
-                border-radius : 10x;           
-            }
-            ToolButton {
-                border-radius : 10px;           
             }
         """)
         self.close_button.clicked.connect(self.close)
@@ -89,8 +82,9 @@ class CustomMDI(QtW.QMdiSubWindow):
         self.toolbar.addWidget(self.close_button)
         self.my_layout.addWidget(self.toolbar)
         self.my_layout.addWidget(self.content)
-        # Fix the height so if remove close button it's fine
         self.toolbar.setFixedHeight(self.toolbar.height())
+
+       
 
 
     def disableClose(self):
