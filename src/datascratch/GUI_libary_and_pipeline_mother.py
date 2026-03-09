@@ -315,7 +315,7 @@ class PipelineMother(QtW.QMainWindow):
     def get_notes_data(self) -> list[NotesData]:
         lst_notes_data = []
         for note in self.notes:
-            lst_notes_data.append(note.to_notes_data())
+            lst_notes_data.append(note.notes.to_notes_data())
         return lst_notes_data
 
     # def add_video_widget(self):
@@ -352,7 +352,7 @@ class PipelineMother(QtW.QMainWindow):
         # also load the notes windows.
         for note_data in list_notes_data:
             new_notes = NotesSubwindow(self.main_thing, self)
-            new_notes.from_notes_data(note_data)
+            new_notes.notes.from_notes_data(note_data)
 
             new_notes.show()
             self.notes.append(new_notes)

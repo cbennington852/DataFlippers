@@ -1,122 +1,122 @@
-# import tkinter as tk
-# import importlib
-# import multiprocessing
-# from multiprocessing import current_process, Process
-# from tkinter import ttk
-# from PIL import Image, ImageTk
-# from datascratch.logo_embbedded import get_datascratch_logo
-# from datascratch.colors_and_appearance import AppAppearance
-# import sys
-# from enum import Enum
+import tkinter as tk
+import importlib
+import multiprocessing
+from multiprocessing import current_process, Process
+from tkinter import ttk
+from PIL import Image, ImageTk
+from datascratch.logo_embbedded import get_datascratch_logo
+from datascratch.colors_and_appearance import AppAppearance
+import sys
+from enum import Enum
 
 
-# ######################################################
-# # Listing Dynamic Imports
-# ######################################################
-# current_module_import_index = 0
-# FROM_IMPORT_TYPE = "from"
-# IMPORT_IMPORT_TYPE = "import"
-# list_modules = [
-#     # Type , selection , module type
-#    (IMPORT_IMPORT_TYPE , "QtW" ,"PyQt5.QtWidgets"),
-#    (IMPORT_IMPORT_TYPE , "sys" , "sys"),
-#    (IMPORT_IMPORT_TYPE , "sns" , "seaborn"),
-#    (IMPORT_IMPORT_TYPE , "os" , "os"),
-#    (IMPORT_IMPORT_TYPE , "pickle" , "pickle"),
-#    (IMPORT_IMPORT_TYPE , "traceback" , "traceback"),
-#    (IMPORT_IMPORT_TYPE , "time" , "time"),
-#    (IMPORT_IMPORT_TYPE , "pd" , "pandas"),
-#    (IMPORT_IMPORT_TYPE , "PipelineMother" , "datascratch.GUI_libary_and_pipeline_mother"),
-#    (FROM_IMPORT_TYPE , "GUILibary" , "datascratch.GUI_libary_and_pipeline_mother"),
-#    (FROM_IMPORT_TYPE , "PipelineMother" , "datascratch.GUI_libary_and_pipeline_mother"),
-#    (FROM_IMPORT_TYPE , "DataframeViewer" , "datascratch.dataframe_viewer"),
-#    (FROM_IMPORT_TYPE , "QIcon" , "PyQt5.QtGui"),
-#    (FROM_IMPORT_TYPE , "QPixmap" , "PyQt5.QtGui"),
-#    (FROM_IMPORT_TYPE , "SaveFileException" , "datascratch.save_file"),
-#    (FROM_IMPORT_TYPE , "SaveFile" , "datascratch.save_file"),
-#    (FROM_IMPORT_TYPE , "Qt" , "PyQt5.QtCore"),
-#    (FROM_IMPORT_TYPE , "QFile" , "PyQt5.QtCore"),
-#    (FROM_IMPORT_TYPE , "QIODevice" , "PyQt5.QtCore"),
-#    (IMPORT_IMPORT_TYPE , "logging" , "logging"),
-#    (FROM_IMPORT_TYPE , "QTextStream" , "PyQt5.QtCore"),
-#    (FROM_IMPORT_TYPE , "DataScratchSettings" , "datascratch.settings_manager"),
-# ]
+######################################################
+# Listing Dynamic Imports
+######################################################
+current_module_import_index = 0
+FROM_IMPORT_TYPE = "from"
+IMPORT_IMPORT_TYPE = "import"
+list_modules = [
+    # Type , selection , module type
+   (IMPORT_IMPORT_TYPE , "QtW" ,"PyQt5.QtWidgets"),
+   (IMPORT_IMPORT_TYPE , "sys" , "sys"),
+   (IMPORT_IMPORT_TYPE , "sns" , "seaborn"),
+   (IMPORT_IMPORT_TYPE , "os" , "os"),
+   (IMPORT_IMPORT_TYPE , "pickle" , "pickle"),
+   (IMPORT_IMPORT_TYPE , "traceback" , "traceback"),
+   (IMPORT_IMPORT_TYPE , "time" , "time"),
+   (IMPORT_IMPORT_TYPE , "pd" , "pandas"),
+   (IMPORT_IMPORT_TYPE , "PipelineMother" , "datascratch.GUI_libary_and_pipeline_mother"),
+   (FROM_IMPORT_TYPE , "GUILibary" , "datascratch.GUI_libary_and_pipeline_mother"),
+   (FROM_IMPORT_TYPE , "PipelineMother" , "datascratch.GUI_libary_and_pipeline_mother"),
+   (FROM_IMPORT_TYPE , "DataframeViewer" , "datascratch.dataframe_viewer"),
+   (FROM_IMPORT_TYPE , "QIcon" , "PyQt5.QtGui"),
+   (FROM_IMPORT_TYPE , "QPixmap" , "PyQt5.QtGui"),
+   (FROM_IMPORT_TYPE , "SaveFileException" , "datascratch.save_file"),
+   (FROM_IMPORT_TYPE , "SaveFile" , "datascratch.save_file"),
+   (FROM_IMPORT_TYPE , "Qt" , "PyQt5.QtCore"),
+   (FROM_IMPORT_TYPE , "QFile" , "PyQt5.QtCore"),
+   (FROM_IMPORT_TYPE , "QIODevice" , "PyQt5.QtCore"),
+   (IMPORT_IMPORT_TYPE , "logging" , "logging"),
+   (FROM_IMPORT_TYPE , "QTextStream" , "PyQt5.QtCore"),
+   (FROM_IMPORT_TYPE , "DataScratchSettings" , "datascratch.settings_manager"),
+]
 
 
 
-# def center_window(win, width, height):
-#     """Centers a Tkinter window on the screen."""
-#     win.update_idletasks()
-#     screen_width = win.winfo_screenwidth()
-#     screen_height = win.winfo_screenheight()
-#     x = (screen_width // 2) - (width // 2)
-#     y = (screen_height // 2) - (height // 2)
-#     win.geometry(f'{width}x{height}+{x}+{y}')
+def center_window(win, width, height):
+    """Centers a Tkinter window on the screen."""
+    win.update_idletasks()
+    screen_width = win.winfo_screenwidth()
+    screen_height = win.winfo_screenheight()
+    x = (screen_width // 2) - (width // 2)
+    y = (screen_height // 2) - (height // 2)
+    win.geometry(f'{width}x{height}+{x}+{y}')
 
-# splash_root = tk.Tk()
-# splash_root.withdraw()
-# splash_root.overrideredirect(True)
-# splash_root.title("Loading...")
-# center_window(splash_root , 600 , 400)
-# label = tk.Label(splash_root, wraplength=370 , text="", font=("Helvetica", 12))
-# label_summary = tk.Label(splash_root, wraplength=370, text=f"Loading {AppAppearance.APP_NAME} core libraries, this may be slower the first time.", font=("Helvetica", 12))
+splash_root = tk.Tk()
+splash_root.withdraw()
+splash_root.overrideredirect(True)
+splash_root.title("Loading...")
+center_window(splash_root , 600 , 400)
+label = tk.Label(splash_root, wraplength=370 , text="", font=("Helvetica", 12))
+label_summary = tk.Label(splash_root, wraplength=370, text=f"Loading {AppAppearance.APP_NAME} core libraries, this may be slower the first time.", font=("Helvetica", 12))
 
-# pixel_scale = 10
-# progress_bar = ttk.Progressbar(
-#     splash_root,
-#     orient='horizontal',
-#     length=len(list_modules) * pixel_scale,
-#     mode='determinate'
-# )
-# image_loaded = get_datascratch_logo().resize((250, 100), Image.Resampling.LANCZOS)
-# print(image_loaded)
-# img_ds_logo = ImageTk.PhotoImage(image_loaded)
-# label_with_splash_image = tk.Label(splash_root, image=img_ds_logo)
+pixel_scale = 10
+progress_bar = ttk.Progressbar(
+    splash_root,
+    orient='horizontal',
+    length=len(list_modules) * pixel_scale,
+    mode='determinate'
+)
+image_loaded = get_datascratch_logo().resize((250, 100), Image.Resampling.LANCZOS)
+print(image_loaded)
+img_ds_logo = ImageTk.PhotoImage(image_loaded)
+label_with_splash_image = tk.Label(splash_root, image=img_ds_logo)
 
-# label_with_splash_image.pack(pady=20)
-# label_summary.pack(pady=20)
-# label.pack(pady=20)
-# progress_bar.pack(pady=20)
-# process_name = current_process().name
-# if process_name == "MainProcess":
-#     splash_root.deiconify()
-# else:
-#     pass
+label_with_splash_image.pack(pady=20)
+label_summary.pack(pady=20)
+label.pack(pady=20)
+progress_bar.pack(pady=20)
+process_name = current_process().name
+if process_name == "MainProcess":
+    splash_root.deiconify()
+else:
+    pass
 
-# def dynamic_import_function(splash_root):
-#     """This function recursively and dynamically loads the libraries required for this application.
-#     """
-#     global current_module_import_index
-#     if current_module_import_index >= len(list_modules):
-#         splash_root.quit()
-#     else:
-#         type_module , selection , module = list_modules[current_module_import_index]
-#         label.config(text=f"Loading Libraries ... {module}")
-#         progress_bar['value'] = current_module_import_index * pixel_scale
-#         if type_module == FROM_IMPORT_TYPE:
-#             import_from_module(module , selection)
-#         elif type_module == IMPORT_IMPORT_TYPE:
-#             import_import_module(selection , module)
-#         else:
-#             raise ValueError("Invalid import.")
-#         # Update current 
-#         current_module_import_index += 1
+def dynamic_import_function(splash_root):
+    """This function recursively and dynamically loads the libraries required for this application.
+    """
+    global current_module_import_index
+    if current_module_import_index >= len(list_modules):
+        splash_root.quit()
+    else:
+        type_module , selection , module = list_modules[current_module_import_index]
+        label.config(text=f"Loading Libraries ... {module}")
+        progress_bar['value'] = current_module_import_index * pixel_scale
+        if type_module == FROM_IMPORT_TYPE:
+            import_from_module(module , selection)
+        elif type_module == IMPORT_IMPORT_TYPE:
+            import_import_module(selection , module)
+        else:
+            raise ValueError("Invalid import.")
+        # Update current 
+        current_module_import_index += 1
 
-#         # Recursive call
-#         splash_root.after(2, dynamic_import_function, splash_root)
+        # Recursive call
+        splash_root.after(2, dynamic_import_function, splash_root)
 
-# def import_from_module(module_path , object_name):
-#     module = importlib.import_module(module_path)
-#     globals()[object_name] = getattr(module, object_name)
+def import_from_module(module_path , object_name):
+    module = importlib.import_module(module_path)
+    globals()[object_name] = getattr(module, object_name)
 
-# def import_import_module(alias  , module_name):
-#     module = importlib.import_module(module_name)
-#     globals()[alias] = module
+def import_import_module(alias  , module_name):
+    module = importlib.import_module(module_name)
+    globals()[alias] = module
     
-# # Recursive call
-# splash_root.after(10, dynamic_import_function, splash_root)
-# splash_root.mainloop()
-# splash_root.destroy()
+# Recursive call
+splash_root.after(10, dynamic_import_function, splash_root)
+splash_root.mainloop()
+splash_root.destroy()
 
 
 # Cannot be dynamic cus of tkinter fighting PyQt
@@ -178,6 +178,7 @@ from qfluentwidgets import (
 )
 
 from qfluentwidgets import CommandBar, Action, FluentIcon as FIF
+from pathlib import Path
 
 
 logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
@@ -251,6 +252,14 @@ class MainMenu(QtW.QMainWindow):
         recent_files_opened = settings.value(
             DataScratchSettings.RECENT_FILES_KEY, [], type=list
         )
+        # Validate these files are still there! 
+        print("Recent files opened", recent_files_opened)
+
+        file_there = []
+        for curr_file in recent_files_opened:
+            if Path(curr_file).is_file():
+                file_there.append(curr_file)
+        recent_files_opened = file_there
         print("Recent files opened", recent_files_opened)
         recent_list_widget = ListWidget()
         recent_list_widget.addItems(recent_files_opened)
