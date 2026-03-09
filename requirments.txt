@@ -12,3 +12,4 @@ docstring_parser
 markdown
 PyInstaller
 pandasql
+qfluentwidgets
