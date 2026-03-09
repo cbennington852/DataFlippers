@@ -10,7 +10,7 @@ A completely random dataset, for the purpose of teaching concepts like over fitt
 | **Random Chemical 2** | Numerical | Random values   |
 | **Random Chemical 3** | Numerical | Random values   |
 | **Random Chemical 4** | Numerical | Random values   |
-|                       |           |                 |
+
  >[!question] Lab Questions
 > 1. Train the DecisionTreeReggresor on any two columns. What is the accuracy? Is the model [overfitting](https://developers.google.com/machine-learning/crash-course/overfitting/overfitting)? If you add a validator(like KFold) what happens to the accuracy?
 > 2. Train the RandomForestRegressor on any two columns. Modify the hyper parameters `n_estimator`, change it to 1, 10, and 10000. Which parameter overfits the most? 

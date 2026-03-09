@@ -35,11 +35,19 @@ The goal of DataFlippers is to provide free, open source, and fun software with 
 
 ## Screenshots
 ![[Pasted image 20260301083259.png]]
-![[Pasted image 20260301083414.png]]
+![[now (2).png]]
 ![[Pasted image 20260301083438.png]]
 
 ## Paper
 This software is currently planning to be submitted at [JOSS](https://joss.theoj.org/) the paper is in works. A draft can be found on the projects [GitHub](https://github.com/cbennington852/DataScratch)
+
+## History and Evolution of software
+DataFlippers has changes quite a bit over the course of it's development! Below are screenshots of the changes! 
+
+| October 2025  | ![[original_app_design.png]] |
+| ------------- | ---------------------------- |
+| December 2025 | ![[then (1).png]]            |
+| March 2026    | ![[now (2).png]]             |
 ## Minimum System Requirements
 - **Memory:** 4.0 GB RAM
 - **Disk Space:** 1.0 GB 

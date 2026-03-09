@@ -15,7 +15,7 @@ class CanvasWithToolbar(QWidget):
         self.my_layout = QVBoxLayout()
         self.setLayout(self.my_layout)
 
-        self.canvas = FigureCanvasQTAgg(fig)
+        self.canvas = FigureCanvasQTAgg(fig )
         self.toolbar = NavigationToolbar2QT(self.canvas , self)
 
         self.my_layout.addWidget(self.toolbar)

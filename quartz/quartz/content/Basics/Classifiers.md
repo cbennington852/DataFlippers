@@ -2,7 +2,6 @@ A classifier is a type of AI model that looks at the features of an input and as
 
 A classic example is a "spam filter," which acts as a classifier by deciding if an incoming message belongs in your Inbox or the Junk folder.
 
-
 Example: 
 - Inputs : 
 	- Email title

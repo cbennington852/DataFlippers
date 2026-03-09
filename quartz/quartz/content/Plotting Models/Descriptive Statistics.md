@@ -2,7 +2,7 @@
 
 ### How to
 1. Plot the columns you would like to inspect. 
-2. Click on the "Descriptive statistics tab" in the plotting results
+2. Click on the "Descriptive statistics tab" in the plotting results.
 ![[Pasted image 20260219132901.png]]
 
 ### Numerical Data
