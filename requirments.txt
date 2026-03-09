@@ -12,4 +12,4 @@ docstring_parser
 markdown
 PyInstaller
 pandasql
-qfluentwidgets
+PyQt-Fluent-Widgets --index-url https://pypi.org/simple/
