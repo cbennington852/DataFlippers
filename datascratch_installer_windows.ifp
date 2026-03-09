@@ -3,9 +3,9 @@
 <InstallForgeProject>
   <Metadata productVersion="1.6.1" projectFileVersion="2.0"/>
   <ProductInformation>
-    <Name>DataScratch</Name>
+    <Name>DataFlippers</Name>
     <Version>1</Version>
-    <CompanyName>datascratch</CompanyName>
+    <CompanyName>dataflippers</CompanyName>
     <WebURI>https://github.com/cbennington852/DataScratch</WebURI>
   </ProductInformation>
   <InstallerConfiguration>
@@ -32,8 +32,8 @@
       <VisualStyle isEnabled="true"/>
     </UserInterface>
     <InstallationFiles defaultInstallationPath="&lt;ProgramFiles&gt;\&lt;Company&gt;\&lt;AppName&gt;\" isDefaultInstallationPathAlterable ="true">
-      <InstallationFile size="22.2 MB" type="exe">C:\Users\vboxuser\Desktop\ScikitGrow\dist\main\datascratch.exe</InstallationFile>
-      <InstallationFile size="N/A" type="[Folder]">C:\Users\vboxuser\Desktop\ScikitGrow\dist\main\_internal\</InstallationFile>
+      <InstallationFile size="27.4 MB" type="exe">C:\Users\vboxuser\Desktop\DataPenguins\DataScratch\dist\main\datascratch.exe</InstallationFile>
+      <InstallationFile size="N/A" type="[Folder]">C:\Users\vboxuser\Desktop\DataPenguins\DataScratch\dist\main\_internal\</InstallationFile>
     </InstallationFiles>
     <Languages>
       <Language>English</Language>
@@ -59,7 +59,7 @@
   <UninstallerConfiguration isPackaged="true">
     <UninstallerExecutableFileName>Uninstall</UninstallerExecutableFileName>
     <OpenWebURIAfterUninstallation isEnabled="false">https://</OpenWebURIAfterUninstallation>
-    <CustomDisplayIcon isEnabled="false" iconFilePath="&lt;InstallPath&gt;\"/>
+    <CustomDisplayIcon isEnabled="true" iconFilePath="&lt;InstallPath&gt;\DataPenguins.ico"/>
   </UninstallerConfiguration>
   <VisualUpdateConfiguration isPackaged="false">
     <ProductName>&lt;AppName&gt;</ProductName>
