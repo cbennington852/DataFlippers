@@ -334,8 +334,6 @@ class Plotter(TabWidget):
         self.addPage(self.visual_plot, "Visualization Plot")
         self.addPage(self.accuracy_plot, "Accuracy")
         self.addPage(self.prediction_tab, "Predictions")
-
-        self.visual_plot.show()
         self.do_regardless()
 
 
