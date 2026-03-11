@@ -44,10 +44,6 @@ from PyQt5.QtGui import (
     QCursor,
     QIcon,
 )
-from datascratch.descriptor_statistics_GUI import (
-    DescriptorStatisticsGUI,
-    GeneralDescriptor,
-)
 from qfluentwidgets import BodyLabel , ProgressBar , MessageDialog , MessageBox , MessageBoxBase , Flyout , FlyoutView , IndeterminateProgressBar, PushButton 
 from qfluentwidgets import TabWidget , ScrollArea
 from datascratch.theme_combo_box import ThemeComboBox
@@ -108,12 +104,10 @@ class Plotter(TabWidget):
         self.accuracy_plot = CanvasWithToolbar(fig)
 
         self.prediction_tab = QWidget()
-        self.descriptive_statistics = QWidget()
 
         self.addPage(self.visual_plot, "Visualization Plot")
         self.addPage(self.accuracy_plot, "Accuracy")
         self.addPage(self.prediction_tab, "Predictions")
-        self.addPage(self.descriptive_statistics, "Descriptive Statistics")
 
     def handle_thread_crashing(self):
         self.do_regardless()
@@ -308,7 +302,7 @@ class Plotter(TabWidget):
                 print(f"stat: {stat_name} , Val:{value}")
                 pipeline_group_box_lay.addRow(
                     QtW.QLabel(stat_name),
-                    QtW.QLabel(str(round(value, GeneralDescriptor.digit_rounding))),
+                    QtW.QLabel(str(round(value, 5))),
                 )
             stats_layout.addWidget(pipeline_group_box)
 
@@ -337,25 +331,13 @@ class Plotter(TabWidget):
             print("ERROR PREDICTION GUI", str(e))
             traceback.print_exception(e)
             self.prediction_tab = QtW.QWidget()
-        try:
-            # self.descriptive_statistics = DescriptorStatisticsGUI(
-            #     self.worker.engine_results, self.dataframe
-            # )
-            # print("HIIIII", self.descriptive_statistics)
-            pass
-        except Exception as e:
-            traceback.print_exception(e)
-            print("ERROR DESCRIPTOR STATS", str(e))
-            self.descriptive_statistics = QtW.QWidget()
         self.addPage(self.visual_plot, "Visualization Plot")
         self.addPage(self.accuracy_plot, "Accuracy")
         self.addPage(self.prediction_tab, "Predictions")
-        # self.addPage(self.descriptive_statistics, "Descriptive Statistics")
 
         self.visual_plot.show()
         self.do_regardless()
 
-        # Tell the predictor to re-render
 
     def remove_all_pages(self):
         for i in range(self.count() - 1, -1, -1):

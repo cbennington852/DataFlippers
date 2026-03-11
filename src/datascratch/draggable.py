@@ -13,15 +13,17 @@ from docstring_parser import parse as docstring_parse_func
 from docstring_parser import DocstringStyle
 import time
 from markdown import markdown
+from datascratch.descriptor_statistics_popup import NumericalDescriptor , CategoricalDescriptor
 from qfluentwidgets import PushButton
 
 
 class DraggableColumn(QPushButton):
     BASE_HEIGHT = 50
 
-    def __init__(self, name, hex_color,  **kwargs):
+    def __init__(self, name, hex_color, dataframe,  **kwargs):
         super().__init__(**kwargs) 
         self.kwargs = kwargs
+        self.dataframe = dataframe
         self.hex_color = hex_color
         self.name = name
         self.setFlat(True)
@@ -44,13 +46,28 @@ class DraggableColumn(QPushButton):
         required_text_width = temp_label.width()
         self.label_inferred_width = temp_label.width()
         self.setMinimumWidth(required_text_width + 60)
+        self.clicked.connect(self.on_button_clicked)
         self.setFixedHeight(DraggableColumn.BASE_HEIGHT)
 
-        print("Perecieved  width" , self.width())
+
+    def on_button_clicked(self):
+        self.popup = QtW.QWidgetAction(self)
+        self.test_popup = QtW.QMenu()
+        popover = QtW.QWidget()
+        if self.hex_color == AppAppearance.DRAGGABLE_COLUMN_COLOR: # Numerical
+            popover = NumericalDescriptor(self.name , self.dataframe)
+        elif self.hex_color == AppAppearance.DRAGGABLE_COLUMN_COLOR_CLASS: # Classifier
+            popover = CategoricalDescriptor(self.name ,self.dataframe)
+        else:
+            print("Failed to deteremine class on popover. Please fix. Likely issue with app appearance.")
+        self.popup.setDefaultWidget(popover)
+        self.test_popup.addAction(self.popup)
+        self.test_popup.exec(self.mapToGlobal(QPoint(0 , self.height()-1)))
 
     def copy_self(self):
         return DraggableColumn(
             name=self.name,
+            dataframe=self.dataframe,
             hex_color=self.hex_color,
             **self.kwargs
         )
@@ -73,6 +90,7 @@ class DraggableColumn(QPushButton):
 
             drag.setMimeData(mime)
             drag.exec_(Qt.MoveAction)
+
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.drag_start_position = event.pos()

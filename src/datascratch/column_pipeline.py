@@ -93,7 +93,7 @@ class ColumnsSection(QtW.QGroupBox):
             hex_value = ColumnsSection.determine_hex_color_for_column(
                 curr, self.dataframe
             )
-            new_drag = DraggableColumn(curr, hex_value)
+            new_drag = DraggableColumn(curr, hex_value , self.dataframe)
             self.my_layout.addWidget(new_drag)
 
     def get_cols_as_string_list(self) -> list[str]:

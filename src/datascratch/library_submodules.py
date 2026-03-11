@@ -39,7 +39,7 @@ class ColumnsSubmodule(QtW.QGroupBox):
         for col in self.lst_cols:
             if classes_cols == True:
                 if pd.api.types.is_string_dtype(dataframe[col].dtype):
-                    new_widget = DraggableColumn(col , AppAppearance.DRAGGABLE_COLUMN_COLOR_CLASS)
+                    new_widget = DraggableColumn(col , AppAppearance.DRAGGABLE_COLUMN_COLOR_CLASS , dataframe)
                     self.my_layout.addWidget(new_widget)
                 else:
                     pass
@@ -47,7 +47,7 @@ class ColumnsSubmodule(QtW.QGroupBox):
                 if pd.api.types.is_string_dtype(dataframe[col].dtype):
                     pass
                 else:
-                    new_widget = DraggableColumn(col , AppAppearance.DRAGGABLE_COLUMN_COLOR)
+                    new_widget = DraggableColumn(col , AppAppearance.DRAGGABLE_COLUMN_COLOR , dataframe)
                     self.my_layout.addWidget(new_widget)
 
     def dragEnterEvent(self, e):
