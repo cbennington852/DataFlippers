@@ -138,7 +138,7 @@ class DraggableColumn(QPushButton):
             painter.setPen(QColor(AppAppearance.DRAGGABLE_COLOMN_BORDER_COLOR))
 
         # Top level input Calculations
-        right_of_bevel_width  = self.label_inferred_width - DraggableColumn.left_of_bevel_width + 10
+        right_of_bevel_width  = max(self.label_inferred_width - DraggableColumn.left_of_bevel_width + 10 , 130)
 
         top_of_left_bevel_x = DraggableColumn.starting_x + DraggableColumn.left_of_bevel_width 
         bottom_right_of_top_bevel_x = top_of_left_bevel_x + DraggableColumn.bevel_slant_width + DraggableColumn.bevel_width
@@ -169,7 +169,16 @@ class DraggableColumn(QPushButton):
         painter.drawPolygon(block_with_bevel)
         painter.setPen(QColor(Qt.white))
         start_y_for_text = int(self.size().height() / 2) + 5
-        painter.drawText(15 , start_y_for_text, f"{self.name}")
+        painter.drawText(40 , start_y_for_text, f"{self.name}")
+
+        if self.hovering:
+                painter.drawPixmap(
+                    7, # x
+                    int((self.height()/2)-(Draggable.POPUP_ICON_HEIGHT/2)-5), # y
+                    Draggable.POPUP_ICON_WIDTH, # width
+                    Draggable.POPUP_ICON_HEIGHT, # height
+                    QPixmap(Draggable.IMAGE_FOR_POPUP_HOVER)
+                )
      
 
 

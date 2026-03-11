@@ -30,6 +30,7 @@ class NumericalDescriptor(QtW.QWidget):
         axs.hist(col)
         axs.set_ylabel("Frequency")
         axs.set_xlabel(f"{self.column_name} values")
+        axs.set_title(f"Single Series Column Chart for {self.column_name} ")
         self.chart = CanvasWithToolbar(fig)
 
 
@@ -59,6 +60,7 @@ class CategoricalDescriptor(QtW.QWidget):
         
         fig, axs = plt.subplots(figsize=(4 ,4))
         axs.pie(value_counts, labels=names, autopct='%1.1f%%', startangle=90) 
+        axs.set_title(f"Distribution for {self.column_name}")
         self.chart = CanvasWithToolbar(fig)
 
 
