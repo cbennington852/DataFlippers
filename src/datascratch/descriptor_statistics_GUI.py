@@ -168,31 +168,36 @@ class ContinuousDescriptor(GeneralDescriptor):
         """
         renders left side of the GUI components
         """
-        self.left = QtW.QWidget()
-        main_lay = QtW.QFormLayout()
-        self.left.setLayout(main_lay)
-
-        def render_function_result( name , value):
-            new_label = QtW.QLabel(str(name))
-            new_value = QtW.QLabel(str(round(value , GeneralDescriptor.digit_rounding)))
-            main_lay.addRow(new_label , new_value)
-
-        def add_space():
-            main_lay.addRow(QtW.QLabel("") , QtW.QLabel(""))
+        self.left = ListWidget()
 
         col = self.dataframe[self.column_name]
 
-        render_function_result("Average" , col.mean())
-        render_function_result("Median" , col.median())
-        render_function_result("Variance" , col.var())
+        list_funcs_to_run = [
+            ("Average" , col.mean())
+        ]
 
-        add_space()
-        render_function_result("Max" , col.max())
-        render_function_result("Min" , col.min())
-        add_space()
-        render_function_result("75th Quantile" , col.quantile(0.75))
-        render_function_result("50th Quantile" , col.quantile(0.50))
-        render_function_result("25th Quantile" , col.quantile(0.25))
+        # def render_function_result( name , value):
+        #     new_label = QtW.QLabel(str(name))
+        #     new_value = QtW.QLabel(str(round(value , GeneralDescriptor.digit_rounding)))
+        #     main_lay.addRow(new_label , new_value)
+
+        # def add_space():
+        #     main_lay.addRow(QtW.QLabel("") , QtW.QLabel(""))
+
+        # col = self.dataframe[self.column_name]
+
+        # render_function_result("Average" , )
+        # render_function_result("Median" , col.median())
+        # render_function_result("Variance" , col.var())
+        # add_space()
+        # render_function_result("Max" , col.max())
+        # render_function_result("Min" , col.min())
+        # add_space()
+        # render_function_result("75th Quantile" , col.quantile(0.75))
+        # render_function_result("50th Quantile" , col.quantile(0.50))
+        # render_function_result("25th Quantile" , col.quantile(0.25))
+
+
 
 
         self.main_layout.addWidget(self.left)

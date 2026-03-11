@@ -159,7 +159,12 @@ class ColumnsSection(QtW.QGroupBox):
         num_cols = self.get_num_cols()
         if self.max_num_cols != 1:
             # add a background space as well
-            painter.drawRect(0, 0, width, num_cols * DraggableColumn.block_height)
+            # find pos of the last draggable. 
+            last_widget = self.my_layout.itemAt(self.my_layout.count()-1)
+            if isinstance(last_widget, QtW.QWidgetItem):
+                temp_widget = last_widget.widget()
+                y_pos_last = temp_widget.pos().y() + DraggableColumn.block_height
+                painter.drawRect(0, 0, width, y_pos_last)
             space_needed_for_mouth = max(
                 (num_cols + 1) * DraggableColumn.block_height,
                 DraggableColumn.block_height,
@@ -169,7 +174,9 @@ class ColumnsSection(QtW.QGroupBox):
                 num_cols * DraggableColumn.block_height, DraggableColumn.block_height
             )
 
-        # add a space that is one draggable high
+        # If this is a single spaced one
+        if self.max_num_cols == 1 and num_cols:
+            painter.drawRect(0, 0, self.width(), self.height())
 
         # where to start the bevel from the left.
         holder_block = QPolygon(

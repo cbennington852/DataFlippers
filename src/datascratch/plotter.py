@@ -338,10 +338,11 @@ class Plotter(TabWidget):
             traceback.print_exception(e)
             self.prediction_tab = QtW.QWidget()
         try:
-            self.descriptive_statistics = DescriptorStatisticsGUI(
-                self.worker.engine_results, self.dataframe
-            )
-            print("HIIIII", self.descriptive_statistics)
+            # self.descriptive_statistics = DescriptorStatisticsGUI(
+            #     self.worker.engine_results, self.dataframe
+            # )
+            # print("HIIIII", self.descriptive_statistics)
+            pass
         except Exception as e:
             traceback.print_exception(e)
             print("ERROR DESCRIPTOR STATS", str(e))
@@ -349,7 +350,7 @@ class Plotter(TabWidget):
         self.addPage(self.visual_plot, "Visualization Plot")
         self.addPage(self.accuracy_plot, "Accuracy")
         self.addPage(self.prediction_tab, "Predictions")
-        self.addPage(self.descriptive_statistics, "Descriptive Statistics")
+        # self.addPage(self.descriptive_statistics, "Descriptive Statistics")
 
         self.visual_plot.show()
         self.do_regardless()
