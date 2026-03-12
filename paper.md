@@ -58,7 +58,7 @@ Scratch was constructed on 4 pillars, which makes up it's main philosophy.  Data
 1. **Passion** Learners are more motivated when they are learning things that they care about. To follow this pillar, DataFlippers uses crafted example datasets, which focus on topics that are intriguing to children. This is discussed more in the educational materials section. 
 2. **Peers** DataFlippers is intended to be shared with friends. For this purpose DataFlippers has it's own file type, and every chart and graph has the ability to be inspected and saved and shared. 
 3. **Play** The drag a drop nature implies a certain type of play. This makes is easy to novices to quickly try things, without the overhead of writing code. 
-4. **Projects** DataFlippers is focused around datasets, allowing for novices to center machine learning projects around a specific dataset. 
+4. **Projects** DataFlippers is focused around datasets, allowing for novices to create their own machine learnings projects. 
 
 ## Drag and drop design
 The drag and drop interface is designed to reduce the syntactic complexity of programming down to drag and drop blocks, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later. 

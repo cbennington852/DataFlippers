@@ -44,7 +44,6 @@ class NumericalDescriptor(QtW.QWidget):
                     self.highest_rounding = max(self.highest_rounding , len(nums_digits_split[1]))
                 return curr_value
             col.apply(gather_highest_rounding)
-            print("Highets roudning" , self.highest_rounding)
         except:
             self.highest_rounding = 5
 
