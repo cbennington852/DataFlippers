@@ -4,7 +4,7 @@ import PyQt5.QtCore as QtCore
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from qfluentwidgets import ScrollArea , ListWidget , ListView , TableWidget
+from qfluentwidgets import ScrollArea , ListWidget , ListView , TableWidget , CardWidget
 from datascratch.theme_combo_box import ThemeComboBox
 import numpy as np
 from datascratch.canvas_with_toolbar import CanvasWithToolbar
