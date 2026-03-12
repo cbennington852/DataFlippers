@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from qfluentwidgets import ScrollArea , ListWidget , ListView , TableWidget
 from datascratch.theme_combo_box import ThemeComboBox
-
+import numpy as np
 from datascratch.canvas_with_toolbar import CanvasWithToolbar
 
 
@@ -33,7 +33,26 @@ class NumericalDescriptor(QtW.QWidget):
         axs.set_title(f"Single Series Column Chart for {self.column_name} ")
         self.chart = CanvasWithToolbar(fig)
 
-        
+        # Find the highest rounding. 
+        try:
+            self.highest_rounding = 0
+            def gather_highest_rounding(curr_value):
+                nums_digits_split = str(abs(curr_value)).split('.')
+                if len(nums_digits_split) == 1:
+                    self.highest_rounding = max(self.highest_rounding , 0)
+                else:
+                    self.highest_rounding = max(self.highest_rounding , len(nums_digits_split[1]))
+                return curr_value
+            col.apply(gather_highest_rounding)
+            print("Highets roudning" , self.highest_rounding)
+        except:
+            self.highest_rounding = 5
+
+        def my_round(num , digits):
+            if digits == 0:
+                return int(num)
+            else:
+                return round(num , digits)
 
         # Resolve the statistical parts for this.
         list_of_pairs = [
@@ -55,7 +74,7 @@ class NumericalDescriptor(QtW.QWidget):
         self.list_stats.verticalHeader().hide()
 
         for k in range (0 , len(list_of_pairs)):
-            ir_value = str(round(list_of_pairs[k][1] , 4))
+            ir_value = str(my_round(list_of_pairs[k][1] , self.highest_rounding))
             print(ir_value , "Curr " , k)
             self.list_stats.setItem( k ,0 , QtW.QTableWidgetItem(list_of_pairs[k][0]))
             self.list_stats.setItem( k ,1 , QtW.QTableWidgetItem(ir_value))
