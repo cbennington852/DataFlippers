@@ -4,7 +4,7 @@ import PyQt5.QtCore as QtCore
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from qfluentwidgets import ScrollArea , ListWidget , ListView
+from qfluentwidgets import ScrollArea , ListWidget , ListView , TableWidget
 from datascratch.theme_combo_box import ThemeComboBox
 
 from datascratch.canvas_with_toolbar import CanvasWithToolbar
@@ -21,7 +21,7 @@ class NumericalDescriptor(QtW.QWidget):
         self.column_name = column_name
         self.dataframe = dataframe
 
-        self.my_layout = QtW.QVBoxLayout()
+        self.my_layout = QtW.QHBoxLayout()
         self.setLayout(self.my_layout)
 
         # Bar Chart
@@ -33,12 +33,37 @@ class NumericalDescriptor(QtW.QWidget):
         axs.set_title(f"Single Series Column Chart for {self.column_name} ")
         self.chart = CanvasWithToolbar(fig)
 
+        
+
+        # Resolve the statistical parts for this.
+        list_of_pairs = [
+            ('Mean' , col.mean()),
+            ('Median' , col.median()),
+            ('Variance' , col.var()),
+            ('Max' , col.max()),
+            ('Min' , col.min()),
+            ('75th percentile' , col.quantile(0.75)),
+            ('50th percentile' , col.quantile(0.50)),
+            ('25th percentile' , col.quantile(0.25)),
+        ]
 
         # A list of stats about this bar chart
+        self.list_stats = TableWidget(self)
+        self.list_stats.setRowCount(len(list_of_pairs))
+        self.list_stats.setColumnCount(2)
+        self.list_stats.setHorizontalHeaderLabels(["Stat" , "Value"])
+        self.list_stats.verticalHeader().hide()
 
+        for k in range (0 , len(list_of_pairs)):
+            ir_value = str(round(list_of_pairs[k][1] , 4))
+            print(ir_value , "Curr " , k)
+            self.list_stats.setItem( k ,0 , QtW.QTableWidgetItem(list_of_pairs[k][0]))
+            self.list_stats.setItem( k ,1 , QtW.QTableWidgetItem(ir_value))
 
         # Settle appearance
         self.my_layout.addWidget(self.chart)
+        self.my_layout.addWidget(self.list_stats)
+
 
         
 
