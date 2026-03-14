@@ -77,7 +77,6 @@ from qfluentwidgets import (
 
 from qfluentwidgets import CommandBar, Action, FluentIcon as FIF
 
-# from datascratch.video_subwindow import VideoSubwindow
 
 
 class ColumnsWindowData:

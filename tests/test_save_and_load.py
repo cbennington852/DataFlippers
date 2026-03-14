@@ -7,7 +7,6 @@ from src.datascratch.save_file import SaveFile
 from PyQt5.QtTest import QTest
 import time
 import os.path
-from src.datascratch.descriptor_statistics_GUI import DescriptorStatisticsGUI
 from pytestqt import qtbot
 from src.datascratch.sklearn_engine import EngineResults , InternalEngineError
 
@@ -38,11 +37,13 @@ def setup_test_environment_one():
     drag_col_x = DraggableColumn(
         'Example Chemical 1',
         "#ffffff",
+        df,
         parent=curr_cols_sub.x_columns
     )
     drag_col_y = DraggableColumn(
         'Example Chemical 2',
         "#ffffff",
+        df,
         parent=curr_cols_sub.x_columns
     )
 
@@ -107,10 +108,12 @@ def setup_test_environment_two():
     drag_col_x = DraggableColumn(
         'Example Chemical 1',
          "#ffffff",
+         df,
     )
     drag_col_y = DraggableColumn(
         'Example Chemical 2',
          "#ffffff",
+         df,
     )
 
     # Add it
