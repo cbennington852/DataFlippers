@@ -6,9 +6,17 @@ import sklearn.model_selection as val
 import sklearn.neural_network as neu
 import sklearn.tree as tre
 import sklearn.svm as svm
+import sklearn.cluster as cls
+import sklearn.neighbors as nei
+import sklearn.dummy as dum
 
 
 class SklearnAcceptableFunctions:
+
+    ##############################################################
+    # REGRESSORS
+    ##############################################################
+
     REGRESSORS_LINEAR = [
         lin.LinearRegression,
         lin.Ridge,
@@ -28,6 +36,7 @@ class SklearnAcceptableFunctions:
         lin.SGDRegressor,
         lin.TheilSenRegressor,
         lin.TweedieRegressor,
+        dum.DummyRegressor,
     ]
     REGRESSORS_SUPPORT_VECTOR_MACHINES = [
         svm.LinearSVR,
@@ -44,6 +53,7 @@ class SklearnAcceptableFunctions:
     ]
     REGRESSORS_NEURAL_NETWORK = [neu.MLPRegressor]
     REGRESSORS_TREE = [tre.DecisionTreeRegressor, tre.ExtraTreeRegressor]
+    REGRESSORS_NEIGHBORS = [nei.KNeighborsRegressor , nei.RadiusNeighborsRegressor] 
 
     REGRESSORS = (
         REGRESSORS_ENSEMBLE
@@ -51,14 +61,20 @@ class SklearnAcceptableFunctions:
         + REGRESSORS_NEURAL_NETWORK
         + REGRESSORS_TREE
         + REGRESSORS_SUPPORT_VECTOR_MACHINES
+        + REGRESSORS_NEIGHBORS
     )
 
+    ##############################################################
+    # CLASSIFIERS
+    ##############################################################
     CLASSIFIERS_LINEAR = [
         lin.LogisticRegression,
         lin.RidgeClassifier,
         lin.PassiveAggressiveClassifier,
         lin.Perceptron,
         lin.SGDClassifier,
+        dum.DummyClassifier,
+
     ]
     CLASSIFIERS_SUPPORT_VECTOR_MACHINES = [
         svm.LinearSVC,
@@ -73,31 +89,55 @@ class SklearnAcceptableFunctions:
         ens.HistGradientBoostingClassifier,
         ens.RandomForestClassifier,
     ]
+    CLASSIFIERS_CLUSTERING = [
+
+    ]
+    CLASSIFIERS_NEIGHBORS = [nei.KNeighborsClassifier , nei.RadiusNeighborsClassifier] 
 
     CLASSIFIERS_NEURAL = [neu.MLPClassifier]
 
     CLASSIFIERS_TREE = [tre.DecisionTreeClassifier, tre.ExtraTreeClassifier]
 
-    # | is union in set
     CLASSIFIERS = (
         CLASSIFIERS_ENSEMBLE
         + CLASSIFIERS_LINEAR
         + CLASSIFIERS_NEURAL
         + CLASSIFIERS_TREE
         + CLASSIFIERS_SUPPORT_VECTOR_MACHINES
+        + CLASSIFIERS_NEIGHBORS
+        + CLASSIFIERS_CLUSTERING
     )
 
-    PREPROCESSORS = [
+    ##############################################################
+    # PRE_PROCESSORS
+    ##############################################################
+
+    PREPROCESSORS_CLUSTER = [
+        cls.KMeans
+    ]
+
+    PREPROCESSORS_SCALAR = [
         pre.MaxAbsScaler,
         pre.MinMaxScaler,
+        pre.RobustScaler,
+        pre.StandardScaler,
+    ]
+
+    PREPROCESSORS_TRANSFORMER = [
         pre.Normalizer,
         pre.PolynomialFeatures,
         pre.PowerTransformer,
         pre.QuantileTransformer,
-        pre.RobustScaler,
         pre.SplineTransformer,
-        pre.StandardScaler,
     ]
+
+    PREPROCESSORS = PREPROCESSORS_TRANSFORMER + PREPROCESSORS_CLUSTER + PREPROCESSORS_SCALAR
+
+
+
+    ##############################################################
+    # VALIDATORS
+    ##############################################################
 
     VALIDATORS = [
         val.KFold,

@@ -150,11 +150,20 @@ class GUILibary(QtW.QTabWidget):
             render_type=Draggable.BUBBLE,
             hex_value=AppAppearance.REGRESSOR_SUPPORT_VECTOR_MACHINES_COLOR,
         )
+        self.lin_nei = PipelineSubmodule(
+            sublibary=SubLibary(
+                SklearnAcceptableFunctions.REGRESSORS_NEIGHBORS, "Neighboring Algorithms"
+            ),
+            render_type=Draggable.BUBBLE,
+            hex_value=AppAppearance.REGRESSORS_NEIGHBORS_COLOR,
+        )
         regressor_layout.addWidget(self.lin_reg)
         regressor_layout.addWidget(self.lin_svm)
         regressor_layout.addWidget(self.lin_ens)
         regressor_layout.addWidget(self.lin_tre)
+        regressor_layout.addWidget(self.lin_nei)
         regressor_layout.addWidget(self.lin_neu)
+
 
         ########################################################
         # CLASSIFIERS
@@ -198,10 +207,19 @@ class GUILibary(QtW.QTabWidget):
             render_type=Draggable.BUBBLE,
             hex_value=AppAppearance.CLASSIFIER_SUPPORT_VECTOR_MACHINES_COLOR,
         )
+        self.cla_nei = PipelineSubmodule(
+            sublibary=SubLibary(
+                SklearnAcceptableFunctions.CLASSIFIERS_NEIGHBORS, "Neighboring Algorithms"
+            ),
+            render_type=Draggable.BUBBLE,
+            hex_value=AppAppearance.CLASSIFIERS_NEIGHBORS_COLOR,
+        )
+        
         classifier_layout.addWidget(self.cla_reg)
         classifier_layout.addWidget(self.cla_svm)
         classifier_layout.addWidget(self.cla_ens)
         classifier_layout.addWidget(self.cla_tre)
+        classifier_layout.addWidget(self.cla_nei)
         classifier_layout.addWidget(self.cla_neu)
 
         ########################################################
@@ -210,12 +228,26 @@ class GUILibary(QtW.QTabWidget):
         preproccessor_box = QtW.QWidget()
         preproccessor_layout = QtW.QVBoxLayout()
         preproccessor_box.setLayout(preproccessor_layout)
-        self.pre_sub_module = PipelineSubmodule(
-            sublibary=SubLibary(SklearnAcceptableFunctions.PREPROCESSORS, ""),
+        self.pre_scalar = PipelineSubmodule(
+            sublibary=SubLibary(SklearnAcceptableFunctions.PREPROCESSORS_SCALAR, "Scalars"),
             render_type=Draggable.INTERLOCK_RIGHT,
-            hex_value=AppAppearance.PREPROCESSOR_COLOR,
+            hex_value=AppAppearance.PREPROCESSORS_SCALAR_COLOR,
         )
-        preproccessor_layout.addWidget(self.pre_sub_module)
+        self.pre_cluster = PipelineSubmodule(
+            sublibary=SubLibary(SklearnAcceptableFunctions.PREPROCESSORS_CLUSTER, "Clustering"),
+            render_type=Draggable.INTERLOCK_RIGHT,
+            hex_value=AppAppearance.PREPROCESSORS_CLUSTER_COLOR,
+        )
+        self.pre_trans = PipelineSubmodule(
+            sublibary=SubLibary(SklearnAcceptableFunctions.PREPROCESSORS_TRANSFORMER, "Transformer"),
+            render_type=Draggable.INTERLOCK_RIGHT,
+            hex_value=AppAppearance.PREPROCESSORS_TRANSFORMER_COLOR,
+        )
+        preproccessor_layout.addWidget(self.pre_scalar)
+        preproccessor_layout.addWidget(self.pre_cluster)
+        preproccessor_layout.addWidget(self.pre_trans)
+
+
 
         ########################################################
         # VALIDATORS
