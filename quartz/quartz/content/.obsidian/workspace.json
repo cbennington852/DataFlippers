@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Example Datasets/index.md",
+                "file": "Basics/Preproccessors.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "Preproccessors"
             }
           }
         ]
@@ -185,8 +185,8 @@
   },
   "active": "5407736e433ba739",
   "lastOpenFiles": [
-    "Model Documentation/index.md",
     "Example Datasets/index.md",
+    "Model Documentation/index.md",
     "Plotting Models/Scatter Plot.md",
     "Plotting Models/Descriptive Statistics.md",
     "Pasted image 20260311195435.png",

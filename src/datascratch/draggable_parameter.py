@@ -1,6 +1,7 @@
 import traceback
 import PyQt5.QtWidgets as QtW
 from decimal import Decimal
+from datascratch.string_parameters_map import STRING_PARAMETER_MAP
 from qfluentwidgets import LineEdit , SpinBox , CheckBox , ComboBox , DoubleSpinBox
 
 def get_num_decimal_points(value : float) -> int:
@@ -69,7 +70,10 @@ class StringListSingleLine(ComboBox):
         self.addItems(value)
 
     def text(self):
+        print("returned value! " , self.currentText())
         return self.currentText()
+
+
     
 
 BANNED_PARAMETERS = {
@@ -82,7 +86,7 @@ BANNED_PARAMETERS = {
 }
 
 
-def parameter_filter(name : str , value) -> Parameter:
+def parameter_filter(name : str , value , name_function : str) -> Parameter:
     """
     Args:
         name (str): _description_
@@ -93,12 +97,18 @@ def parameter_filter(name : str , value) -> Parameter:
     """
     try:
         # Not a type
-        if type(value) is int:
+        if (name_function , name) in STRING_PARAMETER_MAP:
+            curr_lst = STRING_PARAMETER_MAP[(name_function , name)]
+            curr_list_gui = StringListSingleLine(name , curr_lst)
+            curr_list_gui.setCurrentText(str(value))
+            return curr_list_gui
+        elif type(value) is int:
             return IntSingleLine(name , value)
         elif type(value) is float:
             return FloatSingleLine(name, value)
         elif type(value) is bool:
             return BooleanSingleLine(name , value)
+        
         elif (type(value) is list) and (type(value[0]) is str):
             try:
                 return StringListSingleLine(name , value)

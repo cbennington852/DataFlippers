@@ -111,9 +111,13 @@ class SklearnAcceptableFunctions:
     ##############################################################
     # PRE_PROCESSORS
     ##############################################################
+    # Needs a 'fit' and 'transform'
+
 
     PREPROCESSORS_CLUSTER = [
-        cls.KMeans
+        cls.KMeans,
+        cls.Birch,
+        cls.BisectingKMeans,
     ]
 
     PREPROCESSORS_SCALAR = [
@@ -130,7 +134,7 @@ class SklearnAcceptableFunctions:
         pre.QuantileTransformer,
         pre.SplineTransformer,
     ]
-
+    
     PREPROCESSORS = PREPROCESSORS_TRANSFORMER + PREPROCESSORS_CLUSTER + PREPROCESSORS_SCALAR
 
 

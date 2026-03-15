@@ -205,10 +205,10 @@ class SinglePredictor(QtW.QWidget):
             x_col_entry = None
             if self.engine_results.is_column_in_list_converted_columns(x_col):
                 converted_col = self.engine_results.get_converted_column(x_col)
-                x_col_entry = parameter_filter(x_col, converted_col.code_map)
+                x_col_entry = parameter_filter(x_col, converted_col.code_map , "N/A")
             else:
                 x_col_entry = parameter_filter(
-                    x_col, self.engine_results.column_types[x_col]
+                    x_col, self.engine_results.column_types[x_col] , "N/A"
                 )
                 # This is a string!
 

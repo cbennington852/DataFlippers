@@ -6,6 +6,12 @@ import sklearn
 import seaborn as sns
 from src.datascratch.sklearn_engine import Pipeline , EngineResults
 import sklearn.model_selection as val
+from src.datascratch.string_parameters_map import STRING_PARAMETER_MAP
+import traceback
+
+from sklearn.ensemble import *
+from sklearn.linear_model import *
+
 
 
 dataframe = pd.read_csv("resources/random_data.csv")
@@ -33,6 +39,26 @@ classifier_pipe = sklearn.pipeline.Pipeline([
 classifier_pipe_2 = sklearn.pipeline.Pipeline([
     ("tree" , sklearn.tree.DecisionTreeClassifier())
 ])
+
+def test_parameters():
+    for function_call , param in STRING_PARAMETER_MAP:
+        try: 
+            curr_pipeline = sklearn.pipeline.Pipeline([
+                ("tree" , sklearn.tree.DecisionTreeClassifier())
+            ])
+            res = sklearn_engine.SklearnEngine.main_sklearn_pipe(
+                main_dataframe=classifier_dataframe,
+                pipeline_x_values=['sepal_width'],
+                pipeline_y_value=['species'],
+                curr_pipelines=[
+                    Pipeline(
+                        sklearn_pipeline=classifier_pipe,
+                    )
+                ]
+            )
+        except Exception as e:
+            print("On the call" , function_call , param)
+            traceback.print_exception(e)
 
 def test_2d_regression():
     res = sklearn_engine.SklearnEngine.main_sklearn_pipe(

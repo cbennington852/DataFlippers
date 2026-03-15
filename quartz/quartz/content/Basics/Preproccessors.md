@@ -6,3 +6,6 @@ Preproccessors are functions that transform and change the data before they are 
 
 ## Transformers
 A transformer applies a mathematical function to input data to change it into an entirely new set of data. These can be used to clean, reduce, expand, or generate feature representations from data
+
+## Clustering
+A clustering preproccessor groups the input data into small "clusters", meaning it moves all of the data points into their own cluster sections. 

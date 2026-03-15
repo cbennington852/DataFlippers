@@ -48,6 +48,7 @@ class DraggableColumn(QPushButton):
         self.setFixedWidth(required_text_width + 60)
         self.clicked.connect(self.on_button_clicked)
         self.setFixedHeight(DraggableColumn.BASE_HEIGHT)
+
         #self.setFixedWidth(self.width())
 
 
@@ -180,7 +181,6 @@ class DraggableColumn(QPushButton):
                     Draggable.POPUP_ICON_HEIGHT, # height
                     QPixmap(Draggable.IMAGE_FOR_POPUP_HOVER)
                 )
-     
 
 
 class DraggableData():
@@ -197,6 +197,7 @@ class Draggable(QPushButton):
     POINTY = "pointy"
     BUBBLE = "bubble"
     BASE_HEIGHT = 50
+    TEMP_DEBUG_COUNT = 0
     
     def __init__(self , name, sklearn_function , render_type, hex_color,   **kwargs):
         super().__init__(**kwargs) 
@@ -223,6 +224,14 @@ class Draggable(QPushButton):
         )
         self.setText(name)
         self.clicked.connect(self.on_button_clicked)
+
+        # Temp for testing data!
+        temp_parameters = SubLibary.get_sklearn_parameters(sklearn_function)
+        for parameter in temp_parameters:
+            if type(parameter[1]) == str:
+                #print(f"{Draggable.TEMP_DEBUG_COUNT:<2}: ... {self.name:<30} ... {parameter[0]:<25} ... {parameter[1]:<10}")
+                print(f"('{self.name}' , '{parameter[0]}') : ('{parameter[1]}' , ), ")
+                Draggable.TEMP_DEBUG_COUNT += 1 
 
         # rendering the actual thing
         if render_type == Draggable.POINTY:
@@ -471,8 +480,7 @@ class ParameterPopup(QtW.QWidget):
         description_label.setToolTip(self.doc_string.long_description)
         self.my_layout.insertRow(0 , description_label , self.reset_button)
         for parameter_name , default_value in self.draggable_data.parameters:
-            print(f" {parameter_name} ... {default_value} ... {type(default_value)}")
-            curr = parameter_filter(parameter_name , default_value)
+            curr = parameter_filter(parameter_name , default_value , self.draggable_data.name)
             parameter_label = QtW.QLabel(parameter_name)
             md_to_html = markdown(self.doc_string_map[parameter_name].description)
             parameter_label.setToolTip(md_to_html)
@@ -502,10 +510,12 @@ class ParameterPopup(QtW.QWidget):
         for parameter_name , q_line_edit in self.all_widgets:
             curr = None
             try:
+                input_value = q_line_edit.text()
                 curr = (parameter_name , ast.literal_eval(q_line_edit.text()))
             except:
                 curr = (parameter_name , ast.literal_eval(f'\'{q_line_edit.text()}\''))
             new_parameters.append(curr)
+        print(new_parameters)
         self.my_parent.data.parameters = new_parameters
 
 class PopoverWidget(QtW.QMenu):
