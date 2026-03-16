@@ -2,12 +2,16 @@ from datascratch.draggable import DraggableColumn
 from PyQt5.QtWidgets import QVBoxLayout
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtGui import QColor, QPolygon, QPainter, QResizeEvent
-from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QMimeData, QPoint
 from PyQt5.QtCore import Qt
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch import drag_and_drop_utility as dnd
 import pandas as pd
 from datascratch.custom_mdi_subwindow import CustomMDI
+from PyQt5.QtGui import QDrag , QPixmap , QPainter , QPalette , QImage , QColor , QPolygon, QPen, QBrush, QIcon
+from datascratch.draggable_pipeline import PipelineSection
+
+
 
 class ColumnsSection(QtW.QGroupBox):
     def __init__(self, title, my_parent, dataframe, max_num_cols=100, **kwargs):
@@ -48,7 +52,7 @@ class ColumnsSection(QtW.QGroupBox):
         """
         pos = e.pos()
         widget = e.source()
-        if isinstance(widget, DraggableColumn):
+        if isinstance(widget, DraggableColumn) or hasattr(widget , 'column_droppable_flag'):
             e.accept()
             self.hovering = True
             self.repaint()
@@ -343,3 +347,5 @@ class ColumnsSection(QtW.QGroupBox):
 
         self.hovering = False
         dnd.end_drag_and_drop_event(to_parent, from_parent)
+
+

@@ -32,8 +32,6 @@ from sklearn.base import is_regressor, is_classifier
 import sklearn
 from datascratch.column_pipeline import ColumnsSection
 from datascratch.draggable_pipeline import (
-    DraggableColumn,
-    PipelineSection,
     Pipeline,
     PipelineData,
 )
@@ -76,7 +74,7 @@ from qfluentwidgets import (
 )
 
 from qfluentwidgets import CommandBar, Action, FluentIcon as FIF
-
+#from datascratch.proccessed_collumn_draggable import PreProcessorColumn
 
 
 class ColumnsWindowData:
@@ -280,12 +278,19 @@ class GUILibary(QtW.QTabWidget):
         box_holder = QtW.QWidget()
         box_holder_layout = QtW.QVBoxLayout()
         box_holder.setLayout(box_holder_layout)
+
+
+        #processed_col_thing = PreProcessorColumn(self.dataframe)
+
         box_holder_layout.addWidget(cols)
         box_holder_layout.addWidget(cols_2)
+        #box_holder_layout.addWidget(processed_col_thing)
+
 
         regressor_box = QtW.QWidget()
         regressor_layout = QtW.QVBoxLayout()
         regressor_box.setLayout(regressor_layout)
+
         scroller = SmoothScrollArea()
         scroller.setWidget(box_holder)
         regressor_layout.addWidget(scroller)

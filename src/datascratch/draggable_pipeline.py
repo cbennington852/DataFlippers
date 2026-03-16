@@ -1,10 +1,9 @@
-from .draggable import Draggable , DraggableData
+from datascratch.draggable import Draggable , DraggableData
 from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QLabel
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtGui import QDrag , QIcon , QPixmap , QCursor , QColor , QPolygon, QPen, QBrush, QIcon, QPainter
 from PyQt5.QtCore import  QPoint
 from PyQt5.QtCore import Qt, QMimeData
-from datascratch.column_pipeline import DraggableColumn , ColumnsSection
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 from datascratch.colors_and_appearance import AppAppearance
 from datascratch import drag_and_drop_utility as dnd
@@ -17,6 +16,8 @@ class PipelineSection(QtW.QGroupBox):
     """
 
     BASE_MINIMUM_HEIGHT = 80
+    width_from_start_mouth_to_left_side = 10
+
 
     def __init__(self , accepting_function, title, my_parent,  **kwargs):
         super().__init__( **kwargs)
@@ -28,7 +29,7 @@ class PipelineSection(QtW.QGroupBox):
         self.setAcceptDrops(True)
         self.setMinimumHeight(PipelineSection.BASE_MINIMUM_HEIGHT)
         self.my_layout = QVBoxLayout()
-        self.my_layout.setContentsMargins(ColumnsSection.width_from_start_mouth_to_left_side - 2 , 15 , 0 , 0)
+        self.my_layout.setContentsMargins(PipelineSection.width_from_start_mouth_to_left_side - 2 , 15 , 0 , 0)
         self.my_layout.setSpacing(0);  
         self.model_hovering = False
         self.setLayout(self.my_layout)
