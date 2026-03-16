@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Basics/Preproccessors.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Preproccessors"
+              "title": "index"
             }
           }
         ]
@@ -186,6 +186,7 @@
   "active": "5407736e433ba739",
   "lastOpenFiles": [
     "Example Datasets/index.md",
+    "Basics/Preproccessors.md",
     "Model Documentation/index.md",
     "Plotting Models/Scatter Plot.md",
     "Plotting Models/Descriptive Statistics.md",
@@ -217,7 +218,6 @@
     "Pasted image 20260304125936.png",
     "Basics/Importing your own dataset.md",
     "Basics/My First AI Model.md",
-    "Basics/Preproccessors.md",
     "DataFlippers.svg",
     "Pasted image 20260302095911.png",
     "Pasted image 20260302095744.png",

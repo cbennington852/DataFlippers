@@ -44,10 +44,12 @@ This software is currently planning to be submitted at [JOSS](https://joss.theoj
 ## History and Evolution of software
 DataFlippers has changes quite a bit over the course of it's development! Below are screenshots of the changes! 
 
-| October 2025  | ![[original_app_design.png]] |
+
+| Timeline      | Progress Photo               |
 | ------------- | ---------------------------- |
 | December 2025 | ![[then (1).png]]            |
 | March 2026    | ![[now (2).png]]             |
+| October 2025  | ![[original_app_design.png]] |
 ## Minimum System Requirements
 - **Memory:** 4.0 GB RAM
 - **Disk Space:** 1.0 GB 

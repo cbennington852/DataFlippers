@@ -179,7 +179,7 @@ from pathlib import Path
 logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
 
 windows = []
-FILE_EXTENSION = "dscr"
+FILE_EXTENSION = "dfpr"
 FILE_EXTENSION_NAME = f"{AppAppearance.APP_NAME} Project File"
 FILE_OPEN_STRING = f"All Files (*.{FILE_EXTENSION} *.csv *.xls);; {FILE_EXTENSION_NAME} (*.{FILE_EXTENSION});; CSV Files (*.csv);; Excel Files (*.xls);;"
 # DataScratchSettings.getSettings().setValue(DataScratchSettings.RECENT_FILES_KEY , [])
@@ -236,7 +236,6 @@ class MainMenu(QtW.QMainWindow):
                 curr = MainMenu.open_main_window_on_dataset(df)
                 curr.show()
                 windows.append(curr)
-                self.deleteLater()
 
         # Render all of the example datasets.
         list_widget = ListWidget()
@@ -290,6 +289,10 @@ class MainMenu(QtW.QMainWindow):
         tab_widget.setTabsClosable(False)
         tab_widget.addPage(group_box , "Example Datasets")
         tab_widget.addPage(recent_group_box , "Recent Datasets")
+
+        # If recent, default to that!
+        if len(recent_files_opened) != 0:
+            tab_widget.setCurrentIndex(1)
 
         my_layout.addWidget(self.title_image)
         my_layout.addWidget(second_box)
@@ -375,6 +378,35 @@ class MainWindow(QtW.QMainWindow):
 
         self.setCentralWidget(self.pipeline_mother)
 
+
+    def closeEvent(self, event):
+        """Overrides the close event to show a popup."""
+        if self.file_path is None:
+            reply = QMessageBox.question(
+                self, 'Unsaved Changes',
+                "You have unsaved changes. Do you want to save before exiting?",
+                QMessageBox.StandardButton.Save | 
+                QMessageBox.StandardButton.Discard | 
+                QMessageBox.StandardButton.Cancel
+            )
+
+            if reply == QMessageBox.StandardButton.Save:
+                self.save_function()
+                event.accept()
+            elif reply == QMessageBox.StandardButton.Discard:
+                event.accept()
+            else:
+                event.ignore() # Prevents closing
+        else:
+            # Just saves anyway if we have a file on file. 
+            try:
+                self.file_path
+                self.save_function(self.file_path , no_popup=True)
+            except Exception as e:
+                # We can't access said file anymore for some reason. Defualt to a save AS configuration.S
+                self.save_function()
+            event.accept()
+
     def save_function(self, file_name=f"my_project.{FILE_EXTENSION}", no_popup=False):
         print(f"Dataframe {self.dataframe}")
         print(f"file_name : {file_name}")
@@ -385,6 +417,8 @@ class MainWindow(QtW.QMainWindow):
                 file_name,
                 f"{FILE_EXTENSION_NAME} (*.{FILE_EXTENSION});;All Files (*)",
             )
+            if not file_path:
+                return # User canceled.
             if not file_path.endswith(f".{FILE_EXTENSION}"):
                 file_path += f".{FILE_EXTENSION}"
         else:
@@ -463,7 +497,7 @@ class MainWindow(QtW.QMainWindow):
         save_action.triggered.connect(lambda x: self.save_button_pressed())
         file_menu.addAction(save_action)
         save_as_action = QtW.QAction("Save Project As", self)
-        save_as_action.triggered.connect(lambda x: self.save_button_pressed())
+        save_as_action.triggered.connect(lambda x: self.save_as_button_pressed())
         file_menu.addAction(save_as_action)
         open_action = QtW.QAction("Open Project", self)
         open_action.triggered.connect(self.open_button_pressed)

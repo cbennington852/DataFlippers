@@ -10,8 +10,7 @@ import pandas as pd
 from datascratch.custom_mdi_subwindow import CustomMDI
 from PyQt5.QtGui import QDrag , QPixmap , QPainter , QPalette , QImage , QColor , QPolygon, QPen, QBrush, QIcon
 from datascratch.draggable_pipeline import PipelineSection
-
-
+from datascratch.fake_drop_event import FakeDropEvent
 
 class ColumnsSection(QtW.QGroupBox):
     def __init__(self, title, my_parent, dataframe, max_num_cols=100, **kwargs):
@@ -44,7 +43,7 @@ class ColumnsSection(QtW.QGroupBox):
         self.my_layout.setSpacing(0)
         self.setLayout(self.my_layout)
         self.setTitle(self.my_title)
-        self.my_layout.addStretch()
+        #self.my_layout.addStretch()
 
     def dragEnterEvent(self, e):
         """
@@ -98,7 +97,15 @@ class ColumnsSection(QtW.QGroupBox):
                 curr, self.dataframe
             )
             new_drag = DraggableColumn(curr, hex_value , self.dataframe)
-            self.my_layout.addWidget(new_drag)
+            FakeDropEvent.simulate(self , new_drag)
+            # self.my_layout.addWidget(new_drag)
+            # self.my_layout.addWidget(new_drag)
+            # # Simulate a resize event, to prevent issues
+            print("Current height" , self.height())
+        self.resize_self(len(str_lst))
+        self.my_parent.resize_based_on_children()
+        self.repaint()
+
 
     def get_cols_as_string_list(self) -> list[str]:
         """Returns a list of strings representing the columns picked.
@@ -300,6 +307,15 @@ class ColumnsSection(QtW.QGroupBox):
                 )
                 tmp.move(new_x, new_y)
 
+    def resize_self(self , num_cols):
+            base_addition = 100
+            if self.max_num_cols == 1:  # Y cols
+                self.setMinimumHeight(150)
+            else:  # X cols
+                self.setMinimumHeight(
+                    (1 + num_cols) * DraggableColumn.BASE_HEIGHT + base_addition
+                )
+
     def dropEvent(self, e):
         """ "
         Conducts a drop event.
@@ -315,15 +331,6 @@ class ColumnsSection(QtW.QGroupBox):
                 e.ignore()
                 return
 
-        def resize_self():
-            base_addition = 100
-            if self.max_num_cols == 1:  # Y cols
-                self.setMinimumHeight(150)
-            else:  # X cols
-                self.setMinimumHeight(
-                    (1 + num_cols) * DraggableColumn.BASE_HEIGHT + base_addition
-                )
-
         def if_limit_remove_all_other_widgets():
             if num_cols == self.max_num_cols:
                 # Remove one the children from this
@@ -335,7 +342,7 @@ class ColumnsSection(QtW.QGroupBox):
 
         check_is_correct_type()
         if_limit_remove_all_other_widgets()
-        resize_self()
+        self.resize_self(num_cols)
         # Handle replacement with parent module. If applicable
         if isinstance(from_parent, ColumnsSection) and isinstance(
             from_parent, ColumnsSection
