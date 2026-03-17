@@ -40,7 +40,10 @@
     </Languages>
     <Variables/>
     <Commands/>
-    <Registry/>
+    <Registry>
+      <Entry rootKey="HKEY_CLASSES_ROOT" subKey="*\shell\Dataflippers" valueName="" valueData="Open DataFlippers Project file" isRemoveWhenUninstalling="true"/>
+      <Entry rootKey="HKEY_CLASSES_ROOT" subKey="*\shell\Dataflippers\command" valueName="" valueData="&quot;&lt;InstallPath&gt;\datascratch.exe&quot; &quot;%1&quot;" isRemoveWhenUninstalling="true"/>
+    </Registry>
     <Shortcuts defaultPath="&lt;Company&gt;\&lt;AppName&gt;\" isDefaultPathAlterable="false" isCreateStartmenuShortcutsForAllUsers="false" isCreateDesktopShortcutsForAllUsers="false">
       <Shortcut destination="Desktop" name="DataScratch" targetFile="&lt;InstallPath&gt;\datascratch.exe" commandLineArguments="" iconFilePath="" iconIndex="0"/>
     </Shortcuts>
@@ -75,7 +78,7 @@
     <Program executableFilePath="" isLaunchEnabled="false" isTerminationEnabled="false"/>
   </VisualUpdateConfiguration>
   <BuildConfiguration>
-    <SetupFilePath>C:\Users\vboxuser\Desktop\install_datascratch.exe</SetupFilePath>
+    <SetupFilePath>C:\Users\vboxuser\Desktop\DataPenguins\DataScratch\most_recent_installers\install_datascratch.exe</SetupFilePath>
     <SetupIconPath>..\icons\ancient.ico</SetupIconPath>
     <UninstallerIconPath>..\icons\ancient.ico</UninstallerIconPath>
     <Compression method="0" level="2"/>
