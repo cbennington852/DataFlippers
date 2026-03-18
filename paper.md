@@ -55,10 +55,10 @@ The platforms that are free and tailored to students, such as JASP[@JASP2025] is
 Scratch[@resnick2009scratch], a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when the transition to "real" programming[@armoni2015scratch]. 
 
 Scratch was constructed on 4 pillars, which makes up it's main philosophy.  DataFlippers follows these pillars closely. 
-1. **Passion** Learners are more motivated when they are learning things that they care about. To follow this pillar, DataFlippers uses crafted example datasets, which focus on topics that are intriguing to children. This is discussed more in the educational materials section. 
-2. **Peers** DataFlippers is intended to be shared with friends. For this purpose DataFlippers has it's own file type, and every chart and graph has the ability to be inspected and saved and shared. 
-3. **Play** The drag a drop nature implies a certain type of play. This makes is easy to novices to quickly try things, without the overhead of writing code. 
-4. **Projects** DataFlippers is focused around datasets, allowing for novices to create their own machine learnings projects. 
+1. **Passion**: Learners are more motivated when they are learning things that they care about. DataFlippers uses crafted example datasets, which focus on topics that are intriguing to children. This is discussed more in the educational materials section. 
+2. **Peers**: DataFlippers is intended to be shared with friends. For this purpose DataFlippers has it's own file type, and every chart and graph has the ability to be interacted with, saved, and shared. 
+3. **Play**: The drag a drop nature implies a certain type of play. This makes is easy to novices to quickly try things, without the overhead of writing code. This drag and drop design is discussed later. 
+4. **Projects**: DataFlippers is focused around datasets, allowing for novices to create their own machine learnings projects. 
 
 ## Drag and drop design
 The drag and drop interface is designed to reduce the syntactic complexity of programming down to drag and drop blocks, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning, while also paving the way for them to transition to writing code later. 
@@ -68,18 +68,18 @@ The drag and drop interface is designed to reduce the syntactic complexity of pr
 
 Each drag and drop block is modeled after basic shapes, this gives the user visual signifier, indicating where each block should be dropped on the interface. This ensures the interface is intuitive to people without machine learning experience. 
 
+![Image of the fullscreen DataFlippers project page. The example dataset here is the penguins dataset.  ](paper_images/Full_software.png "Image showing a full view of the DataFlippers suite.")
+
 Training multiple models at once is a core feature, allowing for quick model comparison. This enables common user desires within data science, where data scientists often compare and contrast models. Another purpose of this feature is to allow users to learn the differences between certain models. 
 
 ![Image showing the model comparison. This would allow novices to understand and visually see the differences between different types of machine learning models. This example shows a comparison between a DecisionTreeRegressor, and a LinearRegressor.  ](paper_images/Example_model_comparison.png "Image showing model comparison for the software. ")
 
 
-Users are also enabled to perform basic statistical analysis, this can be done by removing all of the pipeline blocks, and only plotting via the "Inputs and Outputs" block. The software also automatically runs a descriptive statistics plotting on all columns inputted, whenever a model training job is submitted. 
+Users are also enabled to perform basic statistical analysis, this can be done by removing all of the pipeline blocks, and only plotting via the "Inputs and Outputs" block. Users can also see column specific statistics by clicking on a dropdown menu on each column block.  
 
 ![Image showing the basic statistical capabilities of the DataFlippers framework. This shows the island type versus the bill length on the penguins.   ](paper_images/basic_stats.png "Image showing model comparison for the software. ")
 
 The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataFlippers also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired.
-
-![Image of the fullscreen DataFlippers project page. The example dataset here is the penguins dataset.  ](paper_images/Full_software.png "Image showing a full view of the DataFlippers suite.")
 
 ## Software architecture and core project libraries
 The language for this software is python, this is because python possesses several libraries, such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn;], which are standard tools for teaching machine learning[@burridge2022teaching]. 
@@ -99,7 +99,7 @@ The main DataFlippers page features a walk thought tutorial on how to use the so
 
 ![A screenshot from the DataFlippers website "My first AI model".](image.png)
 
-Guided active learning greatly improves student engagement[@rossi2021active], to accommodate this desire Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft]. These example datasets come with 3-5 lab questions each, which can be accessed from the main DataFlippers website. The lab questions can be categorized as the following.
+Guided active learning greatly improves student engagement[@rossi2021active], to accommodate this desire Datascratch comes pre-loaded with several example datasets. These example datasets have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as palmers_penguins[@palmerpenguins], diamonds dataset[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about pokemon[@KagglePokemon] and a dataset about minecraft biome statistics[@KaggleMinecraft]. These example datasets come with 3-5 lab questions each, which can be accessed from the main DataFlippers website. The lab questions can be categorized as the following.
 
 1. Questions encouraging novices to be critical of the models they are creating. Below are some examples.
     - Make a box plot to compare the gender of the waiter versus the total tip. Do men or women get more tips? Does this seem fair?
@@ -109,6 +109,6 @@ Guided active learning greatly improves student engagement[@rossi2021active], to
     - Create a linear AI model that takes in flipper_length_mm and body_mass_g as inputs, and predicts the gender of the penguins
 
 # AI usage disclosure
-~95% of this project was written by humans, and ~5% would be what is consider "AI assisted". Google was used to search for API documentation. The built in AI overview on google cannot be deactivated, and thus the AI overview was used upon each google search. Oftentimes, the google AI overview provided false information, and was ignored in the later stages of the project due to a lack of verifiability. Generative AI was later used during the proofreading stage of writing the paper, with it helping catch several grammatical errors. 
+~95% of this project was written by humans, and ~5% would be what is consider "AI assisted". Google was used to search for API documentation. The built in AI overview on google cannot be deactivated, and thus the AI overview was used upon each google search. Oftentimes, the google AI overview provided false information, and was ignored in the later stages of the project due to a lack of verifiability. Generative AI was used to make the penguin graphic in the project logo, and was used to provide summaries of each of the core machine learning components.
 
 # References
