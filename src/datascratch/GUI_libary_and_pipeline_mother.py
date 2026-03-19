@@ -479,13 +479,11 @@ class ColumnsMDIWindow(CustomMDI):
 
     def load_data(self, data: ColumnsWindowData):
         self.setFixedSize(ColumnsMDIWindow.BASE_WIDTH, ColumnsMDIWindow.BASE_HEIGHT)
-        print("CollumnsMDI hieght" , self.height())
         self.x_columns.set_cols_as_string_list(data.x_cols)
         self.y_columns.set_cols_as_string_list(data.y_cols)
         self.resize_based_on_children()
         self.setFixedSize(ColumnsMDIWindow.BASE_WIDTH, ColumnsMDIWindow.BASE_HEIGHT)
 
-        print("CollumnsMDI hieght" , self.height())
 
 
 

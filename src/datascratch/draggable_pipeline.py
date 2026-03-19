@@ -41,9 +41,6 @@ class PipelineSection(QtW.QGroupBox):
             if isinstance(self.my_layout.itemAt(i) , QtW.QWidgetItem):
                 child = self.my_layout.itemAt(i).widget()
                 parameters_as_dict = dict(child.data.parameters)
-                print(parameters_as_dict)
-                for name , value in parameters_as_dict.items():
-                    print(f"Plotting .. {name} ... {type(value)} ... {value}")
                 curr = child.data.sklearn_function(**parameters_as_dict)
                 resulting_models.append(curr)
         return resulting_models
@@ -80,7 +77,6 @@ class PipelineSection(QtW.QGroupBox):
         widget = e.source()
         from_parent = widget.parentWidget()
         to_parent = self
-        print("Pipeline: " , " From: ",from_parent,"  To: " ,to_parent)
         
         # Check if this is the correct type
         if not isinstance(widget , Draggable):
@@ -341,10 +337,7 @@ class Pipeline(CustomMDI):
             data=data.preprocessor_section
         )
         new_pipeline.name_pipeline = QtW.QLineEdit()
-        print("Name from data" , data.pipeline_name )
-        print("The line editor " , new_pipeline.name_pipeline)
         new_pipeline.name_pipeline.setText(data.pipeline_name)
-        print("Text name" , new_pipeline.name_pipeline.text())
         # Remove old layout
         new_pipeline.main_thing.deleteLater()
         # Add to layout. 

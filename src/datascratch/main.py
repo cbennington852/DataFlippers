@@ -20,26 +20,24 @@ if multiprocessing.parent_process() is None:
     IMPORT_IMPORT_TYPE = "import"
     list_modules = [
         # Type , selection , module type
-    (IMPORT_IMPORT_TYPE , "QtW" ,"PyQt5.QtWidgets"),
-    (IMPORT_IMPORT_TYPE , "sys" , "sys"),
-    (IMPORT_IMPORT_TYPE , "sns" , "seaborn"),
-    (IMPORT_IMPORT_TYPE , "os" , "os"),
-    (IMPORT_IMPORT_TYPE , "pickle" , "pickle"),
-    (IMPORT_IMPORT_TYPE , "traceback" , "traceback"),
-    (IMPORT_IMPORT_TYPE , "time" , "time"),
-    (IMPORT_IMPORT_TYPE , "pd" , "pandas"),
-    (FROM_IMPORT_TYPE , "DataframeViewer" , "datascratch.dataframe_viewer"),
-    (FROM_IMPORT_TYPE , "QIcon" , "PyQt5.QtGui"),
-    (FROM_IMPORT_TYPE , "QPixmap" , "PyQt5.QtGui"),
-    (FROM_IMPORT_TYPE , "Qt" , "PyQt5.QtCore"),
-    (FROM_IMPORT_TYPE , "QFile" , "PyQt5.QtCore"),
-    (FROM_IMPORT_TYPE , "QIODevice" , "PyQt5.QtCore"),
-    (IMPORT_IMPORT_TYPE , "logging" , "logging"),
-    (FROM_IMPORT_TYPE , "QTextStream" , "PyQt5.QtCore"),
-    (FROM_IMPORT_TYPE , "DataScratchSettings" , "datascratch.settings_manager"),
+        (IMPORT_IMPORT_TYPE, "QtW", "PyQt5.QtWidgets"),
+        (IMPORT_IMPORT_TYPE, "sys", "sys"),
+        (IMPORT_IMPORT_TYPE, "sns", "seaborn"),
+        (IMPORT_IMPORT_TYPE, "os", "os"),
+        (IMPORT_IMPORT_TYPE, "pickle", "pickle"),
+        (IMPORT_IMPORT_TYPE, "traceback", "traceback"),
+        (IMPORT_IMPORT_TYPE, "time", "time"),
+        (IMPORT_IMPORT_TYPE, "pd", "pandas"),
+        (FROM_IMPORT_TYPE, "DataframeViewer", "datascratch.dataframe_viewer"),
+        (FROM_IMPORT_TYPE, "QIcon", "PyQt5.QtGui"),
+        (FROM_IMPORT_TYPE, "QPixmap", "PyQt5.QtGui"),
+        (FROM_IMPORT_TYPE, "Qt", "PyQt5.QtCore"),
+        (FROM_IMPORT_TYPE, "QFile", "PyQt5.QtCore"),
+        (FROM_IMPORT_TYPE, "QIODevice", "PyQt5.QtCore"),
+        (IMPORT_IMPORT_TYPE, "logging", "logging"),
+        (FROM_IMPORT_TYPE, "QTextStream", "PyQt5.QtCore"),
+        (FROM_IMPORT_TYPE, "DataScratchSettings", "datascratch.settings_manager"),
     ]
-
-
 
     def center_window(win, width, height):
         """Centers a Tkinter window on the screen."""
@@ -48,25 +46,29 @@ if multiprocessing.parent_process() is None:
         screen_height = win.winfo_screenheight()
         x = (screen_width // 2) - (width // 2)
         y = (screen_height // 2) - (height // 2)
-        win.geometry(f'{width}x{height}+{x}+{y}')
+        win.geometry(f"{width}x{height}+{x}+{y}")
 
     splash_root = tk.Tk()
     splash_root.withdraw()
     splash_root.overrideredirect(True)
     splash_root.title("Loading...")
-    center_window(splash_root , 600 , 400)
-    label = tk.Label(splash_root, wraplength=370 , text="", font=("Helvetica", 12))
-    label_summary = tk.Label(splash_root, wraplength=370, text=f"Loading {AppAppearance.APP_NAME} core libraries, this may be slower the first time.", font=("Helvetica", 12))
+    center_window(splash_root, 600, 400)
+    label = tk.Label(splash_root, wraplength=370, text="", font=("Helvetica", 12))
+    label_summary = tk.Label(
+        splash_root,
+        wraplength=370,
+        text=f"Loading {AppAppearance.APP_NAME} core libraries, this may be slower the first time.",
+        font=("Helvetica", 12),
+    )
 
     pixel_scale = 10
     progress_bar = ttk.Progressbar(
         splash_root,
-        orient='horizontal',
+        orient="horizontal",
         length=len(list_modules) * pixel_scale,
-        mode='determinate'
+        mode="determinate",
     )
     image_loaded = get_datascratch_logo().resize((250, 100), Image.Resampling.LANCZOS)
-    print(image_loaded)
     img_ds_logo = ImageTk.PhotoImage(image_loaded)
     label_with_splash_image = tk.Label(splash_root, image=img_ds_logo)
 
@@ -81,35 +83,34 @@ if multiprocessing.parent_process() is None:
         pass
 
     def dynamic_import_function(splash_root):
-        """This function recursively and dynamically loads the libraries required for this application.
-        """
+        """This function recursively and dynamically loads the libraries required for this application."""
         global current_module_import_index
         if current_module_import_index >= len(list_modules):
             splash_root.quit()
         else:
-            type_module , selection , module = list_modules[current_module_import_index]
+            type_module, selection, module = list_modules[current_module_import_index]
             label.config(text=f"Loading Libraries ... {module}")
-            progress_bar['value'] = current_module_import_index * pixel_scale
+            progress_bar["value"] = current_module_import_index * pixel_scale
             if type_module == FROM_IMPORT_TYPE:
-                import_from_module(module , selection)
+                import_from_module(module, selection)
             elif type_module == IMPORT_IMPORT_TYPE:
-                import_import_module(selection , module)
+                import_import_module(selection, module)
             else:
                 raise ValueError("Invalid import.")
-            # Update current 
+            # Update current
             current_module_import_index += 1
 
             # Recursive call
             splash_root.after(2, dynamic_import_function, splash_root)
 
-    def import_from_module(module_path , object_name):
+    def import_from_module(module_path, object_name):
         module = importlib.import_module(module_path)
         globals()[object_name] = getattr(module, object_name)
 
-    def import_import_module(alias  , module_name):
+    def import_import_module(alias, module_name):
         module = importlib.import_module(module_name)
         globals()[alias] = module
-        
+
     # Recursive call
     splash_root.after(10, dynamic_import_function, splash_root)
     splash_root.mainloop()
@@ -128,18 +129,28 @@ from datascratch import image_resources
 from datascratch.logo_embbedded import get_datascratch_logo
 from datascratch.colors_and_appearance import AppAppearance
 import PyQt5.QtWidgets as QtW
-from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidget, QListWidgetItem, QPushButton, QMessageBox, QWidget, QVBoxLayout, QAction
-from datascratch.GUI_libary_and_pipeline_mother import PipelineMother , GUILibary
-from datascratch.sklearn_libary import SubLibary 
+from PyQt5.QtWidgets import (
+    QApplication,
+    QMainWindow,
+    QListWidget,
+    QListWidgetItem,
+    QPushButton,
+    QMessageBox,
+    QWidget,
+    QVBoxLayout,
+    QAction,
+)
+from datascratch.GUI_libary_and_pipeline_mother import PipelineMother, GUILibary
+from datascratch.sklearn_libary import SubLibary
 from datascratch.dataframe_viewer import DataframeViewer
 import seaborn as sns
 from datascratch import image_resources
-from PyQt5.QtGui import QIcon , QPixmap
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import multiprocessing
 from datascratch.plotter import Plotter
-from datascratch.save_file import SaveFileException , SaveFile
+from datascratch.save_file import SaveFileException, SaveFile
 import os
 import pickle
 import traceback
@@ -157,21 +168,18 @@ from datascratch.theme_combo_box import ThemeComboBox
 
 
 from qfluentwidgets import (
-    FluentWindow, MSFluentWindow, SplitFluentWindow, NavigationInterface,
-    NavigationItemPosition, NavigationTreeWidget, NavigationBar, Pivot, SegmentedWidget, BreadcrumbBar
-)
-
-from qfluentwidgets import (
-    ListWidget, ListView, TableWidget, TableView, TreeWidget, TreeView,
-    FluentIcon, FluentIconBase, getIconColor, 
-    Theme, setTheme, ThemeColor, setThemeColor, HeaderCardWidget
+    ListWidget,
+    Theme,
+    setTheme,
+    ThemeColor,
+    setThemeColor,
+    HeaderCardWidget,
 )
 
 
 from qfluentwidgets import (
-    SettingCard, SwitchSettingCard, RangeSettingCard, OptionsSettingCard,
-    PrimaryPushSettingCard, PushSettingCard, HyperlinkCard, 
-    SettingCardGroup, ExpandSettingCard, CustomColorSettingCard , TabWidget
+
+    TabWidget,
 )
 
 from qfluentwidgets import CommandBar, Action, FluentIcon as FIF
@@ -193,9 +201,7 @@ class MainMenu(QtW.QMainWindow):
         super().__init__()
 
         self.setWindowTitle(f"{AppAppearance.APP_NAME} Main Menu")
-        self.title_image = QtW.QLabel(
-            pixmap=QPixmap(":images/DataFlippers.png")
-        )
+        self.title_image = QtW.QLabel(pixmap=QPixmap(":images/DataFlippers.png"))
         self.setMaximumWidth(self.title_image.width())
 
         # Set up basic ptrs
@@ -212,9 +218,7 @@ class MainMenu(QtW.QMainWindow):
         import_dataset.triggered.connect(self.import_datasets_clicked)
         curr_toolbar.addAction(import_dataset)
 
-        import_dataset = Action(
-            QIcon(":images/file_open.png"), "Open dataset", self
-        )
+        import_dataset = Action(QIcon(":images/file_open.png"), "Open dataset", self)
         import_dataset.triggered.connect(self.import_datasets_clicked)
         curr_toolbar.addAction(import_dataset)
 
@@ -248,15 +252,12 @@ class MainMenu(QtW.QMainWindow):
         recent_files_opened = settings.value(
             DataScratchSettings.RECENT_FILES_KEY, [], type=list
         )
-        # Validate these files are still there! 
-        print("Recent files opened", recent_files_opened)
 
         file_there = []
         for curr_file in recent_files_opened:
             if Path(curr_file).is_file():
                 file_there.append(curr_file)
         recent_files_opened = file_there
-        print("Recent files opened", recent_files_opened)
         recent_list_widget = ListWidget()
         recent_list_widget.addItems(recent_files_opened)
         recent_list_widget.clicked.connect(
@@ -273,7 +274,6 @@ class MainMenu(QtW.QMainWindow):
         group_box.setMinimumHeight(100)
         group_box.layout().addWidget(list_widget)
 
-
         # second_box
         second_box = QtW.QWidget()
         second_box_lay = QtW.QVBoxLayout()
@@ -289,8 +289,8 @@ class MainMenu(QtW.QMainWindow):
         tab_widget = TabWidget(self)
         tab_widget.tabBar.setAddButtonVisible(False)
         tab_widget.setTabsClosable(False)
-        tab_widget.addPage(group_box , "Example Datasets")
-        tab_widget.addPage(recent_group_box , "Recent Datasets")
+        tab_widget.addPage(group_box, "Example Datasets")
+        tab_widget.addPage(recent_group_box, "Recent Datasets")
 
         # If recent, default to that!
         if len(recent_files_opened) != 0:
@@ -311,11 +311,10 @@ class MainMenu(QtW.QMainWindow):
             self, "Open File", "", FILE_OPEN_STRING, options=QtW.QFileDialog.Options()
         )
         if fileName:
-            print("File name: ", fileName)
             open_on_file_handle(fileName)
             self.deleteLater()
         else:
-            print("No file selected")
+            pass
 
 
 class MainWindow(QtW.QMainWindow):
@@ -354,12 +353,11 @@ class MainWindow(QtW.QMainWindow):
         dock_dataframe.setTitleBarWidget(QtW.QWidget())
         dock_plot.setTitleBarWidget(QtW.QWidget())
 
-
         dock_libary.setFeatures(
-            dock_libary.features() & ~QtW.QDockWidget.DockWidgetClosable 
+            dock_libary.features() & ~QtW.QDockWidget.DockWidgetClosable
         )
         dock_dataframe.setFeatures(
-            dock_dataframe.features() & ~QtW.QDockWidget.DockWidgetClosable 
+            dock_dataframe.features() & ~QtW.QDockWidget.DockWidgetClosable
         )
         dock_plot.setFeatures(
             dock_plot.features() & ~QtW.QDockWidget.DockWidgetClosable
@@ -380,16 +378,16 @@ class MainWindow(QtW.QMainWindow):
 
         self.setCentralWidget(self.pipeline_mother)
 
-
     def closeEvent(self, event):
         """Overrides the close event to show a popup."""
         if self.file_path is None:
             reply = QMessageBox.question(
-                self, 'Unsaved Changes',
+                self,
+                "Unsaved Changes",
                 "You have unsaved changes. Do you want to save before exiting?",
-                QMessageBox.StandardButton.Save | 
-                QMessageBox.StandardButton.Discard | 
-                QMessageBox.StandardButton.Cancel
+                QMessageBox.StandardButton.Save
+                | QMessageBox.StandardButton.Discard
+                | QMessageBox.StandardButton.Cancel,
             )
 
             if reply == QMessageBox.StandardButton.Save:
@@ -398,20 +396,18 @@ class MainWindow(QtW.QMainWindow):
             elif reply == QMessageBox.StandardButton.Discard:
                 event.accept()
             else:
-                event.ignore() # Prevents closing
+                event.ignore()  # Prevents closing
         else:
-            # Just saves anyway if we have a file on file. 
+            # Just saves anyway if we have a file on file.
             try:
                 self.file_path
-                self.save_function(self.file_path , no_popup=True)
+                self.save_function(self.file_path, no_popup=True)
             except Exception as e:
                 # We can't access said file anymore for some reason. Defualt to a save AS configuration.S
                 self.save_function()
             event.accept()
 
     def save_function(self, file_name=f"my_project.{FILE_EXTENSION}", no_popup=False):
-        print(f"Dataframe {self.dataframe}")
-        print(f"file_name : {file_name}")
         if not no_popup:
             file_path, _ = QtW.QFileDialog.getSaveFileName(
                 None,
@@ -420,7 +416,7 @@ class MainWindow(QtW.QMainWindow):
                 f"{FILE_EXTENSION_NAME} (*.{FILE_EXTENSION});;All Files (*)",
             )
             if not file_path:
-                return # User canceled.
+                return  # User canceled.
             if not file_path.endswith(f".{FILE_EXTENSION}"):
                 file_path += f".{FILE_EXTENSION}"
         else:
@@ -444,7 +440,6 @@ class MainWindow(QtW.QMainWindow):
 
                 self.setWindowTitle(self.file_path)
 
-                print(f"Saved successfully to: {file_path}")
                 # Also add this to the recently saved section.
                 settings = DataScratchSettings.getSettings()
                 curr_recently_opened = settings.value(
@@ -456,7 +451,9 @@ class MainWindow(QtW.QMainWindow):
                     DataScratchSettings.RECENT_FILES_KEY, curr_recently_opened
                 )
             except OSError as e:
-                QtW.QMessageBox.critical(None, "File Error", f"Could not open file: {e}")
+                QtW.QMessageBox.critical(
+                    None, "File Error", f"Could not open file: {e}"
+                )
             except Exception as e:
                 traceback.print_exc()
 
@@ -479,16 +476,13 @@ class MainWindow(QtW.QMainWindow):
                 loaded_data.columns_data,
                 loaded_data.list_notes_data,
             )
-            # 4. display the data.
-            print(main_window)
-            print("X cols", main_window.pipeline_mother.x_columns.get_cols())
             return main_window
 
     def render_menu_bar(self):
         menu = QtW.QToolBar()
         menu.setMovable(False)
         self.addToolBar(menu)
-        
+
         # The File Menu
         file_tool_button = QtW.QToolButton()
         file_tool_button.setText("File")
@@ -511,16 +505,13 @@ class MainWindow(QtW.QMainWindow):
         theme_menu = QtW.QMenu("Theme")
         theme_tool_button.setPopupMode(QtW.QToolButton.InstantPopup)
         theme_tool_button.setMenu(theme_menu)
-        themes_button  = ThemeComboBox()
+        themes_button = ThemeComboBox()
         theme_action = QtW.QWidgetAction(self)
         theme_action.setDefaultWidget(themes_button)
         theme_menu.addAction(theme_action)
 
-
-
         menu.addWidget(file_tool_button)
         menu.addWidget(theme_tool_button)
-
 
     def save_button_pressed(self):
         if self.file_path is not None:
@@ -557,7 +548,6 @@ def filter_command_line_argument_return_dataframe(file_path) -> pd.DataFrame:
 
 
 def open_on_file_handle(file_handle):
-    print("Attempted open on file handle", file_handle)
     if os.path.exists(file_handle):
         # parse command line argument
         if file_handle.endswith(f".{FILE_EXTENSION}"):
@@ -578,14 +568,12 @@ def open_on_file_handle(file_handle):
             try:
                 with open(file_handle, "rb") as file:
                     loaded_data = pickle.load(file)
-                    print("Opened and loaded pickle")
                     model_pred = PredictionGUI(loaded_data, True)
                     new_win = QtW.QMainWindow()
                     new_win.setWindowTitle(f"{AppAppearance.APP_NAME} Pipeline File")
                     new_win.setCentralWidget(model_pred)
                     new_win.show()
                     windows.append(new_win)
-                    print("new_win", new_win)
             except Exception as e:
                 traceback.print_exc()
                 QtW.QMessageBox.critical(
@@ -619,24 +607,14 @@ def open_on_file_handle(file_handle):
             f"File {file_handle} was not found.",  # Main message
         )
 
+
 from qfluentwidgets import FluentWindow, setTheme, Theme
 
 
 def main():
-    #QtW.QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-    #QtW.QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
     app = QtW.QApplication(sys.argv)  # Create the application instance
     setTheme(Theme.LIGHT)
-    # file_curr = QFile(f":/styles/new_stylesheet.css")
-    # if not file_curr.open(
-    #     QIODevice.OpenModeFlag.ReadOnly | QIODevice.OpenModeFlag.Text
-    # ):
-    #     print(f"Error: Could not open file stylesheet- {file_curr.errorString()}")
-    #     return None
-    # stream = QTextStream(file_curr)
-    # new_style = stream.readAll()
-    # app.setStyleSheet(new_style)
 
     if len(sys.argv) > 1:
         open_on_file_handle(sys.argv[1])
@@ -645,8 +623,6 @@ def main():
         main_menu.show()
 
     app.setWindowIcon(QIcon(":/images/DataPenguins.svg"))
-    
-
 
     sys.exit(app.exec_())  # Start the application's event loop
 

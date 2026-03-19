@@ -53,7 +53,6 @@ def runner_wrapper(
     queue, main_dataframe, curr_pipelines, pipeline_x_values, pipeline_y_values , current_theme
 ):
     try:
-        print("Current Theme" , ThemeComboBox.CURRENT_THEME)
         curr_results = sklearn_engine.SklearnEngine.main_sklearn_pipe(
             main_dataframe=main_dataframe,
             curr_pipelines=curr_pipelines,
@@ -299,7 +298,6 @@ class Plotter(TabWidget):
             pipeline_group_box_lay = QtW.QFormLayout()
             pipeline_group_box.setLayout(pipeline_group_box_lay)
             for stat_name, value in pipeline.model_results.relevant_statistical_results:
-                print(f"stat: {stat_name} , Val:{value}")
                 pipeline_group_box_lay.addRow(
                     QtW.QLabel(stat_name),
                     QtW.QLabel(str(round(value, 5))),
@@ -316,7 +314,6 @@ class Plotter(TabWidget):
 
     @QtCore.pyqtSlot()
     def plotting_finished(self):
-        print("Engine : ", self.worker.engine_results)
         self.remove_all_pages()
         self.visual_plot = CanvasWithToolbar(self.worker.engine_results.visual_plot)
         try:
@@ -400,7 +397,6 @@ class PlotterWorker(QtCore.QObject):
             else:
                 pass
         if isinstance(results, Exception):
-            print("Below is the traceback except", results, type(results))
             traceback.print_exception(results)
             self.crashed.emit("Error: ", str(results))
         else:

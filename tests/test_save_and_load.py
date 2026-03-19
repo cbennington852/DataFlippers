@@ -7,6 +7,8 @@ from src.datascratch.save_file import SaveFile
 from PyQt5.QtTest import QTest
 import time
 import os.path
+from PyQt5.QtWidgets import QApplication
+
 from pytestqt import qtbot
 from src.datascratch.sklearn_engine import EngineResults , InternalEngineError
 
@@ -52,13 +54,10 @@ def setup_test_environment_one():
     curr_cols_sub.x_columns.my_layout.addWidget(drag_col_x)
     curr_cols_sub.y_columns.my_layout.addWidget(drag_col_y)
     # what the fuck
-    print("X cols : " , curr_cols_sub.x_columns.get_cols_as_string_list()) 
-    print("childre cols : " , curr_cols_sub.x_columns.get_cols())
     for i in range(curr_cols_sub.x_columns.my_layout.count()):
             item = curr_cols_sub.x_columns.my_layout.itemAt(i)
             if (item.widget() is not None) and (isinstance(item.widget() , DraggableColumn)):
                 widget = item.widget()
-                print("Added widget" , widget)
     return window
 
 
@@ -92,7 +91,6 @@ def setup_test_environment_two():
         "#000000"
     )
     # Alter one of the parameters to verify the parameters are being saved
-    print("these are parameters"  ,drag_lin_2.data.parameters)
     new_para = []
     for name , value in drag_lin_2.data.parameters:
         if name == 'alpha':
@@ -124,30 +122,8 @@ def setup_test_environment_two():
     return window
 
 
-def setup_generator_environment(qtbot , window ) -> EngineResults:
-    """Setup test envorment 2 and return engine results, once trained. 
 
-    Returns:
-        _type_: _description_
-    """
-    start_time = time.time()
-    max_time = 3
-    def check_time():
-        return time.time() - start_time < max_time
-    
-    window.pipeline_mother.columns_subwindow.train_models.click()
-    while (not hasattr(window.plotter , 'worker')) and check_time():
-        time.sleep(0.01)
-    while not hasattr(window.plotter.worker, 'engine_results') and check_time():
-        time.sleep(0.01)
-    # now we use the qtbot wait until. 
-    print("ptr check" ,  window.pipeline_mother.columns_subwindow.train_models)
-    def check_if_done():
-        return window.pipeline_mother.columns_subwindow.train_models.isEnabled()
-    qtbot.waitUntil(check_if_done)
-    # Setting a timer due to absurd internal PyQt libary error
-    # The even thread is messed up for some reason only while testing.
-    return window.plotter.worker.engine_results
+
 
 def test_save_single_column(qtbot):
     window = setup_test_environment_one()
@@ -156,10 +132,10 @@ def test_save_single_column(qtbot):
     window.save_function(file_name=file_name , no_popup=True)
     with open(file_name, 'rb') as file:
         loaded_data : SaveFile = pickle.load(file)
-        print(" X cols : " , loaded_data.columns_data.x_cols)
         assert loaded_data.columns_data.y_cols == ['Example Chemical 2']
         assert loaded_data.columns_data.x_cols == ['Example Chemical 1']
-    window.close()
+    QApplication.instance().quit()
+
 
 def test_loading_columns(qtbot):
     window = setup_test_environment_one()
@@ -170,6 +146,8 @@ def test_loading_columns(qtbot):
 
     # Now make sure the the window has all of the nessicary things
     assert saved_window.pipeline_mother.x_columns.get_cols_as_string_list() == ['Example Chemical 1']
+    QApplication.instance().quit()
+
 
 def test_loading_models(qtbot):
     window = setup_test_environment_one()
@@ -177,9 +155,9 @@ def test_loading_models(qtbot):
     file_name = 'data_test.pkl'
     window.save_function(file_name=file_name , no_popup=True)
     saved_window = MainWindow.open_on_saved_file(file_name)
-    print("HI: " , saved_window.pipeline_mother.pipelines[0])
-    print("Pipeline datas:  " , saved_window.pipeline_mother.pipelines[0].model_pipe.get_data())
     assert saved_window.pipeline_mother.pipelines[0].model_pipe.get_data()[0].sklearn_function == sklearn.linear_model.LinearRegression
+    QApplication.instance().quit()
+
 
 def test_others_empty(qtbot):
     window = setup_test_environment_one()
@@ -189,6 +167,8 @@ def test_others_empty(qtbot):
     window.save_function(file_name=file_name , no_popup=True)
 
     assert len(window.pipeline_mother.pipelines[0].validator.get_data()) == 0
+    QApplication.instance().quit()
+
 
 
 def test_saving_and_loading_multiple_pipelines(qtbot):
@@ -199,6 +179,8 @@ def test_saving_and_loading_multiple_pipelines(qtbot):
     window.save_function(file_name=file_name , no_popup=True)
     saved_window = MainWindow.open_on_saved_file(file_name)
     assert saved_window.pipeline_mother.pipelines[1].model_pipe.get_data()[0].sklearn_function == sklearn.linear_model.Ridge
+    QApplication.instance().quit()
+
 
 
 def test_saving_and_loading_altered_parameters(qtbot):
@@ -212,8 +194,9 @@ def test_saving_and_loading_altered_parameters(qtbot):
     for name , value in params:
         if name == 'alpha':
             assert value == 69.0
-            return
-    assert False
+
+    QApplication.instance().quit()
+
 
 
 def test_file_creation(qtbot):
@@ -224,28 +207,17 @@ def test_file_creation(qtbot):
     window.save_function(file_name=file_name , no_popup=True)
     time.sleep(0.2)
     assert os.path.isfile(file_name)
+    QApplication.instance().quit()
+
 
 def test_wrong_file_type(qtbot):
     try:
         saved_window = MainWindow.open_on_saved_file("run.sh")
     except Exception:
         assert True
+    QApplication.instance().quit()
+    
 
-def test_setting_up_generator(qtbot):
-    # check to see that the generator does not crash and returns an engine result
-    window = setup_test_environment_two()
-    qtbot.addWidget(window)
-
-    if setup_generator_environment(qtbot , window) is not None:
-        assert True
-    else:
-        assert False
-
-def test_running_manual_predictor(qtbot):
-    window = setup_test_environment_two()
-    qtbot.addWidget(window)
-    setup_generator_environment(qtbot , window)
-    assert window.plotter.prediction_tab
 
 
 

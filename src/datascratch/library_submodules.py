@@ -110,7 +110,6 @@ class PipelineSubmodule(QtW.QGroupBox):
         widget = e.source()
         from_parent = widget.parentWidget()
         to_parent = self
-        print("From" , from_parent , " TO: " , to_parent)
         if isinstance(from_parent , PipelineSubmodule) and isinstance(to_parent , PipelineSubmodule):
             e.accept()
         elif isinstance(from_parent , PipelineSection) and (isinstance(to_parent , PipelineSubmodule) or isinstance(to_parent , ColumnsSubmodule)):

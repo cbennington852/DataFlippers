@@ -242,7 +242,6 @@ class SinglePredictor(QtW.QWidget):
             x_values = []
             for x_col in self.x_cols_ptr_lst:
                 curr_value = x_col.text()
-                print("Current Value : " , curr_value)
                 new_val = None
                 try:
                     new_val = ast.literal_eval(curr_value)
@@ -255,7 +254,6 @@ class SinglePredictor(QtW.QWidget):
                 for gui_pipe in self.pipelines_groupbox_ptr:
                     if pipeline_ptr == gui_pipe.pipeline:
                         gui_pipe.pred_value.setText(str(value))
-            print(res)
         except Exception as e:
             QtW.QMessageBox.critical(
                 None,  # Parent: Use None if not within a QWidget class

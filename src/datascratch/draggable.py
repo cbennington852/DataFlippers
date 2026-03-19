@@ -229,8 +229,6 @@ class Draggable(QPushButton):
         temp_parameters = SubLibary.get_sklearn_parameters(sklearn_function)
         for parameter in temp_parameters:
             if type(parameter[1]) == str:
-                #print(f"{Draggable.TEMP_DEBUG_COUNT:<2}: ... {self.name:<30} ... {parameter[0]:<25} ... {parameter[1]:<10}")
-                print(f"('{self.name}' , '{parameter[0]}') : ('{parameter[1]}' , ), ")
                 Draggable.TEMP_DEBUG_COUNT += 1 
 
         # rendering the actual thing
@@ -515,7 +513,6 @@ class ParameterPopup(QtW.QWidget):
             except:
                 curr = (parameter_name , ast.literal_eval(f'\'{q_line_edit.text()}\''))
             new_parameters.append(curr)
-        print(new_parameters)
         self.my_parent.data.parameters = new_parameters
 
 class PopoverWidget(QtW.QMenu):

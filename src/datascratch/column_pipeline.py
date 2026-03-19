@@ -98,10 +98,6 @@ class ColumnsSection(QtW.QGroupBox):
             )
             new_drag = DraggableColumn(curr, hex_value , self.dataframe)
             FakeDropEvent.simulate(self , new_drag)
-            # self.my_layout.addWidget(new_drag)
-            # self.my_layout.addWidget(new_drag)
-            # # Simulate a resize event, to prevent issues
-            print("Current height" , self.height())
         self.resize_self(len(str_lst))
         self.my_parent.resize_based_on_children()
         self.repaint()

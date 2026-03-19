@@ -12,6 +12,7 @@ from PyQt5.QtGui import QDropEvent, QDrag
 from PyQt5.QtCore import Qt, QMimeData, QEvent
 
 import sklearn.model_selection as val
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtCore, QtTest
 import pytest
@@ -94,13 +95,14 @@ def test_library_model_to_pipeline(qtbot):
     fake_drop.simulate_fake_drop(target_drop)
     
     assert len(target_drop.get_pipeline_objects()) != 0
+    QApplication.instance().quit()
 
 def test_library_preprocessor_to_pipeline(qtbot):
     window = MainWindow(df)
     qtbot.addWidget(window)
 
     window.libary.setCurrentIndex(0)
-    regressor_section = window.libary.pre_sub_module
+    regressor_section = window.libary.pre_scalar
     random_draggable = regressor_section.my_layout.itemAt(0).widget()
 
     # gather pipeline to drag to.
@@ -117,6 +119,7 @@ def test_library_preprocessor_to_pipeline(qtbot):
     fake_drop.simulate_fake_drop(target_drop)
     
     assert len(target_drop.get_pipeline_objects()) != 0
+    QApplication.instance().quit()
 
 def test_library_validator_to_pipeline(qtbot):
     window = MainWindow(df)
@@ -140,10 +143,13 @@ def test_library_validator_to_pipeline(qtbot):
     fake_drop.simulate_fake_drop(target_drop)
     
     assert len(target_drop.get_pipeline_objects()) != 0
+    QApplication.instance().quit()
 
 
 def test_main_menu_loads(qtbot):
     window = MainMenu()
     qtbot.addWidget(window)
     assert window
+    # Have a close all here! 
+    QApplication.instance().quit()
 

@@ -43,7 +43,6 @@ class Pipeline():
         last_step_name , last_step_model = self.sklearn_pipeline.steps[-1]
         if self.name is None:
             self.name = last_step_model.__class__.__name__
-        print("Last step model : " , last_step_model)
         if is_classifier(last_step_model):
             self.supervised_learning_type = SklearnEngine.CLASSIFICATION
         elif is_regressor(last_step_model):
@@ -52,8 +51,6 @@ class Pipeline():
             raise InternalEngineError(f"Pipeline {name} has neither a regressor or classifier. Crashing")
 
     def predict(self , x_vals):
-        print("Input into prediction" , x_vals)
-        print("Types : " , x_vals.dtypes)
         return self.sklearn_pipeline.predict(x_vals)[0].item()
 
 
@@ -80,7 +77,6 @@ class ConvertedColumn():
 
     def check_if_col_name_in_list_converted_columns(list_converted_cols : list , col_name : str):
         for converted_col in list_converted_cols:
-            print("Iter" , converted_col.column_name , col_name)
             if converted_col.column_name == col_name:
                 return converted_col
         return None
@@ -91,7 +87,6 @@ class ConvertedColumn():
     
     def convert_string_to_int(self, value):
         for x in range(0 , len(self.code_map)):
-            print()
             if value == self.code_map[x]:
                 return x
         raise InternalEngineError(f"{value} is not a value in the trained dataset.")
@@ -219,7 +214,6 @@ class EngineResults():
         # Resolve the list of converted columns.
         for converted_col in self.list_converted_columns:
             for j in range(0 ,len(self.x_cols)):
-                print("Hello ? " , j , x_values[j] , converted_col.column_name)
                 if converted_col.column_name == self.x_cols[j]:
                     x_values[j] = converted_col.convert_string_to_int(x_values[j])
                     # Convert thing
@@ -294,8 +288,6 @@ class SklearnEngine():
 
         # If user wants a string, try to factorize.
         main_dataframe_copy , list_converted_columns = SklearnEngine.factorize_string_cols(main_dataframe_copy , pipeline_x_values , pipeline_y_value)
-        print("List converted" , list_converted_columns)
-        # Preform basic validation on the inputs
 
         # Plot no model can be called here, if no models were inputted. 
         result_validation = SklearnEngine.validate_column_inputs(main_dataframe_copy , curr_pipelines, pipeline_x_values , pipeline_y_value, list_converted_columns)
@@ -373,11 +365,9 @@ class SklearnEngine():
         # Handleing special graphing. 
         for converted_col in list_converted_columns:
             if converted_col.column_name == pipeline_x_values[0]:
-                print("Doing conversion")
                 ax.set_xticks(list_of_indexes(converted_col))
                 ax.set_xticklabels(converted_col.code_map)
             if converted_col.column_name == pipeline_y_value[0]:
-                print("Doing conversion")
                 ax.set_yticks(list_of_indexes(converted_col))
                 ax.set_yticklabels(converted_col.code_map)
 
@@ -480,7 +470,6 @@ class SklearnEngine():
                     if x_val_curr not in bottom_manager:
                         bottom_manager[x_val_curr] = 0
                     count_curr = row['count']
-                    print(x_val_curr , y_val_curr , count_curr)
                     ax.bar(x_val_curr, count_curr, 0.5, label=y_val_curr, bottom=bottom_manager[x_val_curr] , color=curr_color)
                     bottom_manager[x_val_curr] += count_curr
                 ax.legend()
@@ -521,7 +510,6 @@ class SklearnEngine():
                 # ax.set_title("Number of penguins with above average body mass")
                 # ax.legend(loc="upper right")
 
-                # print("Y value counts" , value_counts)
                 # # we could make a stacked bar chart.
             else: # 2d scatterplot
                 fig, ax = plt.subplots()
@@ -544,8 +532,6 @@ class SklearnEngine():
             color_cycle = SklearnEngine.get_color_map()
             fig = plt.figure()
             ax = fig.add_subplot(111, projection='3d')
-            print(non_iloc_x)
-            print("Hello" , x.iloc[:, 0], x.iloc[:, 1],  y.iloc[:, 0])
 
             ax.scatter(x.iloc[:, 0], x.iloc[:, 1], y.iloc[:, 0], c=y, edgecolor='k')
             ax.set_xlabel(f"{pipeline_x_values[0]}")
@@ -824,7 +810,6 @@ class SklearnEngine():
             ax.set_ylabel(f'{pipeline_y_value[0]}')
             # Handleing special graphing. 
             for converted_col in list_converted_columns:
-                print("Special graph" , converted_col , converted_col.code_map)
                 if converted_col.column_name == pipeline_x_values[0]:
                     ax.set_xticklabels(converted_col.code_map)
                 if converted_col.column_name == pipeline_y_value[0]:
@@ -847,10 +832,7 @@ class SklearnEngine():
                 fig, axs = plt.subplots( 1 , len(curr_pipelines) )
                 if len(curr_pipelines) == 1:
                     axs = [axs]
-                print("X values " , x )
-                print("Y values " , y)
                 # Determine the conversion map
-                print("pipeline y value" , pipeline_y_value[0])
                 y_converted_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(list_converted_columns , pipeline_y_value[0])
 
                 # Plot the decision boundary
@@ -1068,7 +1050,6 @@ class SklearnEngine():
                 ax.plot_surface(x1_grid, x2_grid, y_pred, alpha=MESH_ALPHA , cmap=lst_cmaps[cmap_index])
 
             # Plot actual data points
-            print("2D regressor" , x.iloc[:, 0], x.iloc[:, 1], y,)
             ax.scatter(x.iloc[:, 0], x.iloc[:, 1], y, c=y, edgecolor='k')
 
             # Labels

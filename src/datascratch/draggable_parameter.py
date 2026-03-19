@@ -5,7 +5,6 @@ from datascratch.string_parameters_map import STRING_PARAMETER_MAP
 from qfluentwidgets import LineEdit , SpinBox , CheckBox , ComboBox , DoubleSpinBox
 
 def get_num_decimal_points(value : float) -> int:
-    print("Demical reader" , value)
     s = repr(Decimal(value))
     if '.' in s:
         return len(s.split('.')[1])
@@ -70,7 +69,6 @@ class StringListSingleLine(ComboBox):
         self.addItems(value)
 
     def text(self):
-        print("returned value! " , self.currentText())
         return self.currentText()
 
 

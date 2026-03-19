@@ -77,8 +77,6 @@ class DataframeViewer(QtW.QWidget):
         if file_name:
             try:
                 # Manually save the content to the selected file path
-                print("User file name: " , file_name)
-                print("User file path" , selected_filter)
                 with open(file_name, 'w') as f:
                     # check file ending
                     pd_df : pd.DataFrame = self.dataframe_model.model()._dataframe
@@ -147,7 +145,6 @@ class PandasModel(QAbstractTableModel):
         try:
             if role == Qt.EditRole:
                 new_type = self._dataframe.iloc[index.row(),index.column()].dtype
-                print("New type" , new_type)
                 new_value = new_type.type(value)
                 self._dataframe.iloc[index.row(),index.column()] = new_value
                 return True

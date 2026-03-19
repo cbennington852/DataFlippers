@@ -17,8 +17,6 @@ class FakeDropEvent():
     
     # For the purpose of simulation
     def simulate(widget_receiving : QWidget,  widget_dropped : QWidget):
-        print(f"Inputs : {widget_receiving} , {widget_dropped}")
-        print(f"Inputs : {type(widget_receiving)} , {type(widget_dropped)}")
 
         fake_event = FakeDropEvent(
             widget_dropped
