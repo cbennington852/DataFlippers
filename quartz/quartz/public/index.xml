@@ -6,6 +6,36 @@
       <description>Last 10 notes on DataFlippers</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
+    <title>Linear Regression</title>
+    <link>https://quartz.jzhao.xyz/Lessons/Linear-Regression</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/Linear-Regression</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Thu, 19 Mar 2026 23:59:57 GMT</pubDate>
+  </item><item>
+    <title>Welcome to DataFlippers!</title>
+    <link>https://quartz.jzhao.xyz/</link>
+    <guid>https://quartz.jzhao.xyz/</guid>
+    <description><![CDATA[  Learn Machine Learning the fun way! Welcome to DataFlippers! Learn machine learning and data science the fun way! DataFlippers allows you to learn through intuitive and fun drag and drop blocks! Downloads Windows Download Linux Download Getting started My First AI Model Regression Versus Classifica... ]]></description>
+    <pubDate>Mon, 16 Mar 2026 23:54:27 GMT</pubDate>
+  </item><item>
+    <title>Preproccessors</title>
+    <link>https://quartz.jzhao.xyz/Basics/Preproccessors</link>
+    <guid>https://quartz.jzhao.xyz/Basics/Preproccessors</guid>
+    <description><![CDATA[ Preproccessors are functions that transform and change the data before they are run through the AI model. ]]></description>
+    <pubDate>Sun, 15 Mar 2026 23:35:44 GMT</pubDate>
+  </item><item>
+    <title>index</title>
+    <link>https://quartz.jzhao.xyz/Example-Datasets/</link>
+    <guid>https://quartz.jzhao.xyz/Example-Datasets/</guid>
+    <description><![CDATA[ Guided active learning greatly improves student engagement, to accommodate this desire Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. ]]></description>
+    <pubDate>Sat, 14 Mar 2026 19:59:31 GMT</pubDate>
+  </item><item>
+    <title>Descriptive Statistics</title>
+    <link>https://quartz.jzhao.xyz/Plotting-Models/Descriptive-Statistics</link>
+    <guid>https://quartz.jzhao.xyz/Plotting-Models/Descriptive-Statistics</guid>
+    <description><![CDATA[ An easy way to view the overall skew of a dataset, as well as get some basic statistics. This tab runs every time you plot something. ]]></description>
+    <pubDate>Sat, 14 Mar 2026 19:59:31 GMT</pubDate>
+  </item><item>
     <title>Classifiers</title>
     <link>https://quartz.jzhao.xyz/Basics/Classifiers</link>
     <guid>https://quartz.jzhao.xyz/Basics/Classifiers</guid>
@@ -16,18 +46,6 @@
     <link>https://quartz.jzhao.xyz/Example-Datasets/random_data</link>
     <guid>https://quartz.jzhao.xyz/Example-Datasets/random_data</guid>
     <description><![CDATA[  A completely random dataset, for the purpose of teaching concepts like over fitting and other things. There is no correlation anywhere. ]]></description>
-    <pubDate>Mon, 09 Mar 2026 03:09:12 GMT</pubDate>
-  </item><item>
-    <title>Descriptive Statistics</title>
-    <link>https://quartz.jzhao.xyz/Plotting-Models/Descriptive-Statistics</link>
-    <guid>https://quartz.jzhao.xyz/Plotting-Models/Descriptive-Statistics</guid>
-    <description><![CDATA[ An easy way to view the overall skew of a dataset, as well as get some basic statistics. This tab runs every time you plot something. ]]></description>
-    <pubDate>Mon, 09 Mar 2026 03:09:12 GMT</pubDate>
-  </item><item>
-    <title>Welcome to DataFlippers!</title>
-    <link>https://quartz.jzhao.xyz/</link>
-    <guid>https://quartz.jzhao.xyz/</guid>
-    <description><![CDATA[  Learn Machine Learning the fun way! Welcome to DataFlippers! Learn machine learning and data science the fun way! DataFlippers allows you to learn through intuitive and fun drag and drop blocks! Downloads Windows Download Linux Download Getting started My First AI Model Regression Versus Classifica... ]]></description>
     <pubDate>Mon, 09 Mar 2026 03:09:12 GMT</pubDate>
   </item><item>
     <title>Stacked Bar Charts</title>
@@ -46,24 +64,6 @@
     <link>https://quartz.jzhao.xyz/Basics/Regressors</link>
     <guid>https://quartz.jzhao.xyz/Basics/Regressors</guid>
     <description><![CDATA[  RegressionDescriptionTakes in any combination of input data, and outputs a prediction in the form of a number.Example:- Input: bill_length_mm = 39.1 - Output: bill_depth_mm = 181.0Prediction data typeNumericalWays to assess model performance- RMSE (Root Mean Squared Error)- Explained Varience- R^2 ... ]]></description>
-    <pubDate>Tue, 03 Mar 2026 22:13:08 GMT</pubDate>
-  </item><item>
-    <title>Ensemble Models</title>
-    <link>https://quartz.jzhao.xyz/Model-Documentation/Ensemble-Models</link>
-    <guid>https://quartz.jzhao.xyz/Model-Documentation/Ensemble-Models</guid>
-    <description><![CDATA[ These models focus on combining multiple models to improve generalizability and robustness. ]]></description>
-    <pubDate>Tue, 03 Mar 2026 22:13:08 GMT</pubDate>
-  </item><item>
-    <title>Neural Networks</title>
-    <link>https://quartz.jzhao.xyz/Model-Documentation/Neural-Networks</link>
-    <guid>https://quartz.jzhao.xyz/Model-Documentation/Neural-Networks</guid>
-    <description><![CDATA[ The MLPRegressor (Multi-layer Perceptron Regressor) is a neural network model that learns a non-linear function for regression by training on datasets using backpropagation. ]]></description>
-    <pubDate>Tue, 03 Mar 2026 22:13:08 GMT</pubDate>
-  </item><item>
-    <title>Tree Models</title>
-    <link>https://quartz.jzhao.xyz/Model-Documentation/Tree-Models</link>
-    <guid>https://quartz.jzhao.xyz/Model-Documentation/Tree-Models</guid>
-    <description><![CDATA[ Tree Models Tree models predict values by recursively partitioning data into subsets based on feature thresholds, creating a structure that resembles an upside-down tree. ]]></description>
     <pubDate>Tue, 03 Mar 2026 22:13:08 GMT</pubDate>
   </item>
     </channel>
