@@ -223,14 +223,18 @@ class MainMenu(QtW.QMainWindow):
         curr_toolbar.addAction(import_dataset)
 
         # Render example dataset list
+        # Earmarked soruce for the loan data.
+        # https://www.kaggle.com/datasets/abbasrianat/financial-loan-access-dataset
         example_datasets = [
             "minecraft_biome_and_block_counts",
             "penguins",
+            "loan_data",
             "diamonds_measurements",
             "flower_measurements",
             "pokemon_stats",
             "random_data",
             "tips",
+            "salary_data"
         ]
 
         def open_on_dataset(dataset_name):

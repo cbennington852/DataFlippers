@@ -470,13 +470,13 @@ class SklearnEngine():
                     if x_val_curr not in bottom_manager:
                         bottom_manager[x_val_curr] = 0
                     count_curr = row['count']
-                    ax.bar(x_val_curr, count_curr, 0.5, label=y_val_curr, bottom=bottom_manager[x_val_curr] , color=curr_color)
+                    curr_bar = ax.bar(x_val_curr, count_curr, 0.5, label=y_val_curr, bottom=bottom_manager[x_val_curr] , color=curr_color)
+                    ax.bar_label(curr_bar, label_type='edge' , padding=3 , labels=[count_curr])
                     bottom_manager[x_val_curr] += count_curr
                 ax.legend()
                 ax.set_title(f"Counts of {y_col_name} for each {x_col_name}")
                 ax.set_xlabel(x_col_name)
                 ax.set_ylabel(f" Counts of {y_col_name}")
-
 
                 # Make ledgend not repeate
                 handles, labels = ax.get_legend_handles_labels()
@@ -484,6 +484,7 @@ class SklearnEngine():
                 unique_handles = unique_labels_handles.values()
                 unique_labels = unique_labels_handles.keys()
                 ax.legend(unique_handles, unique_labels, title="Categories")
+                print(fig)
 
 
                 return fig
@@ -619,8 +620,9 @@ class SklearnEngine():
                 try_statistic("Accuracy" , sklearn.metrics.accuracy_score)
             elif curr.supervised_learning_type == SklearnEngine.REGRESSION:
                 try_statistic("Mean Squared Error" , sklearn.metrics.mean_squared_error)
-                try_statistic("Explained Variance" , sklearn.metrics.explained_variance_score)
                 try_statistic("R\u00B2" , sklearn.metrics.r2_score)
+                try_statistic("Mean Absolute Error" , sklearn.metrics.mean_absolute_error)
+
             else:
                 raise InternalEngineError("Neither classification or regression.")
 

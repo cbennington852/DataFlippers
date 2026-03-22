@@ -29,9 +29,9 @@ class ColumnsSubmodule(QtW.QGroupBox):
         self.setAcceptDrops(True)
         self.classes_cols = classes_cols
         if self.classes_cols:
-            self.setTitle("Classifier only")
+            self.setTitle("Categorical Data")
         else:
-            self.setTitle("Any model")
+            self.setTitle("Numerical Data")
         sp = self.sizePolicy()
         sp.setHorizontalPolicy(QtW.QSizePolicy.Expanding)
         self.setSizePolicy(sp)

@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lessons/Linear Regression.md",
+                "file": "Lessons/Classification.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Linear Regression"
+              "title": "Classification"
             }
           }
         ],
@@ -200,14 +200,29 @@
   },
   "active": "b2fc81c363455ce0",
   "lastOpenFiles": [
+    "Lessons/Algorithmic Bias.md",
+    "Basics/Classifiers.md",
+    "Basics/Importing your own dataset.md",
+    "Basics/My First AI Model.md",
+    "Basics/Preproccessors.md",
+    "Basics/Validators.md",
+    "Basics/Regressors.md",
+    "Lessons/Statistical Analysis.md",
+    "Lessons/Overfitting.md",
+    "Lessons/Outliers.md",
+    "Lessons/Linear Regression.md",
+    "Lessons/Intro.md",
+    "Lessons/Classification.md",
+    "Pasted image 20260320161514.png",
     "Lessons/Linear Regresson.pdf",
+    "Linear Regr.md",
+    "Linear Regresson_2.pptx",
+    "Linear Regresson.pptx",
     "R3.pdf",
     "index.md",
-    "Lessons/Linear Regression.md",
     "Lessons",
     "Identity Formation Paper (1).pdf",
     "Example Datasets/index.md",
-    "Basics/Preproccessors.md",
     "Model Documentation/index.md",
     "Plotting Models/Scatter Plot.md",
     "Plotting Models/Descriptive Statistics.md",
@@ -221,28 +236,15 @@
     "Plotting Models/4+ Dimensional Plotting.md",
     "Plotting Models/3 Dimensional Regression.md",
     "Plotting Models/3 Dimensional Classification.md",
-    "Plotting Models/2 Dimensional Regression.md",
-    "Plotting Models/2 Dimensional Classification.md",
-    "Model Documentation/Tree Models.md",
-    "Model Documentation/Support Vector Machines.md",
-    "Model Documentation/Linear Models.md",
-    "Model Documentation/Ensemble Models.md",
-    "Basics/Classifiers.md",
-    "Basics/Regressors.md",
-    "Example Datasets/random_data.md",
-    "Example Datasets/pokemon_statistics.md",
-    "Example Datasets/penguins.md",
     "now (2).png",
     "then (1).png",
     "original_app_design.png",
     "Pasted image 20260304125936.png",
     "DataFlippers.svg",
     "Pasted image 20260302095911.png",
-    "Pasted image 20260302095744.png",
     "Model Documentation/Untitled",
     "Model Documentation/Linear Models",
     "Model Documentation",
-    "Technical",
-    "Plotting Models/Untitled"
+    "Technical"
   ]
 }

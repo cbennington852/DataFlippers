@@ -73,7 +73,7 @@ class NumericalDescriptor(QtW.QWidget):
         self.list_stats.verticalHeader().hide()
 
         for k in range (0 , len(list_of_pairs)):
-            ir_value = str(my_round(list_of_pairs[k][1] , self.highest_rounding))
+            ir_value = "{:,g}".format(my_round(list_of_pairs[k][1] , self.highest_rounding))
             self.list_stats.setItem( k ,0 , QtW.QTableWidgetItem(list_of_pairs[k][0]))
             self.list_stats.setItem( k ,1 , QtW.QTableWidgetItem(ir_value))
 

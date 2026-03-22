@@ -11,6 +11,8 @@
         <file>random_data.csv</file>
         <file>tips.csv</file>
         <file>penguins.csv</file>
+        <file>loan_data.csv</file>
+        <file>salary_data.csv</file>
     </qresource>
     <qresource prefix="/images">
         <file>base_scratch_block_pink.svg</file>

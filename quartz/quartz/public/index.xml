@@ -6,11 +6,47 @@
       <description>Last 10 notes on DataFlippers</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
+    <title>Statistical Analysis</title>
+    <link>https://quartz.jzhao.xyz/Lessons/Statistical-Analysis</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/Statistical-Analysis</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Fri, 20 Mar 2026 17:43:17 GMT</pubDate>
+  </item><item>
+    <title>Algorithmic Bias</title>
+    <link>https://quartz.jzhao.xyz/Lessons/Algorithmic-Bias</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/Algorithmic-Bias</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Fri, 20 Mar 2026 17:43:06 GMT</pubDate>
+  </item><item>
+    <title>Intro</title>
+    <link>https://quartz.jzhao.xyz/Lessons/Intro</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/Intro</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Fri, 20 Mar 2026 17:42:49 GMT</pubDate>
+  </item><item>
+    <title>Outliers</title>
+    <link>https://quartz.jzhao.xyz/Lessons/Outliers</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/Outliers</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Fri, 20 Mar 2026 17:42:43 GMT</pubDate>
+  </item><item>
+    <title>Classification</title>
+    <link>https://quartz.jzhao.xyz/Lessons/Classification</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/Classification</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Fri, 20 Mar 2026 17:42:35 GMT</pubDate>
+  </item><item>
+    <title>Overfitting</title>
+    <link>https://quartz.jzhao.xyz/Lessons/Overfitting</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/Overfitting</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Fri, 20 Mar 2026 16:48:51 GMT</pubDate>
+  </item><item>
     <title>Linear Regression</title>
     <link>https://quartz.jzhao.xyz/Lessons/Linear-Regression</link>
     <guid>https://quartz.jzhao.xyz/Lessons/Linear-Regression</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Thu, 19 Mar 2026 23:59:57 GMT</pubDate>
+    <pubDate>Fri, 20 Mar 2026 00:00:42 GMT</pubDate>
   </item><item>
     <title>Welcome to DataFlippers!</title>
     <link>https://quartz.jzhao.xyz/</link>
@@ -29,42 +65,6 @@
     <guid>https://quartz.jzhao.xyz/Example-Datasets/</guid>
     <description><![CDATA[ Guided active learning greatly improves student engagement, to accommodate this desire Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. ]]></description>
     <pubDate>Sat, 14 Mar 2026 19:59:31 GMT</pubDate>
-  </item><item>
-    <title>Descriptive Statistics</title>
-    <link>https://quartz.jzhao.xyz/Plotting-Models/Descriptive-Statistics</link>
-    <guid>https://quartz.jzhao.xyz/Plotting-Models/Descriptive-Statistics</guid>
-    <description><![CDATA[ An easy way to view the overall skew of a dataset, as well as get some basic statistics. This tab runs every time you plot something. ]]></description>
-    <pubDate>Sat, 14 Mar 2026 19:59:31 GMT</pubDate>
-  </item><item>
-    <title>Classifiers</title>
-    <link>https://quartz.jzhao.xyz/Basics/Classifiers</link>
-    <guid>https://quartz.jzhao.xyz/Basics/Classifiers</guid>
-    <description><![CDATA[ A classifier is a type of AI model that looks at the features of an input and assigns it to a specific category. ]]></description>
-    <pubDate>Mon, 09 Mar 2026 03:09:12 GMT</pubDate>
-  </item><item>
-    <title>random_data</title>
-    <link>https://quartz.jzhao.xyz/Example-Datasets/random_data</link>
-    <guid>https://quartz.jzhao.xyz/Example-Datasets/random_data</guid>
-    <description><![CDATA[  A completely random dataset, for the purpose of teaching concepts like over fitting and other things. There is no correlation anywhere. ]]></description>
-    <pubDate>Mon, 09 Mar 2026 03:09:12 GMT</pubDate>
-  </item><item>
-    <title>Stacked Bar Charts</title>
-    <link>https://quartz.jzhao.xyz/Plotting-Models/Stacked-Bar-Charts</link>
-    <guid>https://quartz.jzhao.xyz/Plotting-Models/Stacked-Bar-Charts</guid>
-    <description><![CDATA[ You can plot stacked bar charts from two designated classifiers. These are a way to see the counts of each value. ]]></description>
-    <pubDate>Wed, 04 Mar 2026 21:59:57 GMT</pubDate>
-  </item><item>
-    <title>Importing your own dataset</title>
-    <link>https://quartz.jzhao.xyz/Basics/Importing-your-own-dataset</link>
-    <guid>https://quartz.jzhao.xyz/Basics/Importing-your-own-dataset</guid>
-    <description><![CDATA[ Importing your own training data To import your own training data, start by clicking on the “import dataset” button from the main menu. ]]></description>
-    <pubDate>Tue, 03 Mar 2026 22:13:08 GMT</pubDate>
-  </item><item>
-    <title>Regressors</title>
-    <link>https://quartz.jzhao.xyz/Basics/Regressors</link>
-    <guid>https://quartz.jzhao.xyz/Basics/Regressors</guid>
-    <description><![CDATA[  RegressionDescriptionTakes in any combination of input data, and outputs a prediction in the form of a number.Example:- Input: bill_length_mm = 39.1 - Output: bill_depth_mm = 181.0Prediction data typeNumericalWays to assess model performance- RMSE (Root Mean Squared Error)- Explained Varience- R^2 ... ]]></description>
-    <pubDate>Tue, 03 Mar 2026 22:13:08 GMT</pubDate>
   </item>
     </channel>
   </rss>

@@ -49,7 +49,7 @@ class FloatSingleLine(DoubleSpinBox):
         super().__init__(**kwargs)
         self.setMinimum(float('-inf')) # Or use a very small number like -1e9
         self.setMaximum(float('inf')) 
-        self.setDecimals(get_num_decimal_points(value))
+        #self.setDecimals(get_num_decimal_points(value))
         self.setValue(value)
 
     def text(self):

@@ -1,7 +1,7 @@
 Upon loading into the app you will be greeted with the main menu. Here you can access example datasets, as well as any recent datasets you have saved on your computer. Each item under the [example datasets](/Example-Datasets/) is clickable, and will open the respective example dataset. 
 
 For this demo click on the [[penguins]] dataset.
-![[where_clikc_examples.png]]
+![[Pasted image 20260320161514.png]]
 
 After clicking on the [[penguins]] dataset, you will see the main project screen. This represents where you engineer and modify your AI models. 
 

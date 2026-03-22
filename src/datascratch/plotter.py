@@ -315,7 +315,12 @@ class Plotter(TabWidget):
     @QtCore.pyqtSlot()
     def plotting_finished(self):
         self.remove_all_pages()
-        self.visual_plot = CanvasWithToolbar(self.worker.engine_results.visual_plot)
+        try:
+            self.visual_plot = CanvasWithToolbar(self.worker.engine_results.visual_plot)
+        except Exception as e:
+            traceback.print_exception(e)
+            print(str(e))
+            self.visual_plot = QtW.QWidget()
         try:
             self.accuracy_plot = self.resolve_accuracy(self.worker.engine_results)
         except Exception as e:

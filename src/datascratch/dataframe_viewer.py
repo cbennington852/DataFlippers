@@ -4,7 +4,7 @@ import sys
 from PyQt5.QtGui import *
 import pandas as pd
 import PyQt5.QtWidgets as QtW
-
+import numpy as np
 
 from qfluentwidgets import StyleSheetBase, Theme, isDarkTheme, qconfig
 
@@ -162,7 +162,11 @@ class PandasModel(QAbstractTableModel):
             return None
 
         if role == Qt.ItemDataRole.DisplayRole:
-            return str(self._dataframe.iloc[index.row(), index.column()])
+            curr_value = self._dataframe.iloc[index.row(), index.column()]
+            if isinstance(curr_value, np.number) or isinstance(curr_value, float) or isinstance(curr_value, int):
+                return "{:,.11g}".format(curr_value)
+            else:
+                return str(curr_value)
 
         return None
 
