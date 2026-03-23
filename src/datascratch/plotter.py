@@ -126,6 +126,9 @@ class Plotter(TabWidget):
         if hasattr(self, "worker"):
             self.worker.ptr_to_training_button.setEnabled(True)
         self.work_done = True
+        if hasattr(self , 'prog_view'):
+            self.prog_view.deleteLater()
+            del self.prog_view
 
     @QtCore.pyqtSlot()
     def plot_pipeline(self):
@@ -220,8 +223,8 @@ class Plotter(TabWidget):
             self.worker_thread.start()
 
             # Start a popup with a dialog
-            prog_view = QtW.QMainWindow()
-            prog_view.setMinimumSize(200 , 200)
+            self.prog_view = QtW.QMainWindow()
+            self.prog_view.setMinimumSize(200 , 200)
             prog_box = QtW.QWidget()
             prog_lay = QtW.QVBoxLayout()
             prog_box.setLayout(prog_lay)
@@ -230,8 +233,9 @@ class Plotter(TabWidget):
 
 
             def cancel_button_clicked():
-                self.worker_thread.requestInterruption()
-                prog_view.deleteLater()
+                if hasattr(self , "worker_thread"):
+                    self.worker_thread.requestInterruption()
+                self.prog_view.deleteLater()
 
             cancel_button = PushButton(text="Abort Training")
             cancel_button.clicked.connect(cancel_button_clicked)
@@ -239,9 +243,9 @@ class Plotter(TabWidget):
             prog_lay.addWidget(cancel_button)
 
 
-            prog_view.setCentralWidget(prog_box)
-            prog_view.show()
-            prog_view.move(QCursor.pos())
+            self.prog_view.setCentralWidget(prog_box)
+            self.prog_view.show()
+            self.prog_view.move(QCursor.pos())
 
             # self.prog_box = QtW.QProgressDialog(
             #     "Training Models...", "Abort", 0, 0, self

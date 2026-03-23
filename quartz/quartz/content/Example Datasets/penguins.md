@@ -1,4 +1,4 @@
-![[Pasted image 20260218201955.png]]
+![[Pasted image 20260323094258.png|500]]
 
 Penguins! They're fluffy! They're cuddly! Whats not to like? 
 
@@ -27,3 +27,5 @@ The curated version of the dataset contains **344 observations** across **8 vari
 ### Dataset Source
 The data was collected by **Dr. Kristen Gorman** and the **Palmer Station, Antarctica LTER** (Long Term Ecological Research) Program. It was originally published as part of a 2014 study on the foraging behavior and environmental variability of Antarctic penguins.
 [Link](https://cran.r-project.org/web/packages/palmerpenguins/readme/README.html)
+
+The image is from [wikipedia](https://en.wikipedia.org/wiki/Ad%C3%A9lie_penguin)

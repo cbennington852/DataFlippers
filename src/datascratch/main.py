@@ -4,10 +4,14 @@ import multiprocessing
 from multiprocessing import current_process, Process
 from tkinter import ttk
 from PIL import Image, ImageTk
+from PyQt5 import QtGui
+from PyQt5 import QtCore
 from datascratch.logo_embbedded import get_datascratch_logo
 from datascratch.colors_and_appearance import AppAppearance
 import sys
 from enum import Enum
+
+from markdown import markdown
 
 
 ######################################################
@@ -222,9 +226,14 @@ class MainMenu(QtW.QMainWindow):
         import_dataset.triggered.connect(self.import_datasets_clicked)
         curr_toolbar.addAction(import_dataset)
 
+        open_docs = Action(QIcon(":images/Open_Book_icon.png"), "Open documentation", self)
+        open_docs.triggered.connect(lambda : QtGui.QDesktopServices.openUrl(QtCore.QUrl("https://cbennington852.github.io/DataFlippers/")))
+        curr_toolbar.addAction(open_docs)
+
         # Render example dataset list
         # Earmarked soruce for the loan data.
         # https://www.kaggle.com/datasets/abbasrianat/financial-loan-access-dataset
+        # Earkmarked for salary
         example_datasets = [
             "minecraft_biome_and_block_counts",
             "penguins",
@@ -251,6 +260,15 @@ class MainMenu(QtW.QMainWindow):
         list_widget = ListWidget()
         list_widget.addItems(example_datasets)
         list_widget.clicked.connect(open_on_dataset)
+
+        for i in range(list_widget.count()):
+            item = list_widget.item(i)
+            curr_dataset = markdown(f"[Link]({item.text()})")
+            item.setToolTip(curr_dataset)
+        list_widget.setToolTipDuration(2000)
+   
+
+
 
         settings = DataScratchSettings.getSettings()
         recent_files_opened = settings.value(

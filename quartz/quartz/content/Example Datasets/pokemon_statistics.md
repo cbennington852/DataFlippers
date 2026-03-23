@@ -1,5 +1,3 @@
-![[Pasted image 20260219123250.png]]
-*(I can't put an image of pokemon due to copyright)*
 
 *Gotta Graph 'em all*
 

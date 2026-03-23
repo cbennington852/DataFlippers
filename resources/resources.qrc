@@ -45,6 +45,8 @@
         <file>DataPenguins.svg</file>
         <file>add_notes.svg</file>
         <file>filesave.svg</file>
+        <file>Open_Book_icon.png</file>
+
 
     </qresource>
 </RCC>
