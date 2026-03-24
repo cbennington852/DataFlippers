@@ -226,7 +226,7 @@ class MainMenu(QtW.QMainWindow):
         import_dataset.triggered.connect(self.import_datasets_clicked)
         curr_toolbar.addAction(import_dataset)
 
-        open_docs = Action(QIcon(":images/Open_Book_icon.png"), "Open documentation", self)
+        open_docs = Action(QIcon(":images/Open_Book_icon.png"), f"{AppAppearance.APP_NAME} Website", self)
         open_docs.triggered.connect(lambda : QtGui.QDesktopServices.openUrl(QtCore.QUrl("https://cbennington852.github.io/DataFlippers/")))
         curr_toolbar.addAction(open_docs)
 

@@ -6,65 +6,65 @@
       <description>Last 10 notes on DataFlippers</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>Statistical Analysis</title>
-    <link>https://quartz.jzhao.xyz/Lessons/Statistical-Analysis</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/Statistical-Analysis</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Fri, 20 Mar 2026 17:43:17 GMT</pubDate>
+    <title>loan_data</title>
+    <link>https://quartz.jzhao.xyz/Example-Datasets/loan_data</link>
+    <guid>https://quartz.jzhao.xyz/Example-Datasets/loan_data</guid>
+    <description><![CDATA[  This dataset is geared twords teaching about algorithmic bias, as well as some basic financial literacy. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 20:15:15 GMT</pubDate>
+  </item><item>
+    <title>penguins</title>
+    <link>https://quartz.jzhao.xyz/Example-Datasets/penguins</link>
+    <guid>https://quartz.jzhao.xyz/Example-Datasets/penguins</guid>
+    <description><![CDATA[  Penguins! They’re fluffy! They’re cuddly! Whats not to like? The Palmer Penguins dataset is a collection of biological measurements for three penguin species found in the Palmer Archipelago, Antarctica. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 20:15:15 GMT</pubDate>
+  </item><item>
+    <title>pokemon_statistics</title>
+    <link>https://quartz.jzhao.xyz/Example-Datasets/pokemon_statistics</link>
+    <guid>https://quartz.jzhao.xyz/Example-Datasets/pokemon_statistics</guid>
+    <description><![CDATA[ Gotta Graph ‘em all Originally inspired by the childhood joy of insect collecting, this data captures the core attributes of hundreds of unique species across multiple generations. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 20:15:15 GMT</pubDate>
+  </item><item>
+    <title>salary_data</title>
+    <link>https://quartz.jzhao.xyz/Example-Datasets/salary_data</link>
+    <guid>https://quartz.jzhao.xyz/Example-Datasets/salary_data</guid>
+    <description><![CDATA[ A dataset featuring salary data, as well as the number of years of experience, and other related data. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 20:15:15 GMT</pubDate>
+  </item><item>
+    <title>My First AI Model</title>
+    <link>https://quartz.jzhao.xyz/Basics/My-First-AI-Model</link>
+    <guid>https://quartz.jzhao.xyz/Basics/My-First-AI-Model</guid>
+    <description><![CDATA[ Upon loading into the app you will be greeted with the main menu. ]]></description>
+    <pubDate>Sun, 22 Mar 2026 17:05:11 GMT</pubDate>
   </item><item>
     <title>Algorithmic Bias</title>
     <link>https://quartz.jzhao.xyz/Lessons/Algorithmic-Bias</link>
     <guid>https://quartz.jzhao.xyz/Lessons/Algorithmic-Bias</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Fri, 20 Mar 2026 17:43:06 GMT</pubDate>
+    <pubDate>Sun, 22 Mar 2026 17:05:11 GMT</pubDate>
+  </item><item>
+    <title>Classification</title>
+    <link>https://quartz.jzhao.xyz/Lessons/Classification</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/Classification</guid>
+    <description><![CDATA[ Note: Below has a bug with scrolling… Will use pdfs in the future. ]]></description>
+    <pubDate>Sun, 22 Mar 2026 17:05:11 GMT</pubDate>
   </item><item>
     <title>Intro</title>
     <link>https://quartz.jzhao.xyz/Lessons/Intro</link>
     <guid>https://quartz.jzhao.xyz/Lessons/Intro</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Fri, 20 Mar 2026 17:42:49 GMT</pubDate>
+    <pubDate>Sun, 22 Mar 2026 17:05:11 GMT</pubDate>
   </item><item>
     <title>Outliers</title>
     <link>https://quartz.jzhao.xyz/Lessons/Outliers</link>
     <guid>https://quartz.jzhao.xyz/Lessons/Outliers</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Fri, 20 Mar 2026 17:42:43 GMT</pubDate>
-  </item><item>
-    <title>Classification</title>
-    <link>https://quartz.jzhao.xyz/Lessons/Classification</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/Classification</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Fri, 20 Mar 2026 17:42:35 GMT</pubDate>
+    <pubDate>Sun, 22 Mar 2026 17:05:11 GMT</pubDate>
   </item><item>
     <title>Overfitting</title>
     <link>https://quartz.jzhao.xyz/Lessons/Overfitting</link>
     <guid>https://quartz.jzhao.xyz/Lessons/Overfitting</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Fri, 20 Mar 2026 16:48:51 GMT</pubDate>
-  </item><item>
-    <title>Linear Regression</title>
-    <link>https://quartz.jzhao.xyz/Lessons/Linear-Regression</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/Linear-Regression</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Fri, 20 Mar 2026 00:00:42 GMT</pubDate>
-  </item><item>
-    <title>Welcome to DataFlippers!</title>
-    <link>https://quartz.jzhao.xyz/</link>
-    <guid>https://quartz.jzhao.xyz/</guid>
-    <description><![CDATA[  Learn Machine Learning the fun way! Welcome to DataFlippers! Learn machine learning and data science the fun way! DataFlippers allows you to learn through intuitive and fun drag and drop blocks! Downloads Windows Download Linux Download Getting started My First AI Model Regression Versus Classifica... ]]></description>
-    <pubDate>Mon, 16 Mar 2026 23:54:27 GMT</pubDate>
-  </item><item>
-    <title>Preproccessors</title>
-    <link>https://quartz.jzhao.xyz/Basics/Preproccessors</link>
-    <guid>https://quartz.jzhao.xyz/Basics/Preproccessors</guid>
-    <description><![CDATA[ Preproccessors are functions that transform and change the data before they are run through the AI model. ]]></description>
-    <pubDate>Sun, 15 Mar 2026 23:35:44 GMT</pubDate>
-  </item><item>
-    <title>index</title>
-    <link>https://quartz.jzhao.xyz/Example-Datasets/</link>
-    <guid>https://quartz.jzhao.xyz/Example-Datasets/</guid>
-    <description><![CDATA[ Guided active learning greatly improves student engagement, to accommodate this desire Datascratch comes pre-loaded with several example datasets, which have been crafted to be usable to a wide range of users, allowing novices to get learning right away, without having to procure a dataset first. ]]></description>
-    <pubDate>Sat, 14 Mar 2026 19:59:31 GMT</pubDate>
+    <pubDate>Sun, 22 Mar 2026 17:05:11 GMT</pubDate>
   </item>
     </channel>
   </rss>

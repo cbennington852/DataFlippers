@@ -125,13 +125,13 @@ class SklearnAcceptableFunctions:
         pre.MinMaxScaler,
         pre.RobustScaler,
         pre.StandardScaler,
+        pre.Normalizer,
+        pre.PowerTransformer,
+        pre.QuantileTransformer,
     ]
 
     PREPROCESSORS_TRANSFORMER = [
-        pre.Normalizer,
         pre.PolynomialFeatures,
-        pre.PowerTransformer,
-        pre.QuantileTransformer,
         pre.SplineTransformer,
     ]
     

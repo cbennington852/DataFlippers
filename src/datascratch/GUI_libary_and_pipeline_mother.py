@@ -237,7 +237,7 @@ class GUILibary(QtW.QTabWidget):
             hex_value=AppAppearance.PREPROCESSORS_CLUSTER_COLOR,
         )
         self.pre_trans = PipelineSubmodule(
-            sublibary=SubLibary(SklearnAcceptableFunctions.PREPROCESSORS_TRANSFORMER, "Transformer"),
+            sublibary=SubLibary(SklearnAcceptableFunctions.PREPROCESSORS_TRANSFORMER, "Feature Generators"),
             render_type=Draggable.INTERLOCK_RIGHT,
             hex_value=AppAppearance.PREPROCESSORS_TRANSFORMER_COLOR,
         )
