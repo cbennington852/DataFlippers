@@ -2,25 +2,13 @@
     <loc>https://quartz.jzhao.xyz/</loc>
     <lastmod>2026-03-16T23:54:27.000Z</lastmod>
   </url><url>
-    <loc>https://quartz.jzhao.xyz/Basics/Classifiers</loc>
-    <lastmod>2026-03-09T03:09:12.000Z</lastmod>
-  </url><url>
     <loc>https://quartz.jzhao.xyz/Basics/Importing-your-own-dataset</loc>
     <lastmod>2026-03-03T22:13:08.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Basics/My-First-AI-Model</loc>
     <lastmod>2026-03-22T17:05:11.000Z</lastmod>
   </url><url>
-    <loc>https://quartz.jzhao.xyz/Basics/Preproccessors</loc>
-    <lastmod>2026-03-15T23:35:44.000Z</lastmod>
-  </url><url>
     <loc>https://quartz.jzhao.xyz/Basics/Regression-Versus-Classification</loc>
-    <lastmod>2026-03-03T20:24:41.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Basics/Regressors</loc>
-    <lastmod>2026-03-03T22:13:08.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Basics/Validators</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Example-Datasets/diamond_measurements</loc>
@@ -33,7 +21,7 @@
     <lastmod>2026-03-14T19:59:31.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Example-Datasets/loan_data</loc>
-    <lastmod>2026-03-23T20:15:15.000Z</lastmod>
+    <lastmod>2026-03-24T01:35:58.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Example-Datasets/minecraft_biomes</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
@@ -53,27 +41,6 @@
     <loc>https://quartz.jzhao.xyz/Example-Datasets/tips</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
   </url><url>
-    <loc>https://quartz.jzhao.xyz/Lessons/Algorithmic-Bias</loc>
-    <lastmod>2026-03-22T17:05:11.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Lessons/Classification</loc>
-    <lastmod>2026-03-22T17:05:11.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Lessons/Intro</loc>
-    <lastmod>2026-03-22T17:05:11.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Lessons/Linear-Regression</loc>
-    <lastmod>2026-03-20T00:00:42.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Lessons/Outliers</loc>
-    <lastmod>2026-03-22T17:05:11.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Lessons/Overfitting</loc>
-    <lastmod>2026-03-22T17:05:11.000Z</lastmod>
-  </url><url>
-    <loc>https://quartz.jzhao.xyz/Lessons/Statistical-Analysis</loc>
-    <lastmod>2026-03-22T17:05:11.000Z</lastmod>
-  </url><url>
     <loc>https://quartz.jzhao.xyz/Model-Documentation/Ensemble-Models</loc>
     <lastmod>2026-03-03T22:13:08.000Z</lastmod>
   </url><url>
@@ -83,14 +50,47 @@
     <loc>https://quartz.jzhao.xyz/Model-Documentation/Neural-Networks</loc>
     <lastmod>2026-03-03T22:13:08.000Z</lastmod>
   </url><url>
+    <loc>https://quartz.jzhao.xyz/Model-Documentation/Preproccessors</loc>
+    <lastmod>2026-03-24T01:50:11.745Z</lastmod>
+  </url><url>
     <loc>https://quartz.jzhao.xyz/Model-Documentation/Support-Vector-Machines</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Model-Documentation/Tree-Models</loc>
     <lastmod>2026-03-03T22:13:08.000Z</lastmod>
   </url><url>
+    <loc>https://quartz.jzhao.xyz/Model-Documentation/Validators</loc>
+    <lastmod>2026-03-24T01:50:11.071Z</lastmod>
+  </url><url>
     <loc>https://quartz.jzhao.xyz/Model-Documentation/</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/1.-Introduction</loc>
+    <lastmod>2026-03-24T01:57:12.854Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/2.-Statistical-Analysis</loc>
+    <lastmod>2026-03-24T02:11:48.261Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/3.-Regression</loc>
+    <lastmod>2026-03-24T01:58:28.072Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/4.-Classification</loc>
+    <lastmod>2026-03-24T02:04:00.166Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/5.-Overfiting</loc>
+    <lastmod>2026-03-24T02:06:20.615Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/6.-Outliers</loc>
+    <lastmod>2026-03-24T02:10:06.483Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/7.-Preproccessors</loc>
+    <lastmod>2026-03-24T02:07:44.124Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/8.-Validators</loc>
+    <lastmod>2026-03-24T02:10:39.840Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/9.-Machine-learning-bias</loc>
+    <lastmod>2026-03-24T02:08:43.191Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Plotting-Models/2-Dimensional-Classification</loc>
     <lastmod>2026-03-03T20:24:41.000Z</lastmod>
@@ -121,4 +121,7 @@
   </url><url>
     <loc>https://quartz.jzhao.xyz/Plotting-Models/Stacked-Bar-Charts</loc>
     <lastmod>2026-03-04T21:59:57.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Lessons/</loc>
+    <lastmod>2026-03-24T02:17:58.325Z</lastmod>
   </url></urlset>

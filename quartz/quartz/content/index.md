@@ -16,10 +16,10 @@ Welcome to DataFlippers! Learn machine learning and data science the **fun** way
 ## Getting started
 * [[My First AI Model]]
 * [[Regression Versus Classification]]
-* [[Regressors]]
-* [[Classifiers]]
-* [[Preproccessors]]
-* [[Validators]]
+* [[1. Introduction]]
+* [[2. Statistical Analysis]]
+* [[3. Regression]]
+* [[4. Classification]]
 
 ## Example Datasets with Lab Questions
 These are a series of built in datasets that work with DataFlippers, these are for educational purposes. Each example dataset comes with lab questions, to promote deeper thinking and understanding. 
