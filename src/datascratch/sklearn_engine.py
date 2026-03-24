@@ -13,6 +13,7 @@ from pandasql import sqldf
 from matplotlib.colors import ListedColormap
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
 from datascratch.theme_combo_box import ThemeComboBox
+import seaborn as sns
 
 
 def is_regressor(x):
@@ -393,9 +394,6 @@ class SklearnEngine():
     
     def plot_no_model(main_dataframe , curr_pipeline , pipeline_x_values , pipeline_y_value , list_converted_columns : list[ConvertedColumn]):
         # load x and y_values        
-        
-        non_iloc_y = main_dataframe[pipeline_y_value]
-        non_iloc_x = main_dataframe[pipeline_x_values]
         pipeline_x_name = pipeline_x_values[0]
         pipeline_y_name = pipeline_y_value[0]
         if (len(pipeline_x_values) == 1 and len(pipeline_y_value) == 1):
@@ -528,19 +526,55 @@ class SklearnEngine():
                 ax.legend(loc='upper left')
                 return fig
         elif (len(pipeline_x_values) == 2 and len(pipeline_y_value) == 1):
-            x = main_dataframe[pipeline_x_values]
-            y = main_dataframe[pipeline_y_value]
-            color_cycle = SklearnEngine.get_color_map()
-            fig = plt.figure()
-            ax = fig.add_subplot(111, projection='3d')
+            conv_x_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(list_converted_columns ,  pipeline_x_values[0]) 
+            conv_2nd_x_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(list_converted_columns , pipeline_x_values[1]) 
+            conv_y_col : ConvertedColumn = ConvertedColumn.check_if_col_name_in_list_converted_columns(list_converted_columns ,  pipeline_y_value[0]) 
+            
+            # X ... 2 catagorical
+            # Y ... 1 numerical
+            if (conv_x_col != None) and(conv_2nd_x_col != None):
+                new_dataframe_bar_chart = main_dataframe[[ pipeline_x_values[0], pipeline_x_values[1] , pipeline_y_value[0]]]
+                q = f"""
+                    SELECT
+                        {pipeline_x_values[0]},
+                        {pipeline_x_values[1]},
+                        AVG({pipeline_y_value[0]}) AS avg
+                    FROM
+                        new_dataframe_bar_chart
+                    GROUP BY
+                        {pipeline_x_values[0]},
+                        {pipeline_x_values[1]}
+                    ORDER BY {pipeline_x_values[1]} ASC;
+                    """
+                heatmap_data = sqldf(q, locals())
+                heatmap_data[pipeline_x_values[0]] = heatmap_data[pipeline_x_values[0]].apply(lambda k : conv_x_col.code_map[k])
+                heatmap_data[pipeline_x_values[1]] = heatmap_data[pipeline_x_values[1]].apply(lambda k : conv_2nd_x_col.code_map[k])
+                print("Prior to pivot" , heatmap_data)
+                pivot_df = heatmap_data.pivot(index=pipeline_x_values[0], columns=pipeline_x_values[1], values='avg')
+                print("RESULT : " , pivot_df)
 
-            ax.scatter(x.iloc[:, 0], x.iloc[:, 1], y.iloc[:, 0], c=y, edgecolor='k')
-            ax.set_xlabel(f"{pipeline_x_values[0]}")
-            ax.set_ylabel(f"{pipeline_x_values[1]}")
-            ax.set_position([0.05, 0.05, 0.9, 0.9]) 
-            ax.set_zlabel(f"{pipeline_y_value[0]}")
-            ax.set_title(f"3D Surface for {pipeline_y_value[0]}")
-            return fig
+                fig, ax = plt.subplots()
+                sns.heatmap(pivot_df, annot=True , fmt=',g') 
+                plt.title(f'Heatmap of {pipeline_x_values[0]} vs {pipeline_x_values[1]} (average {pipeline_y_value[0]})')
+                plt.xlabel(pipeline_x_values[0])
+                plt.ylabel(pipeline_x_values[1])
+
+                return fig
+                
+            else:
+                x = main_dataframe[pipeline_x_values]
+                y = main_dataframe[pipeline_y_value]
+                color_cycle = SklearnEngine.get_color_map()
+                fig = plt.figure()
+                ax = fig.add_subplot(111, projection='3d')
+
+                ax.scatter(x.iloc[:, 0], x.iloc[:, 1], y.iloc[:, 0], c=y, edgecolor='k')
+                ax.set_xlabel(f"{pipeline_x_values[0]}")
+                ax.set_ylabel(f"{pipeline_x_values[1]}")
+                ax.set_position([0.05, 0.05, 0.9, 0.9]) 
+                ax.set_zlabel(f"{pipeline_y_value[0]}")
+                ax.set_title(f"3D Surface for {pipeline_y_value[0]}")
+                return fig
         else:
             fig, ax = plt.subplots()
             return fig

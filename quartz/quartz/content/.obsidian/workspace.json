@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lessons/index.md",
+                "file": "Plotting Models/Descriptive Statistics.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "Descriptive Statistics"
             }
           }
         ]
@@ -185,9 +185,10 @@
   },
   "active": "5407736e433ba739",
   "lastOpenFiles": [
+    "Plotting Models/Model Hyper Parameters.md",
+    "Lessons/index.md",
     "Pasted image 20260323191721.png",
     "index.md",
-    "Lessons/index.md",
     "Lessons/2. Statistical Analysis.md",
     "Lessons/3. Regression.md",
     "Lessons/1. Introduction.md",
@@ -226,7 +227,6 @@
     "now (2).png",
     "then (1).png",
     "original_app_design.png",
-    "Pasted image 20260304125936.png",
     "Model Documentation/Untitled",
     "Model Documentation/Linear Models",
     "Model Documentation",
