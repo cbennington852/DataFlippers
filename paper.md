@@ -65,7 +65,7 @@ The main DataFlippers page features a [walkthrough tutorial](https://cbennington
 ## Example datasets & Lab questions
 Datascratch comes pre-loaded with several example datasets. These example datasets allow novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as [palmers_penguins](https://cbennington852.github.io/DataFlippers/Example-Datasets/penguins)[@palmerpenguins], [diamonds dataset](https://cbennington852.github.io/DataFlippers/Example-Datasets/diamond_measurements)[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about [pokemon](https://cbennington852.github.io/DataFlippers/Example-Datasets/pokemon_statistics)[@KagglePokemon] and a dataset about [minecraft biome](https://cbennington852.github.io/DataFlippers/Example-Datasets/minecraft_biomes) statistics[@KaggleMinecraft]. 
 
-Additionally, there is a set of curated lecture slides. These cover core machine learning topics, and
+Additionally, there is a set of [lecture slides](https://cbennington852.github.io/DataFlippers/Lessons/1.-Introduction). These cover how to use the software, as well as some basic machine learning topics. The goal of these slideshows is to give educators quality materials that they can pick up and adapt to their course as needed. 
 
 These example datasets come with 3-5 lab questions each, which can be accessed from the main DataFlippers website. These lab questions are intended to be part of an in-person class exercise, where students could participate in groups of 2-3 to complete the lab questions, with guidance from an educator. 
 

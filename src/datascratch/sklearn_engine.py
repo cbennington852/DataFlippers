@@ -556,8 +556,8 @@ class SklearnEngine():
                 fig, ax = plt.subplots()
                 sns.heatmap(pivot_df, annot=True , fmt=',g') 
                 plt.title(f'Heatmap of {pipeline_x_values[0]} vs {pipeline_x_values[1]} (average {pipeline_y_value[0]})')
-                plt.xlabel(pipeline_x_values[0])
-                plt.ylabel(pipeline_x_values[1])
+                plt.xlabel(pipeline_x_values[1])
+                plt.ylabel(pipeline_x_values[0])
 
                 return fig
                 
