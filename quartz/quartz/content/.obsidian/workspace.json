@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Model Documentation/Validators.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Validators"
+              "title": "index"
             }
           }
         ]
@@ -185,10 +185,10 @@
   },
   "active": "5407736e433ba739",
   "lastOpenFiles": [
+    "Model Documentation/Validators.md",
     "Model Documentation/Tree Models.md",
     "Model Documentation/Neural Networks.md",
     "Lessons/7. Preproccessors.md",
-    "Model Documentation/Validators.md",
     "Model Documentation/Preproccessors.md",
     "Model Documentation/Linear Models.md",
     "Lessons/6. Outliers.md",

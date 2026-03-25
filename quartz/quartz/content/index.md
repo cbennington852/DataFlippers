@@ -47,10 +47,10 @@ DataFlippers has changes quite a bit over the course of it's development! Below 
 
 | Timeline      | Progress Photo               |
 | ------------- | ---------------------------- |
-| December 2025 | ![[then (1).png]]            |
 | March 2026    | ![[now (2).png]]             |
+| December 2025 | ![[then (1).png]]            |
 | October 2025  | ![[original_app_design.png]] |
 ## Minimum System Requirements
 - **Memory:** 4.0 GB RAM
-- **Disk Space:** 1.0 GB 
-(For the non-technical people, this is any computer that can run windows or mac.)
+- **Disk Space:** 2.0 GB 
+(This is most computers. )

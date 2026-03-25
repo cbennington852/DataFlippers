@@ -30,7 +30,7 @@ Many educators cite that programming is a barrier to entry to machine learning [
 ## Machine learning literacy
 This lack of accessible entry points limits the potential for widespread machine learning literacy. As AI increasingly permeates various aspects of modern life understanding its underlying principles becomes essential.  AI literacy empowers individuals to critically evaluate these systems, fostering informed decision-making and promoting responsible technological development[@provost2013data;@jain2021smart]. Moreover, a basic grasp of AI models can demystify complex technologies, enabling students to navigate a world shaped by intelligent systems with greater confidence and agency.[@hsu2025effects]
 
-Therefore, there's an urgent need for tools that prioritize accessibility and intuitive learning. A low barrier to entry is paramount; users should be able to explore core data science concepts without needing prior programming experience.
+Therefore, there's an urgent need for tools that prioritize accessibility and intuitive learning. A low barrier to entry is paramount; users should be able to explore core data science concepts without needing prior programming experience. The target audience for this software is high schoolers and early undergraduates, hoping to learn more about machine learning. 
 
 
 # Software design
@@ -48,16 +48,22 @@ Each drag and drop block is modeled after basic shapes, this gives the user visu
 
 ![Image of the fullscreen DataFlippers project page. The example dataset here is the penguins dataset.  ](paper_images/Full_software.png "Image showing a full view of the DataFlippers suite.")
 
-Training multiple models at once is a core feature, allowing for quick model comparison. This enables common user desires within data science, where data scientists often compare and contrast models. Another purpose of this feature is to allow users to learn the differences between certain models. 
-
-![Image showing the model comparison. This would allow novices to understand and visually see the differences between different types of machine learning models. This example shows a comparison between a DecisionTreeRegressor, and a LinearRegressor.  ](paper_images/Example_model_comparison.png "Image showing model comparison for the software. ")
 
 
 Users are also enabled to perform basic statistical analysis, this can be done by removing all of the pipeline blocks, and only plotting via the "Inputs and Outputs" block. Users can also see column specific statistics by clicking on a dropdown menu on each column block.  
 
 ![Image showing the basic statistical capabilities of the DataFlippers framework. This shows the island type versus the bill length on the penguins.](paper_images/basic_stats.png "Image showing model comparison for the software. ")
 
-The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataFlippers also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired.
+The interface also allows the user to input manual predictions, allowing for novices to interact with their newly created AI models. This tab enables the user to export their saved models as software, which is where a user can save their trained model, and access it later. DataFlippers also enables the exporting as pickle, which fulfills the needs of potential power users, by allowing them to interface with the python object directly, if desired. The source code is available at [DataFlippers GitHub](https://github.com/cbennington852/DataFlippers), and the software can be downloaded on windows or linux for free at the [DataFlippers homepage](https://cbennington852.github.io/DataFlippers/)
+
+# Teaching materials
+
+## Informal user testing
+DataFlippers has undergone informal usability testing with a small group of novice users. While using an early version of DataFlippers in October of 2025, a user remarked his disappointment at being unable to plot multiple models at the same time. Feedback from these sessions was used to improve the overall design of the drag and drop plotting, and later add a multi-model setup. This is documented on the [DataFlippers history section](https://cbennington852.github.io/DataFlippers/#history-and-evolution-of-software) on the website. 
+
+![Image showing the model comparison. This would allow novices to understand and visually see the differences between different types of machine learning models. This example shows a comparison between a DecisionTreeRegressor, and a LinearRegressor.  ](paper_images/Example_model_comparison.png "Image showing model comparison for the software. ")
+
+
 
 ## User documentation
 The main DataFlippers page features a [walkthrough tutorial](https://cbennington852.github.io/DataFlippers/Basics/My-First-AI-Model) on how to use the software. The website also features descriptions of core machine learning concepts such as [classification](https://cbennington852.github.io/DataFlippers/Basics/Classifiers), [regression](https://cbennington852.github.io/DataFlippers/Basics/Regressors), [validators](https://cbennington852.github.io/DataFlippers/Basics/Validators), and [pre-processors](https://cbennington852.github.io/DataFlippers/Basics/Preproccessors).
