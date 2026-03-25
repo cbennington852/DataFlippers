@@ -48,8 +48,6 @@ Each drag and drop block is modeled after basic shapes, this gives the user visu
 
 ![Image of the fullscreen DataFlippers project page. The example dataset here is the penguins dataset.  ](paper_images/Full_software.png "Image showing a full view of the DataFlippers suite.")
 
-
-
 Users are also enabled to perform basic statistical analysis, this can be done by removing all of the pipeline blocks, and only plotting via the "Inputs and Outputs" block. Users can also see column specific statistics by clicking on a dropdown menu on each column block.  
 
 ![Image showing the basic statistical capabilities of the DataFlippers framework. This shows the island type versus the bill length on the penguins.](paper_images/basic_stats.png "Image showing model comparison for the software. ")
@@ -63,17 +61,16 @@ DataFlippers has undergone informal usability testing with a small group of novi
 
 ![Image showing the model comparison. This would allow novices to understand and visually see the differences between different types of machine learning models. This example shows a comparison between a DecisionTreeRegressor, and a LinearRegressor.  ](paper_images/Example_model_comparison.png "Image showing model comparison for the software. ")
 
-
-
 ## User documentation
 The main DataFlippers page features a [walkthrough tutorial](https://cbennington852.github.io/DataFlippers/Basics/My-First-AI-Model) on how to use the software. The website also features descriptions of core machine learning concepts such as [classification](https://cbennington852.github.io/DataFlippers/Basics/Classifiers), [regression](https://cbennington852.github.io/DataFlippers/Basics/Regressors), [validators](https://cbennington852.github.io/DataFlippers/Basics/Validators), and [pre-processors](https://cbennington852.github.io/DataFlippers/Basics/Preproccessors).
 
 ## Example datasets & Lab questions
-Datascratch comes pre-loaded with several example datasets. These example datasets allow novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as [palmers_penguins](https://cbennington852.github.io/DataFlippers/Example-Datasets/penguins)[@palmerpenguins], [diamonds dataset](https://cbennington852.github.io/DataFlippers/Example-Datasets/diamond_measurements)[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about [pokemon](https://cbennington852.github.io/DataFlippers/Example-Datasets/pokemon_statistics)[@KagglePokemon] and a dataset about [minecraft biome](https://cbennington852.github.io/DataFlippers/Example-Datasets/minecraft_biomes) statistics[@KaggleMinecraft]. 
+Datascratch comes pre-loaded with several example datasets. These example datasets allow novices to get learning right away, without having to procure a dataset first. These datasets are a blend of commonly used data science teaching datasets such as [palmers_penguins](https://cbennington852.github.io/DataFlippers/Example-Datasets/penguins)[@palmerpenguins], [diamonds dataset](https://cbennington852.github.io/DataFlippers/Example-Datasets/diamond_measurements)[@Waskom2021] and the iris dataset[@iris_53], as well as datasets that would be enticing to a younger audience, such as a dataset containing information about [pokemon](https://cbennington852.github.io/DataFlippers/Example-Datasets/pokemon_statistics)[@KagglePokemon] and a dataset about [minecraft biome](https://cbennington852.github.io/DataFlippers/Example-Datasets/minecraft_biomes) statistics[@KaggleMinecraft]. These example datasets come with 3-5 lab questions each, which can be accessed from the main DataFlippers website. These lab questions are intended to be part of an in-person class exercise, where students could participate in groups of 2-3 to complete the lab questions, with guidance from an educator. 
+
+DataFlippers then underwent a second informal usability testing with a small group of different novice users, where users were tasked with completing tasks that would later become the lab questions, during this informal user study the participants enjoyed the penguins dataset the most, with one of them suggesting a penguin become the mascot for the software. 
 
 Additionally, there is a set of [lecture slides](https://cbennington852.github.io/DataFlippers/Lessons/1.-Introduction). These cover how to use the software, as well as some basic machine learning topics. The goal of these slideshows is to give educators quality materials that they can pick up and adapt to their course as needed. 
 
-These example datasets come with 3-5 lab questions each, which can be accessed from the main DataFlippers website. These lab questions are intended to be part of an in-person class exercise, where students could participate in groups of 2-3 to complete the lab questions, with guidance from an educator. 
 
 
 
