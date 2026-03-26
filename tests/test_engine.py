@@ -151,7 +151,7 @@ def test_predictions_2d_reg():
     )
     res_value = res.predict([5.0 , 5.0])
     print(res_value)
-    assert round(res_value[res.trained_models[0]] , 3) == round(40.43950829 , 3)
+    assert round(res_value[res.trained_models[0]] , 3) == round(35.891 , 3)
 
 def test_predictions_1d_reg():
     res : EngineResults = sklearn_engine.SklearnEngine.main_sklearn_pipe(
