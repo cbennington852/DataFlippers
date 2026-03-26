@@ -78,6 +78,4 @@ Datascratch comes pre-loaded with several example datasets. These example datase
 
 Additionally, there is a set of [lecture slides](https://cbennington852.github.io/DataFlippers/Lessons/1.-Introduction). These cover how to use the software, as well as some basic ML topics. The goal of these slideshows is to give educators quality materials that they can pick up and adapt to their course as needed. 
 
-
-
-
+# References

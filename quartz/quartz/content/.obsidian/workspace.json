@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Plotting Models/Heatmap.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Heatmap"
+              "title": "index"
             }
           }
         ]
@@ -185,8 +185,9 @@
   },
   "active": "3387b2dc0226391f",
   "lastOpenFiles": [
-    "Plotting Models/Model Hyper Parameters.md",
+    "init_diagram.png",
     "Plotting Models/Heatmap.md",
+    "Plotting Models/Model Hyper Parameters.md",
     "Pasted image 20260326114028.png",
     "Pasted image 20260326114016.png",
     "Plotting Models/Stacked Bar Charts.md",

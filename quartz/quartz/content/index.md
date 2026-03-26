@@ -39,7 +39,7 @@ The goal of DataFlippers is to provide free, open source, and fun software with 
 ![[Pasted image 20260301083438.png]]
 
 ## Paper
-This software is currently planning to be submitted at [JOSS](https://joss.theoj.org/) the paper is in works. A draft can be found on the projects [GitHub](https://github.com/cbennington852/DataScratch)
+This software is currently planning to be submitted at [JOSE](https://jose.theoj.org/) the paper is in works. A draft can be found on the projects [GitHub](https://github.com/cbennington852/DataScratch)
 
 ## History and Evolution of software
 DataFlippers has changes quite a bit over the course of it's development! Below are screenshots of the changes! 
