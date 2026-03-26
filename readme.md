@@ -92,7 +92,7 @@ Install the required dependencies.
 ```
 pip install ".[dev]"
 pip install -e .
-pip install requirments.txt
+pip install -r requirments.txt
 ```
 Running the GUI (This may be slow the first time you run it).
 ```

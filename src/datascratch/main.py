@@ -237,7 +237,7 @@ class MainMenu(QtW.QMainWindow):
         example_datasets = [
             "minecraft_biome_and_block_counts",
             "penguins",
-            "loan_data",
+            "loans",
             "diamonds_measurements",
             "flower_measurements",
             "pokemon_stats",

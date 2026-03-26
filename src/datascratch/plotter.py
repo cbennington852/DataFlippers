@@ -256,6 +256,7 @@ class Plotter(TabWidget):
             # self.prog_box.show()
         except ScikitGrowEngineAssemblyError as e:
             self.handle_thread_crashing()
+            traceback.print_exception(e)
             QtW.QMessageBox.critical(
                 None,  # Parent: Use None if not within a QWidget class
                 "Engine Assembly Error",  # Title bar text
@@ -264,6 +265,7 @@ class Plotter(TabWidget):
             print(e)
         except Exception as e:
             self.handle_thread_crashing()
+            traceback.print_exception(e)
             QtW.QMessageBox.critical(
                 None,  # Parent: Use None if not within a QWidget class
                 "Unexpected Error",  # Title bar text

@@ -23,10 +23,8 @@ This dataset is geared twords teaching about algorithmic bias, as well as some b
 | **Zip_Code_Group**       | Categorical         | Geodemographic area (e.g., High-income Suburban, Working Class Urban). |
 | **Loan_Approved**        | Categorical         | Target variable for prediction (APPROVED or DENIED).                   |
  >[!question] Lab Questions
-> 1. What is the relationship between experience and salary? Does more experience mean more salary? 
-> 2. Are their any outliers in this dataset? can you locate them? 
-> 3. Make a model to predict years of experience given age and education level.
+> 1. Which employment type has the highest salary on average? 
 ### Dataset Source
-This is a synthetic dataset for the purpose of teaching & education. It was made by Abbas Rianat and 1 collaborator. It can be found on [kaggle](https://www.kaggle.com/datasets/abbasrianat/financial-loan-access-dataset).
+This is a synthetic dataset for the purpose of teaching & education. It was made by Abbas Rianat and 1 collaborator. It can be found on [kaggle](https://www.kaggle.com/datasets/abbasrianat/financial-loan-access-dataset). This dataset from kaggle was then significantly modified by Charles Bennington.
 
 The image is from Wikipedia. [image source link](https://en.wikipedia.org/wiki/Bank).

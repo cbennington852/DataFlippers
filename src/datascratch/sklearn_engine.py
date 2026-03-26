@@ -486,30 +486,7 @@ class SklearnEngine():
 
 
                 return fig
-                # x = main_dataframe[pipeline_x_values].iloc[:, 0]
-                # y = main_dataframe[pipeline_y_value].iloc[:, 0] 
-                # value_counts = {}
-                # # Setup the vlaue counts at all zeros
-                # for possible_x in conv_x_col.code_map:
-                #     for possible_y in conv_y_col.code_map:
-                #         curr_pair = (possible_x , possible_y)
-                #         value_counts[curr_pair] = 0
-
-                # # Itterate over to get counts of each bin.
-                # for i in range(0 , len(y)):
-                #     curr_mapped_x = conv_x_col.code_map[x.iloc[i]]
-                #     curr_mapped_y = conv_y_col.code_map[y.iloc[i]]
-                #     curr_pair = (curr_mapped_x , curr_mapped_y)
-                #     value_counts[curr_pair] += 1
-
-                # # Assemble bar chart
-                # for curr_pair , count in value_counts:
-                #     pass
-
-                # ax.set_title("Number of penguins with above average body mass")
-                # ax.legend(loc="upper right")
-
-                # # we could make a stacked bar chart.
+            
             else: # 2d scatterplot
                 fig, ax = plt.subplots()
                 color_cycle = SklearnEngine.get_color_map()
@@ -532,7 +509,7 @@ class SklearnEngine():
             
             # X ... 2 catagorical
             # Y ... 1 numerical
-            if (conv_x_col != None) and(conv_2nd_x_col != None):
+            if (conv_x_col != None) and (conv_2nd_x_col != None) and (conv_y_col == None):
                 new_dataframe_bar_chart = main_dataframe[[ pipeline_x_values[0], pipeline_x_values[1] , pipeline_y_value[0]]]
                 q = f"""
                     SELECT
@@ -560,7 +537,64 @@ class SklearnEngine():
                 plt.ylabel(pipeline_x_values[0])
 
                 return fig
+            elif (conv_x_col != None) and (conv_2nd_x_col != None) and (conv_y_col != None):
+                x_col_name = pipeline_x_values[0]
+                x_col_name_2 = pipeline_x_values[1]
+                y_col_name = pipeline_y_value[0]
+                new_combined_name = f"{x_col_name} x {x_col_name_2}"
+                new_dataframe_bar_chart = main_dataframe[[y_col_name, x_col_name , x_col_name_2]]
                 
+                q = f"""
+                SELECT
+                    {x_col_name},
+                    {x_col_name_2},
+                    {y_col_name},
+                    COUNT(*) AS count
+                FROM
+                    new_dataframe_bar_chart
+                GROUP BY
+                    {x_col_name},
+                    {x_col_name_2},
+                    {y_col_name}
+                ORDER BY {x_col_name} ASC;
+                """
+
+                # Execute the query
+                result = sqldf(q, locals())
+                print("Result" , result)
+                bottom_manager = {}
+                fig, ax = plt.subplots()
+                color_cycle = SklearnEngine.get_color_map()
+                color_cycle_len = len(color_cycle)
+                for index, row in result.iterrows():
+                    x_val_curr = conv_x_col.code_map[row[x_col_name]]
+                    x_val_2_curr = conv_2nd_x_col.code_map[row[x_col_name_2]]
+                    y_val_curr = conv_y_col.code_map[row[y_col_name]]
+                    curr_color = color_cycle[row[y_col_name] % color_cycle_len]
+                    curr_tract = f"{x_val_curr} x {x_val_2_curr}"
+                    print("Curr tract" , curr_tract)
+                    if curr_tract not in bottom_manager:
+                        bottom_manager[curr_tract] = 0
+                    count_curr = row['count']
+                    curr_bar = ax.bar(curr_tract, count_curr, 0.5, label=y_val_curr, bottom=bottom_manager[curr_tract] , color=curr_color)
+                    ax.bar_label(curr_bar, label_type='edge' , padding=3 , labels=[count_curr])
+                    bottom_manager[curr_tract] += count_curr
+                print(bottom_manager)
+                ax.legend()
+                ax.set_title(f"Counts of {y_col_name} for each {new_combined_name}")
+                ax.set_xlabel(f"{new_combined_name}")
+                ax.set_ylabel(f" Counts of {y_col_name}")
+
+                # Make ledgend not repeate
+                handles, labels = ax.get_legend_handles_labels()
+                unique_labels_handles = dict(zip(labels, handles))
+                unique_handles = unique_labels_handles.values()
+                unique_labels = unique_labels_handles.keys()
+                ax.legend(unique_handles, unique_labels, title="Categories")
+                print(fig)
+
+
+                return fig
             else:
                 x = main_dataframe[pipeline_x_values]
                 y = main_dataframe[pipeline_y_value]

@@ -38,7 +38,7 @@ In the plots tab we get the results of our model training! This line is a visual
 Hooray! We've trained and plotted our first AI model! 
 
 ## Next Steps
-* [[Classifiers]]
+* [[1. Introduction]]
 * [[Regression Versus Classification]]
-* [[Predictions]]
-* [[Validators]]
+* [[2. Statistical Analysis]]
+* [[3. Regression]]
