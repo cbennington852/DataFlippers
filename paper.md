@@ -48,10 +48,6 @@ Scratch[@resnick2009scratch], a visual programming language designed for childre
 ## Software architecture and core project libraries
 The language for this software is python & PyQt, this is because python possesses several commonly used ML libraries[@burridge2022teaching], such as pandas[@reback2020pandas], matplotlib[@Hunter:2007], and scikit-learn[@scikit-learn].The core ML models are provided by scikit-learn[@scikit-learn]. There are several reasons for choosing scikit-learn, one of them is portability. scikit-learn is very common within the entry level ML field, so this means that skills that novice learn from DataFlippers could translate easily to programmatic skills, if the novice decides to learn programming. Additionally, the scikit-learn is very friendly for first time users, featuring extensive documentation, which can be viewed by hovering on each items tooltip. Pandas[@reback2020pandas] is used for handling the data, this is because pandas supports the importing of multiple standard filetype formats, such as csv, excel, and parquet. Matplotlib is utilized for the plotting features, this is because matplotlib interfaces well with the PyQt background, as well as being another standard ML library. 
 
-![Image showing the difference between python blocks, and the drag and drop DataFlippers interface. Both the code and the DataFlippers blocks have same result. ](paper_images/Python_v_datascratch.png "")
-
-<!-- ![Diagram of the overall software architecture. ](paper_images/inner_workings_drawing.png "") -->
-
 ## Drag and drop design
 The drag and drop interface is designed to reduce the syntactic complexity of programming down to drag and drop blocks, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning. Each model, preprocessor, and validator corresponds to a sklearn class.Each draggable block has a popup menu that is available on click. Clicking on a column opens a small descriptive statistics panel, while clicking on other blocks opens a hyperparameter tuning menu.
 
