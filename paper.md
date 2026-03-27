@@ -38,10 +38,9 @@ There are several no-code low code platforms available on the internet. However 
 
 The platforms that are free and tailored to students, such as JASP[@JASP2025] are catered to teaching students statistics, rather than expressly teaching them ML. 
 
-
 # Software design
 
-![Image of the fullscreen DataFlippers project page.](paper_images/Full_software.png ""){width=80% height=80%}
+![Image of the fullscreen DataFlippers project page.](paper_images/Full_software.png "")
 
 ## Inspiration
 Scratch[@resnick2009scratch], a visual programming language designed for children, offers a compelling model for accessible computational learning. Its intuitive drag-and-drop interface allows beginners to grasp fundamental programming concepts without needing to decipher complex syntax. Scratch's interface has been proven to be effective at teaching novices programming concepts, and assist learners when they transition to "real" programming[@armoni2015scratch]. This drag and drop model provided inspiration for DataFlippers. The column blocks shape is modeled after the Scratch "stack" block, the "model" blocks shaped after scratch's "reporter" blocks, and the validators modeled after scratch's boolean blocks. 
@@ -54,13 +53,11 @@ The language for this software is python & PyQt, this is because python possesse
 ## Drag and drop design
 The drag and drop interface is designed to reduce the syntactic complexity of programming down to drag and drop blocks, with the layout and design imitating underlying python libraries. This ensures that users have an low floor to learning. Each model, preprocessor, and validator corresponds to a sklearn class.Each draggable block has a popup menu that is available on click. Clicking on a column opens a small descriptive statistics panel, while clicking on other blocks opens a hyperparameter tuning menu.
 
-![Image showing the difference between python blocks, and the drag and drop DataFlippers interface. Both the code and the DataFlippers blocks have same result. ](paper_images/Python_v_datascratch.png ""){width=80% height=80%}
-
-
+![Image showing the difference between python blocks, and the drag and drop DataFlippers interface. Both the code and the DataFlippers blocks have same result. ](paper_images/Python_v_datascratch.png "")
 
 Users are also enabled to perform basic statistical analysis, this can be done by removing all of the pipeline blocks, and only plotting via the "Inputs and Outputs" block. This can allow for the user to perform various statistical analysis tasks. 
 
-![The descriptive statistical abilities of the dataflippers software. Each of these can be made entirely from drag and drop. ](paper_images/Dataflippers_stat_abilites.png ""){width=80% height=80%}
+![The descriptive statistical abilities of the dataflippers software. Each of these can be made entirely from drag and drop. ](paper_images/Dataflippers_stat_abilites.png "")
 
 
 # Teaching materials
