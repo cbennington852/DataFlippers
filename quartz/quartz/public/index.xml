@@ -6,65 +6,65 @@
       <description>Last 10 notes on DataFlippers</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>index</title>
-    <link>https://quartz.jzhao.xyz/Lessons/</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/</guid>
-    <description><![CDATA[ These are the lessons. You are welcome to modify, download, or copy them. Downloading and editing Click on the three dots in bottom left. ]]></description>
-    <pubDate>Tue, 24 Mar 2026 02:17:58 GMT</pubDate>
+    <title>Welcome to DataFlippers!</title>
+    <link>https://quartz.jzhao.xyz/</link>
+    <guid>https://quartz.jzhao.xyz/</guid>
+    <description><![CDATA[  Learn Machine Learning the fun way! Welcome to DataFlippers! Learn machine learning and data science the fun way! DataFlippers allows you to learn through intuitive and fun drag and drop blocks! Downloads Windows Download Linux Download Getting started My First AI Model Regression Versus Classifica... ]]></description>
+    <pubDate>Thu, 26 Mar 2026 22:53:49 GMT</pubDate>
   </item><item>
-    <title>2. Statistical Analysis</title>
-    <link>https://quartz.jzhao.xyz/Lessons/2.-Statistical-Analysis</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/2.-Statistical-Analysis</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Tue, 24 Mar 2026 02:11:48 GMT</pubDate>
+    <title>My First AI Model</title>
+    <link>https://quartz.jzhao.xyz/Basics/My-First-AI-Model</link>
+    <guid>https://quartz.jzhao.xyz/Basics/My-First-AI-Model</guid>
+    <description><![CDATA[ Upon loading into the app you will be greeted with the main menu. ]]></description>
+    <pubDate>Thu, 26 Mar 2026 18:43:52 GMT</pubDate>
   </item><item>
-    <title>8. Validators</title>
-    <link>https://quartz.jzhao.xyz/Lessons/8.-Validators</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/8.-Validators</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Tue, 24 Mar 2026 02:10:39 GMT</pubDate>
+    <title>Regression Versus Classification</title>
+    <link>https://quartz.jzhao.xyz/Basics/Regression-Versus-Classification</link>
+    <guid>https://quartz.jzhao.xyz/Basics/Regression-Versus-Classification</guid>
+    <description><![CDATA[ There are two different types of AI models, 3. Regression and 4. Classification. Both of these fit within the “model” category within the pipeline. ]]></description>
+    <pubDate>Thu, 26 Mar 2026 18:43:52 GMT</pubDate>
   </item><item>
-    <title>6. Outliers</title>
-    <link>https://quartz.jzhao.xyz/Lessons/6.-Outliers</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/6.-Outliers</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Tue, 24 Mar 2026 02:10:06 GMT</pubDate>
+    <title>loans</title>
+    <link>https://quartz.jzhao.xyz/Example-Datasets/loans</link>
+    <guid>https://quartz.jzhao.xyz/Example-Datasets/loans</guid>
+    <description><![CDATA[  This dataset is geared twords teaching about algorithmic bias, as well as some basic financial literacy. ]]></description>
+    <pubDate>Thu, 26 Mar 2026 18:43:52 GMT</pubDate>
   </item><item>
-    <title>9. Machine learning bias</title>
-    <link>https://quartz.jzhao.xyz/Lessons/9.-Machine-learning-bias</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/9.-Machine-learning-bias</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Tue, 24 Mar 2026 02:08:43 GMT</pubDate>
+    <title>Heatmap</title>
+    <link>https://quartz.jzhao.xyz/Plotting-Models/Heatmap</link>
+    <guid>https://quartz.jzhao.xyz/Plotting-Models/Heatmap</guid>
+    <description><![CDATA[ A heatmap can let you see overall trends for a section. How to Two Categorical data as inputs. One Numerical data as output. ]]></description>
+    <pubDate>Thu, 26 Mar 2026 18:43:52 GMT</pubDate>
   </item><item>
-    <title>7. Preproccessors</title>
-    <link>https://quartz.jzhao.xyz/Lessons/7.-Preproccessors</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/7.-Preproccessors</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Tue, 24 Mar 2026 02:07:44 GMT</pubDate>
+    <title>Preproccessors</title>
+    <link>https://quartz.jzhao.xyz/Model-Documentation/Preproccessors</link>
+    <guid>https://quartz.jzhao.xyz/Model-Documentation/Preproccessors</guid>
+    <description><![CDATA[ Preproccessors let us change the input data for each model. Lessons on this topic 7. ]]></description>
+    <pubDate>Wed, 25 Mar 2026 16:53:54 GMT</pubDate>
   </item><item>
-    <title>5. Overfiting</title>
-    <link>https://quartz.jzhao.xyz/Lessons/5.-Overfiting</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/5.-Overfiting</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Tue, 24 Mar 2026 02:06:20 GMT</pubDate>
-  </item><item>
-    <title>4. Classification</title>
-    <link>https://quartz.jzhao.xyz/Lessons/4.-Classification</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/4.-Classification</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Tue, 24 Mar 2026 02:04:00 GMT</pubDate>
-  </item><item>
-    <title>3. Regression</title>
-    <link>https://quartz.jzhao.xyz/Lessons/3.-Regression</link>
-    <guid>https://quartz.jzhao.xyz/Lessons/3.-Regression</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Tue, 24 Mar 2026 01:58:28 GMT</pubDate>
+    <title>Validators</title>
+    <link>https://quartz.jzhao.xyz/Model-Documentation/Validators</link>
+    <guid>https://quartz.jzhao.xyz/Model-Documentation/Validators</guid>
+    <description><![CDATA[ DataScratch supports a total of three validators. These are used to validate that your model is accurate, and accommodate for over fitting. ]]></description>
+    <pubDate>Wed, 25 Mar 2026 16:53:54 GMT</pubDate>
   </item><item>
     <title>1. Introduction</title>
     <link>https://quartz.jzhao.xyz/Lessons/1.-Introduction</link>
     <guid>https://quartz.jzhao.xyz/Lessons/1.-Introduction</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Tue, 24 Mar 2026 01:57:12 GMT</pubDate>
+    <pubDate>Tue, 24 Mar 2026 02:19:33 GMT</pubDate>
+  </item><item>
+    <title>2. Statistical Analysis</title>
+    <link>https://quartz.jzhao.xyz/Lessons/2.-Statistical-Analysis</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/2.-Statistical-Analysis</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Tue, 24 Mar 2026 02:19:33 GMT</pubDate>
+  </item><item>
+    <title>3. Regression</title>
+    <link>https://quartz.jzhao.xyz/Lessons/3.-Regression</link>
+    <guid>https://quartz.jzhao.xyz/Lessons/3.-Regression</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Tue, 24 Mar 2026 02:19:33 GMT</pubDate>
   </item>
     </channel>
   </rss>
