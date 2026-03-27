@@ -601,8 +601,14 @@ class SklearnEngine():
                 color_cycle = SklearnEngine.get_color_map()
                 fig = plt.figure()
                 ax = fig.add_subplot(111, projection='3d')
-
+                SklearnEngine.handle_3d_column_conversion(
+                    ax,
+                    list_converted_columns,
+                    pipeline_x_values,
+                    pipeline_y_value
+                )
                 ax.scatter(x.iloc[:, 0], x.iloc[:, 1], y.iloc[:, 0], c=y, edgecolor='k')
+                
                 ax.set_xlabel(f"{pipeline_x_values[0]}")
                 ax.set_ylabel(f"{pipeline_x_values[1]}")
                 ax.set_position([0.05, 0.05, 0.9, 0.9]) 

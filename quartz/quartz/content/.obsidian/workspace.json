@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "Plotting Models/Descriptive Statistics.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "Descriptive Statistics"
             }
           }
         ]
@@ -185,6 +185,7 @@
   },
   "active": "3387b2dc0226391f",
   "lastOpenFiles": [
+    "index.md",
     "init_diagram.png",
     "Plotting Models/Heatmap.md",
     "Plotting Models/Model Hyper Parameters.md",
@@ -201,7 +202,6 @@
     "Basics/Paper Draft.md",
     "Basics/My First AI Model.md",
     "Basics/Importing your own dataset.md",
-    "index.md",
     "Model Documentation/Validators.md",
     "Model Documentation/Tree Models.md",
     "Model Documentation/Neural Networks.md",
@@ -226,7 +226,6 @@
     "Pasted image 20260311195435.png",
     "Pasted image 20260311195427.png",
     "Pasted image 20260311195342.png",
-    "now (2).png",
     "Model Documentation/Untitled",
     "Model Documentation/Linear Models",
     "Model Documentation",
