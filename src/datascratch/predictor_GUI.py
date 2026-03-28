@@ -20,10 +20,11 @@ import ast
 from PyQt5.QtCore import Qt, QSize
 import pandas as pd
 import pickle
+from datascratch.engine_results import *
 from datascratch.dataframe_viewer import DataframeViewer
 from datascratch.draggable_parameter import parameter_filter
 import traceback
-from datascratch.sklearn_engine import EngineResults, Pipeline
+from datascratch.sklearn_engine_pipeline import Pipeline
 from qfluentwidgets import ScrollArea , PushButton , TabWidget , HeaderCardWidget
 
 FILE_EXTENSION = "dscr"
@@ -34,7 +35,7 @@ FILE_OPEN_STRING = f"All Files (*.{FILE_EXTENSION} *.csv *.xls);; {FILE_EXTENSIO
 class RowPredictor(QWidget):
     def __init__(self, engine_results, **kwargs):
         super().__init__(**kwargs)
-        self.engine_results: EngineResults = engine_results
+        self.engine_results = engine_results
         self.my_layout = QtW.QHBoxLayout()
         self.setLayout(self.my_layout)
 
@@ -258,15 +259,15 @@ class SinglePredictor(QtW.QWidget):
             QtW.QMessageBox.critical(
                 None,  # Parent: Use None if not within a QWidget class
                 "Engine Prediction Error",  # Title bar text
-                f"{str(e)}",  # Main message
+                f" Query .. .{str(e)}",  # Main message
             )
-            traceback.print_exception(e)
+            # traceback.print_exception(e)
             print(e)
 
 
 class PredictionGUI(TabWidget):
     def __init__(
-        self, engine_results: EngineResults, hide_export_features=False, **kwargs
+        self, engine_results , hide_export_features=False, **kwargs
     ):
         """
         A small part of the GUI which allows users to predict

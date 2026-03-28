@@ -9,22 +9,27 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QLabel,
 )
+import os
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtCore import QPoint
 from PyQt5.QtCore import Qt, QMimeData
 from PyQt5.QtGui import QIcon
 import PyQt5.QtCore as QtCore
+import pickle
+import subprocess
+from datascratch.engine_results import *
 import multiprocessing
+from datascratch.job_engine_request import SklearnEngineJobRequest
 import sys
+import datascratch.sklearn_engine_pipeline as sklearn_engine_pipeline
 import time
 import matplotlib
 from datascratch.canvas_with_toolbar import CanvasWithToolbar
 import traceback
-
+from tempfile import NamedTemporaryFile
 matplotlib.use("Qt5Agg")
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
 from matplotlib.figure import Figure
-from datascratch import sklearn_engine
 import sklearn
 import pandas as pd
 import threading
@@ -47,22 +52,6 @@ from PyQt5.QtGui import (
 from qfluentwidgets import BodyLabel , ProgressBar , MessageDialog , MessageBox , MessageBoxBase , Flyout , FlyoutView , IndeterminateProgressBar, PushButton 
 from qfluentwidgets import TabWidget , ScrollArea
 from datascratch.theme_combo_box import ThemeComboBox
-
-# This is at the top to allow for pcikle to access it!
-def runner_wrapper(
-    queue, main_dataframe, curr_pipelines, pipeline_x_values, pipeline_y_values , current_theme
-):
-    try:
-        curr_results = sklearn_engine.SklearnEngine.main_sklearn_pipe(
-            main_dataframe=main_dataframe,
-            curr_pipelines=curr_pipelines,
-            pipeline_x_values=pipeline_x_values,
-            pipeline_y_value=pipeline_y_values,
-            current_theme=current_theme
-        )
-        queue.put(curr_results)
-    except Exception as e:
-        queue.put(e)
 
 
 class ScikitGrowEngineAssemblyError(Exception):
@@ -127,7 +116,6 @@ class Plotter(TabWidget):
             self.worker.ptr_to_training_button.setEnabled(True)
         self.work_done = True
         if hasattr(self , 'prog_view'):
-            self.prog_view.deleteLater()
             del self.prog_view
 
     @QtCore.pyqtSlot()
@@ -188,7 +176,7 @@ class Plotter(TabWidget):
                     built_validator = None
 
                 # 2.5 Assemble pipeline object
-                new_pipeline = sklearn_engine.Pipeline(
+                new_pipeline = sklearn_engine_pipeline.Pipeline(
                     sklearn_pipeline=sklearn.pipeline.Pipeline(
                         list_tuples_pipe_sklearn_objs
                     ),
@@ -373,43 +361,109 @@ class PlotterWorker(QtCore.QObject):
     INTERRUPT_TITLE = "Ended"
     INTERRUPT_MESSAGE = "Process interrupted by user."
 
+    def find_between_find(s, start, end):
+        try:
+            # Find the index of the start string
+            start_index = s.find(start)
+            if start_index == -1:
+                return ""
+            # Adjust the start index to be the position after the start string
+            start_index += len(start)
+            
+            # Find the index of the end string, starting the search from the new start_index
+            end_index = s.find(end, start_index)
+            if end_index == -1:
+                return ""
+
+            # Slice the string to get the content between the two indices
+            return s[start_index:end_index]
+        except ValueError:
+            return ""
+
     @QtCore.pyqtSlot()  # What does this do?
     def start_plotting(self):
 
-        # required for windows support
-        multiprocessing.set_start_method("spawn", force=True)
-        queue = multiprocessing.Queue()
-        process = multiprocessing.Process(
-            target=runner_wrapper,
-            args=(
-                queue,
-                self.dataframe,
-                self.lst_engine_pipelines,
-                self.x_cols,
-                self.y_cols,
-                ThemeComboBox.CURRENT_THEME
-            ),
-        )
-        process.start()
-        results = 0
-        while process.is_alive():
-            # Check for cancel option
-            is_interruption = self.thread().isInterruptionRequested()
-            if is_interruption == True:
-                process.kill()
-                self.crashed.emit(
-                    PlotterWorker.INTERRUPT_TITLE, PlotterWorker.INTERRUPT_MESSAGE
-                )
-                return
+        # Plan.
+        # 1. Preparation
 
-            # Check for the result
-            if not queue.empty():
-                results = queue.get()
-            else:
-                pass
-        if isinstance(results, Exception):
-            traceback.print_exception(results)
-            self.crashed.emit("Error: ", str(results))
-        else:
-            self.engine_results = results
-            self.finished.emit()
+        # 1.1 Make a temp file containing a "Sklearn Engine Job"
+        job_request = SklearnEngineJobRequest(
+            self.dataframe,
+            self.lst_engine_pipelines,
+            self.x_cols,
+            self.y_cols,
+            ThemeComboBox.CURRENT_THEME
+        )
+        sklearn_engine_job_request_file = ""
+        with NamedTemporaryFile(mode='wb', delete=False, suffix=".txt") as temp_file:
+            sklearn_engine_job_request_file = temp_file.name
+            # 1.3 Pickle this.
+            pickle.dump(job_request , temp_file)
+            temp_file.close()
+
+        # 1.2 Make a second temp file that is results.
+        sklearn_engine_results_file = ""
+        with NamedTemporaryFile(mode='wb', delete=False, suffix=".txt") as temp_file_2:
+            sklearn_engine_results_file = temp_file_2.name
+            temp_file_2.close()
+
+        # 1.5 Start sklearn with args to both the job file and the results file.        
+        command = [sys.executable, "src/datascratch/sklearn_engine.py", sklearn_engine_job_request_file, sklearn_engine_results_file]
+        USER_REQUEST_INTERRUPT = False
+        try:
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+            def print_process_exit_info():
+                stdout, stderr = process.communicate()
+                exit_code = process.poll()
+                print(f"Process Exit code:  {exit_code}")
+                print(f"""stout:
+                    {stdout}
+                        sterr:
+                        {stderr}
+                """)
+            
+            # 2. In the plotter loop, check to see if this job has completed. 
+            while process.poll() == None: # Proccess still running
+                # Check for interuptions
+                is_interruption = self.thread().isInterruptionRequested()
+                USER_REQUEST_INTERRUPT = is_interruption
+                if is_interruption == True:
+                    process.kill()
+                    self.crashed.emit(
+                        PlotterWorker.INTERRUPT_TITLE, PlotterWorker.INTERRUPT_MESSAGE
+                    )
+                    print_process_exit_info()
+                    stdout, stderr = process.communicate()
+                    raise ValueError( " "  + stderr)                
+            # 2.1 print the results for debug.
+            stdout, stderr = process.communicate()
+            exit_code = process.poll()
+            print(f"Process Exit code:  {exit_code}")
+            print(f"""stout:
+                {stdout}
+                    sterr:
+                    {stderr}
+            """)
+            if exit_code != 0:
+                # parse
+                error_msg = PlotterWorker.find_between_find(stderr , "INTERNAL SKLEARN ERROR <" , "> INTERNAL SKLEARN ERROR ")
+                raise ValueError(error_msg)
+
+
+            # 4. Unpickle the results, assuming a success.
+            with open(sklearn_engine_results_file, 'rb') as file:
+                loaded_data = pickle.load(file)
+                self.engine_results = loaded_data
+                self.finished.emit()
+        except FileNotFoundError:
+            print("Error: called_script.py not found. Ensure it's in the correct path.")        
+        except Exception as e:
+            if not USER_REQUEST_INTERRUPT:
+
+                self.crashed.emit("Error: ", str(e))
+        finally:
+            if os.path.exists(sklearn_engine_job_request_file):
+                os.remove(sklearn_engine_job_request_file)
+            if os.path.exists(sklearn_engine_results_file):
+                os.remove(sklearn_engine_results_file)

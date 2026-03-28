@@ -1,8 +1,6 @@
 import matplotlib
-import seaborn
 import matplotlib.pyplot as plt
 import sklearn
-import random
 import os
 import pandas as pd
 import numpy as np
@@ -12,8 +10,10 @@ import traceback
 from pandasql import sqldf
 from matplotlib.colors import ListedColormap
 from datascratch.list_of_acceptable_sklearn_functions import SklearnAcceptableFunctions
-from datascratch.theme_combo_box import ThemeComboBox
 import seaborn as sns
+from datascratch.engine_results import *
+from datascratch.sklearn_engine_pipeline import Pipeline
+import pickle
 
 
 def is_regressor(x):
@@ -29,212 +29,12 @@ def is_classifier(x):
 
     # Each plotting endpoint needs to modified, and receives a list of Pipelines
 
-class InternalEngineError(Exception):
-    pass
 
-class Pipeline():
-    """
-    A small class to hold a sklearn pipeline and optionally a validator.
-    """
-    def __init__(self , sklearn_pipeline : sklearn.pipeline.Pipeline , name = None , validator = None ):
-        self.sklearn_pipeline = sklearn_pipeline
-        self.validator = validator
-        self.name = name
-        self.model_results : ModelTrainingResults = None
-        last_step_name , last_step_model = self.sklearn_pipeline.steps[-1]
-        if self.name is None:
-            self.name = last_step_model.__class__.__name__
-        if is_classifier(last_step_model):
-            self.supervised_learning_type = SklearnEngine.CLASSIFICATION
-        elif is_regressor(last_step_model):
-            self.supervised_learning_type = SklearnEngine.REGRESSION
-        else:
-            raise InternalEngineError(f"Pipeline {name} has neither a regressor or classifier. Crashing")
-
-    def predict(self , x_vals):
-        return self.sklearn_pipeline.predict(x_vals)[0].item()
 
 
 
 # We should refactor. Each plot should be associated with each model. Similarly, relevant stats should alsos be with model.
 
-class ModelTrainingResults():
-    """
-    Small class to hold the results from training the model.
-    """
-    def __init__(self , 
-    y_predictions , 
-    trained_model,
-    relevant_statistical_results : list[(str , float)] # can also be an int
-    ):
-        self.y_predictions = y_predictions
-        self.trained_model = trained_model
-        self.relevant_statistical_results = relevant_statistical_results
-
-class ConvertedColumn():
-    def __init__(self , column_name , code_map):
-        self.column_name = column_name
-        self.code_map = code_map.tolist()
-
-    def check_if_col_name_in_list_converted_columns(list_converted_cols : list , col_name : str):
-        for converted_col in list_converted_cols:
-            if converted_col.column_name == col_name:
-                return converted_col
-        return None
-
-    def convert_int_to_string(self , value):
-        # Regressors could feed a non-int into here.
-        return self.code_map[int(value)]
-    
-    def convert_string_to_int(self, value):
-        for x in range(0 , len(self.code_map)):
-            if value == self.code_map[x]:
-                return x
-        raise InternalEngineError(f"{value} is not a value in the trained dataset.")
-    
-
-class EngineResults():
-    """
-    Small class to hold the results from the engine.
-    """
-    def __init__(
-            self, 
-            visual_plot : list[plt.Figure],
-            accuracy_plot : list[plt.Figure], 
-            trained_models : list[Pipeline] , 
-            x_cols : list[str] , 
-            y_col : list[str],
-            list_converted_columns : list[ConvertedColumn],
-            dataframe : pd.DataFrame,
-            ):
-        self.visual_plot = visual_plot
-        self.accuracy_plot = accuracy_plot
-        self.trained_models = trained_models
-        self.x_cols = x_cols
-        self.y_col = y_col
-        self.list_converted_columns = list_converted_columns
-
-        # Resolving a map of the types.
-        self.column_types : dict[str , any] = dict()
-        column_names = dataframe.columns
-        first_row = dataframe.iloc[0].values
-        for k in range(0 , len(column_names)):
-            curr_value = first_row[k]
-            curr_col_name = column_names[k]
-            curr_type = None
-            if type(curr_value) == str:
-                curr_type = str
-            else:
-                curr_type = type(curr_value.item())
-            final_val = None
-            if curr_type == int:
-                final_val = 0
-            elif curr_type == float:
-                final_val = 0.0
-            elif curr_type == bool:
-                final_val = False
-            elif curr_type == complex:
-                final_val = complex(1, 1)
-            else:
-                final_val = ""
-            self.column_types[curr_col_name] = final_val
-    def is_column_in_list_converted_columns(self, col_name : str):
-        try:
-            for converted_col in self.list_converted_columns:
-                if col_name == converted_col.column_name:
-                    return True
-            return False
-        except:
-            return False
-    def get_converted_column(self , col_name) -> ConvertedColumn:
-        for converted_col in self.list_converted_columns:
-            if col_name == converted_col.column_name:
-                return converted_col
-        
-            
-    def predict_from_df(self , new_df : pd.DataFrame) -> pd.DataFrame:
-
-        # 1. Remove nan-values
-        df_na_dropped = new_df.dropna()
-
-        # 2. Perform conversion on converted columns using converted columns.
-        def convert_column(column : pd.Series): 
-            converted_col = self.get_converted_column(column.name)
-            if converted_col:
-                # perform conversion. 
-                def apply_to_rows(curr_item):
-                    return converted_col.convert_string_to_int(curr_item)
-                new_col = column.apply(apply_to_rows)
-                return new_col
-            else:
-                return column
-
-        # 3. Gather only the columns that we trained this model on. 
-        converted_df = df_na_dropped.apply(convert_column)
-        df_reduced = pd.DataFrame()
-        for col_name in self.x_cols:
-            # Check df has these col_names
-            try:
-                df_reduced[col_name] = converted_df[[col_name]]
-            except Exception as e:
-                traceback.print_exception(e)
-                raise InternalEngineError(f"The Inputted dataframe column names do not match the trained dataset column names. {col_name} is missing inputted dataset.")
-
-        # 4. Get dataframe for user
-        df_shown_to_user = pd.DataFrame()
-        for col_name in self.x_cols:
-            df_shown_to_user[col_name] = df_na_dropped[[col_name]]
-
-        # 5. Add each model prediction as a column.
-        for pipeline in self.trained_models:
-            try:
-                curr_df_pred = pipeline.sklearn_pipeline.predict(df_reduced)
-                # If y_col in converted col, apply the conversion function. 
-                converted_col = self.get_converted_column(self.y_col[0])
-                def convert_back(item):
-                    return converted_col.code_map[item]
-                vectorised_func = np.vectorize(convert_back)
-                if converted_col:
-                    curr_df_pred = vectorised_func(curr_df_pred)
-                else:
-                    pass
-                df_shown_to_user[f"{self.y_col[0]}_{pipeline.name}"] = curr_df_pred
-            except Exception as e:
-                traceback.print_exception(e)
-                raise InternalEngineError(f"Model Training error. {str(e)}")
-
-        print("Model Preds" , df_shown_to_user)
-        return df_shown_to_user
-        
-    
-
-    def predict(self , x_values : list ):
-        if len(self.x_cols) != len(x_values):
-            raise InternalEngineError("Did not provide all of the values. Must provide all values.")
-       
-        # Resolve the list of converted columns.
-        for converted_col in self.list_converted_columns:
-            for j in range(0 ,len(self.x_cols)):
-                if converted_col.column_name == self.x_cols[j]:
-                    x_values[j] = converted_col.convert_string_to_int(x_values[j])
-                    # Convert thing
-
-                    
-        # Assemble as dataframe
-        tmp_df = pd.DataFrame([x_values] , columns=self.x_cols)
-        results = {}
-        for pipeline in self.trained_models:
-            curr = pipeline.predict(tmp_df)
-            if self.list_converted_columns != []:
-                for converted_col in self.list_converted_columns:
-                    if self.y_col[0] == converted_col.column_name:
-                        # Perform an int conversion because someone could "theoretically" put in a non int here.
-                        results[pipeline] = converted_col.convert_int_to_string(curr)
-                    else:
-                        results[pipeline] = curr
-            else:
-                results[pipeline] = curr
-        return results
 
 
 
@@ -1180,7 +980,47 @@ class SklearnEngine():
        
     
   
+# 3. from sklearn engine run the files
+sklearn_engine_job_request_file = sys.argv[1]
+sklearn_engine_results_file = sys.argv[2]
 
+# 3.1 unpickle the job request
+job_request = None
+with open(sklearn_engine_job_request_file, 'rb') as file:
+    job_request = pickle.load(file)
 
+# 3.2 handle job request
+try:
+    engine_results = SklearnEngine.main_sklearn_pipe(
+        main_dataframe = job_request.dataframe,
+        curr_pipelines = job_request.lst_engine_pipelines,
+        pipeline_x_values = job_request.x_cols,
+        pipeline_y_value = job_request.y_cols,
+        current_theme = job_request.curr_theme,
+    )
+except Exception as e:
+    sys.stderr.write("INTERNAL SKLEARN ERROR <" + str(e) + "> INTERNAL SKLEARN ERROR ")
+    raise ValueError("Crashing Engine....")
+# 3.4 pickle results
+with open(sklearn_engine_results_file , 'wb') as temp_file:
+    pickle.dump(engine_results , temp_file)
+
+# Plan.
+# 1. Preparation
+    # 1.1 Make a temp file containing a "Sklearn Engine Job"
+    # 1.2 Make a second temp file that is results.
+    # 1.3 Pickle this.
+    # 1.4 Save pickle to a temporary file.
+    # 1.5 Start sklearn with args to both the job file and the results file.
+# 2. In the plotter loop, check to see if this job has completed. 
+    # 
+
+# 3. from sklearn engine run the files
+    # 3.1 unpickle the job request
+    # 3.2 handle job request
+    # 3.3 run job
+    # 3.4 pickle results
+
+# 4. unpickle resultss form the temporary results file. 
 
 
