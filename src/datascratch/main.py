@@ -18,7 +18,7 @@ from markdown import markdown
 # Listing Dynamic Imports
 ######################################################
 # If statement below checks to see if this is a multiprocess.
-if multiprocessing.parent_process() is None:
+if __name__ == "__main__":
     current_module_import_index = 0
     FROM_IMPORT_TYPE = "from"
     IMPORT_IMPORT_TYPE = "import"
