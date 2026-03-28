@@ -1,12 +1,15 @@
 # -*- mode: python ; coding: utf-8 -*-
+from PyInstaller.utils.hooks import collect_submodules
 
+# This gathers every submodule under the matplotlib package
+matplotlib_submodules = collect_submodules('matplotlib')
 
 a = Analysis(
     ['src\\datascratch\\main.py'],
     pathex=["src\\"],
     binaries=[],
     datas=[],
-    hiddenimports=['datascratch'],
+    hiddenimports=['datascratch', matplotlib_submodules],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
