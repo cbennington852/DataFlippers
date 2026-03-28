@@ -4,21 +4,20 @@ import multiprocessing
 from multiprocessing import current_process, Process
 from tkinter import ttk
 from PIL import Image, ImageTk
-from PyQt5 import QtGui
-from PyQt5 import QtCore
 from datascratch.logo_embbedded import get_datascratch_logo
 from datascratch.colors_and_appearance import AppAppearance
-import sys
-from enum import Enum
-
-from markdown import markdown
+import platform
 
 
 ######################################################
 # Listing Dynamic Imports
 ######################################################
 # If statement below checks to see if this is a multiprocess.
-if __name__ == "__main__":
+starting_linux = platform.system() == "Linux" and multiprocessing.parent_process() is None
+starting_windows = platform.system() == "Windows" and __name__ == "__main__"
+
+if starting_linux or starting_windows:
+    print("Starting this!")
     current_module_import_index = 0
     FROM_IMPORT_TYPE = "from"
     IMPORT_IMPORT_TYPE = "import"
@@ -132,6 +131,11 @@ import sys
 from datascratch import image_resources
 from datascratch.logo_embbedded import get_datascratch_logo
 from datascratch.colors_and_appearance import AppAppearance
+from PyQt5 import QtGui
+from PyQt5 import QtCore
+import sys
+from enum import Enum
+from markdown import markdown
 import PyQt5.QtWidgets as QtW
 from PyQt5.QtWidgets import (
     QApplication,
