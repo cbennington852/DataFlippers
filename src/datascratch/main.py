@@ -6,7 +6,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from datascratch.logo_embbedded import get_datascratch_logo
 from datascratch.colors_and_appearance import AppAppearance
-
+import sys
 
 ######################################################
 # Listing Dynamic Imports
