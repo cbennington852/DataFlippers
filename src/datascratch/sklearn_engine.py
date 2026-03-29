@@ -978,32 +978,32 @@ class SklearnEngine():
             return fig
     
        
-    
-  
-# 3. from sklearn engine run the files
-sklearn_engine_job_request_file = sys.argv[1]
-sklearn_engine_results_file = sys.argv[2]
+print(__name__)
+if __name__ != "src.datascratch.sklearn_engine":
+    # 3. from sklearn engine run the files
+    sklearn_engine_job_request_file = sys.argv[1]
+    sklearn_engine_results_file = sys.argv[2]
 
-# 3.1 unpickle the job request
-job_request = None
-with open(sklearn_engine_job_request_file, 'rb') as file:
-    job_request = pickle.load(file)
+    # 3.1 unpickle the job request
+    job_request = None
+    with open(sklearn_engine_job_request_file, 'rb') as file:
+        job_request = pickle.load(file)
 
-# 3.2 handle job request
-try:
-    engine_results = SklearnEngine.main_sklearn_pipe(
-        main_dataframe = job_request.dataframe,
-        curr_pipelines = job_request.lst_engine_pipelines,
-        pipeline_x_values = job_request.x_cols,
-        pipeline_y_value = job_request.y_cols,
-        current_theme = job_request.curr_theme,
-    )
-except Exception as e:
-    sys.stderr.write("INTERNAL SKLEARN ERROR <" + str(e) + "> INTERNAL SKLEARN ERROR ")
-    raise ValueError("Crashing Engine....")
-# 3.4 pickle results
-with open(sklearn_engine_results_file , 'wb') as temp_file:
-    pickle.dump(engine_results , temp_file)
+    # 3.2 handle job request
+    try:
+        engine_results = SklearnEngine.main_sklearn_pipe(
+            main_dataframe = job_request.dataframe,
+            curr_pipelines = job_request.lst_engine_pipelines,
+            pipeline_x_values = job_request.x_cols,
+            pipeline_y_value = job_request.y_cols,
+            current_theme = job_request.curr_theme,
+        )
+    except Exception as e:
+        sys.stderr.write("INTERNAL SKLEARN ERROR <" + str(e) + "> INTERNAL SKLEARN ERROR ")
+        raise ValueError("Crashing Engine....")
+    # 3.4 pickle results
+    with open(sklearn_engine_results_file , 'wb') as temp_file:
+        pickle.dump(engine_results , temp_file)
 
 # Plan.
 # 1. Preparation
