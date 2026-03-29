@@ -13,6 +13,7 @@ import platform
 # Listing Dynamic Imports
 ######################################################
 # If statement below checks to see if this is a multiprocess.
+multiprocessing.freeze_support()
 starting_linux = platform.system() == "Linux" and multiprocessing.parent_process() is None
 starting_windows = platform.system() == "Windows" and __name__ == "__main__"
 

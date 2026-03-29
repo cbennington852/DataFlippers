@@ -377,6 +377,7 @@ class PlotterWorker(QtCore.QObject):
     def start_plotting(self):
 
         # required for windows support
+        multiprocessing.freeze_support()
         multiprocessing.set_start_method("spawn", force=True)
         queue = multiprocessing.Queue()
         process = multiprocessing.Process(
