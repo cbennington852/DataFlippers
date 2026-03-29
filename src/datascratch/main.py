@@ -1,3 +1,4 @@
+
 import tkinter as tk
 import importlib
 import multiprocessing
@@ -13,11 +14,11 @@ import platform
 # Listing Dynamic Imports
 ######################################################
 # If statement below checks to see if this is a multiprocess.
-multiprocessing.freeze_support()
-starting_linux = platform.system() == "Linux" and multiprocessing.parent_process() is None
-starting_windows = platform.system() == "Windows" and __name__ == "__main__"
+starting_windows =  __name__ == "__main__"
 
-if starting_linux or starting_windows:
+if starting_windows:
+    multiprocessing.freeze_support()
+
     print("Starting this!")
     current_module_import_index = 0
     FROM_IMPORT_TYPE = "from"
@@ -124,6 +125,8 @@ if starting_linux or starting_windows:
 # Cannot be dynamic cus of tkinter fighting PyQt
 # Or
 # Cus they have special requirement
+import multiprocessing
+multiprocessing.freeze_support()
 from datascratch.settings_manager import DataScratchSettings
 from datascratch.predictor_GUI import PredictionGUI
 from datascratch.plotter import Plotter
@@ -157,7 +160,6 @@ from datascratch import image_resources
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-import multiprocessing
 from datascratch.plotter import Plotter
 from datascratch.save_file import SaveFileException, SaveFile
 import os
@@ -170,7 +172,6 @@ from datascratch.settings_manager import DataScratchSettings
 from datascratch.predictor_GUI import PredictionGUI
 import logging
 from qfluentwidgets import StyleSheetBase, Theme, isDarkTheme, qconfig
-
 from qfluentwidgets import FluentWindow, setTheme, Theme
 from qfluentwidgets import PushButton
 from datascratch.theme_combo_box import ThemeComboBox
