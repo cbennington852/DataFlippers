@@ -13,6 +13,7 @@ import sys
 ######################################################
 # If statement below checks to see if this is a multiprocess.
 
+multiprocessing.freeze_support()
 def is_main_process():
     # Check if the process was started with the multiprocessing fork argument
     if "--multiprocessing-fork" in sys.argv:
