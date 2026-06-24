@@ -17,7 +17,7 @@ date: 13 January 2026
 bibliography: paper.bib
 ---
 
-![blocks v python](resources/Full_logo_SciKit_Grow.svg "Optional title text")
+![blocks v python](resources/DataFlippers.png "Optional title text")
 
 
 ## [Link to Website & download](https://cbennington852.github.io/DataFlippers/)
